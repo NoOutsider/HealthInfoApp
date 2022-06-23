@@ -76,7 +76,7 @@ function MapView() {
     return (
         <div className="mapView">
             <Sidebar width={300} />
-            <div className="map" id="map" style={{ width: "auto", height: "400px" }}></div>
+            <div className="map" id="map" style={{ width: "auto", height: "850px" }}></div>
         </div>
     );
 }
