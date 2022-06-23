@@ -1,6 +1,6 @@
 import React from "react";
 import "./ShowData.css";
-import Sidebar from "./Sidebar";
+import Sidebar from "./Sidebar/Sidebar";
 
 function ShowData() {
   return (
