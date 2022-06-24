@@ -4,3 +4,7 @@
   margin-bottom: -150px;  /*밑에 있는 이미지가 위에까지 올라오게*/
   mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))
 }
+
+.show-container{
+  margin-left: 300px;
+}
