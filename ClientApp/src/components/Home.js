@@ -13,7 +13,7 @@ const Home = () => {
       <div className="margin" />
       <div>
         <p>
-          <Link to="/show" id="show">
+          <Link to="/showData" id="showData">
             <h2>질병통계</h2>
           </Link>
         </p>

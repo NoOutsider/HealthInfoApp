@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react'
 import "./MapView.css"
 import Sidebar from "./Sidebar/Sidebar";
+import HospitalTableData from "./HospitalTableData";
 
 function MapView() {
 

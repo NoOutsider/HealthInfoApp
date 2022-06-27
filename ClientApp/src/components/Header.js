@@ -15,7 +15,7 @@ function header() {
       </Link>
 
       <div className="header_centerLocation">
-        <Link to="/show" id="show">
+        <Link to="/showData" id="showData">
           <div className="header_option">질병 통계 데이터</div>
         </Link>
 

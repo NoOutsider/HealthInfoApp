@@ -35,7 +35,7 @@ namespace HealthInfoApp.models
             cmd.CommandType = System.Data.CommandType.Text;
 
             //[3] SQL 생성 및 실행 
-            cmd.CommandText = $"select * from tb_adhd order by id";
+            cmd.CommandText = $"select * from TB_HEPATITISA_SANATORIUM_LOCATION order by id";
             OracleDataReader dataReader = cmd.ExecuteReader();
             //[4] 자료를 읽어 객체와 해서 목록 객체에 추가한다 
             while(dataReader.Read())
