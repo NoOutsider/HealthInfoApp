@@ -35,13 +35,14 @@ namespace HealthInfoApp.Controllers
             return new JsonResult(result);
         }
 
-        //[HttpGet]
-        //[Route("loadChartDataXXX")]
-        //public JsonResult loadChartDataXXX()
-        //{
-        //    PharmacyDataRepository dataRepository = new PharmacyDataRepository();
-
-        //    return new JsonResult(dataRepository.ChartDataXXX());
-        //}
+        [HttpGet]
+        [Route("loadChartDataXXX")]
+        public JsonResult loadChartDataXXX()
+        {
+            PharmacyDataRepository dataRepository = new PhqarmacyDataRepository();
+            //Console.WriteLine("???????????????????????????????????????????????????");
+            System.Diagnostics.Debug.WriteLine("????????????????????????????");
+            return new JsonResult(dataRepository.ChartDataXXX());
+        }
     }
 }

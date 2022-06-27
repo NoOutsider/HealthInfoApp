@@ -10,22 +10,22 @@ import Practice from "./Practice";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/show" element={<Show />} />
-          <Route path="/mapView" element={<MapView />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/practice" element={<Practice/>} />
-                  {/*<Route path="/SeoulChart" element={<SeoulChart />} />*/}
-        </Routes>
-        <Footer />
-      </div>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <div className="App">
+                <Header />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/show" element={<Show />} />
+                    <Route path="/mapView" element={<MapView />} />
+                    <Route path="/login" element={<Login />} />
+                    {/*<Route path="/SeoulChart" element={<SeoulChart />} />*/}
+                    <Route path="/practice" element={<Practice />} />
+                </Routes>
+                <Footer />
+            </div>
+        </BrowserRouter>
+    );
 }
 
 export default App;
