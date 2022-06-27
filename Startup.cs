@@ -64,8 +64,8 @@ namespace ADHD
                 }
             });
 
-            OracleConfiguration.TnsAdmin = @"C:\Oracle_Infinitt\Wallet_orcl";
-            OracleConfiguration.WalletLocation = OracleConfiguration.TnsAdmin;
+            //OracleConfiguration.TnsAdmin = @"C:\Oracle_Infinitt\Wallet_orcl";
+            //OracleConfiguration.WalletLocation = OracleConfiguration.TnsAdmin;
         }
     }
 }
