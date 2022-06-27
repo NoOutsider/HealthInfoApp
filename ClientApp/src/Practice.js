@@ -175,21 +175,29 @@ const Practice = () => {
     async function initData() {
         console.log('init');
         await loadChartData();
+
+        const response = await fetch('pharmacydata/AllList');
+        dispatch({
+            type: ACTION_TYPE.ALL_LIST,
+            dataList: await response.json(),
+            loading: true
+        });
         console.log('init 끝???????????????/');
     }
 
     async function loadChartData() {
         console.log('load');
-         fetch('data/loadChartDataXXX')
+        fetch('pharmacydata/loadChartDataXXX')
             .then(response => response.json())
             .then(data => {
                 dispatch({
                     type: ACTION_TYPE.CHART_DATA_LOADED,
                     chartLabels: data.chartLabels,
                     chartData: data.chartData,
-                   chart_loading: true
+                    chart_loading: true
                 });
-            });
+            })
+    }
         console.log('load 잘 끝남???????????????????');
     }
 
@@ -209,6 +217,5 @@ const Practice = () => {
     //        </div>
     //    </div>
     //);
-};
 
 export default Practice;

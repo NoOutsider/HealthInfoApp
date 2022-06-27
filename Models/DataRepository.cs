@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ADHD.models
+namespace HealthInfoApp.models
 {
     public class DataRepository
     {
@@ -12,7 +12,8 @@ namespace ADHD.models
 
         public DataRepository()
         {
-            conn = new OracleConnection("User Id = admin;Password = 1q2w3e4r5tAA;Data Source = orcl_medium");
+            //conn = new OracleConnection("User Id = admin;Password = 1q2w3e4r5tAA;Data Source = orcl_medium");
+            conn = new OracleConnection("User Id = user1;Password = passwd!@;Data Source = xe_db");
             conn.Open();
         }
 

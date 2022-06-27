@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Oracle.ManagedDataAccess.Client;
 
-namespace ADHD
+namespace HealthInfoApp
 {
     public class Startup
     {
@@ -64,8 +64,8 @@ namespace ADHD
                 }
             });
 
-            OracleConfiguration.TnsAdmin = @"C:\Oracle_Infinitt\Wallet_orcl";
-            OracleConfiguration.WalletLocation = OracleConfiguration.TnsAdmin;
+            //OracleConfiguration.TnsAdmin = @"C:\Oracle_Infinitt\Wallet_orcl";
+            //OracleConfiguration.WalletLocation = OracleConfiguration.TnsAdmin;
         }
     }
 }

@@ -12,7 +12,8 @@ namespace HealthInfoApp.models
 
         public PharmacyDataRepository()
         {
-            conn = new OracleConnection("User Id = admin;Password = 1q2w3e4r5tAA;Data Source = orcl_medium");
+            //conn = new OracleConnection("User Id = admin;Password = 1q2w3e4r5tAA;Data Source = orcl_medium");
+            conn = new OracleConnection("User Id = user1;Password = passwd!@;Data Source = xe_db");
             conn.Open();
         }
 

@@ -64,7 +64,7 @@ export const options = {
 };
 
 
-const ADHDTableData = () => {
+const SeoulChart = () => {
     const [state, dispatch] = useReducer(dataReducer, {
       dataList: [],
       loading: false,
@@ -142,12 +142,12 @@ const ADHDTableData = () => {
     async function initData() {
       await loadChartData();
 
-      //const response = await fetch('data/AllList');
-      //  dispatch({
-      //      type: ACTION_TYPE.ALL_LIST,
-      //      dataList: await response.json(),
-      //      loading: true
-      //  });
+      const response = await fetch('data/AllList');
+        dispatch({
+            type: ACTION_TYPE.ALL_LIST,
+            dataList: await response.json(),
+            loading: true
+        });
 
     }
 
@@ -175,12 +175,12 @@ const ADHDTableData = () => {
                 <Bar options={options} data={data} />
             </div>
             <div>
-                <h1 id="tabelLabel" >Data</h1>
+                <h1 id="tabelLabel">Data</h1>
                 {contents}
             </div>
         </div>
     );
 };
 
-export default ADHDTableData;
+export default SeoulChart;
 
