@@ -18,8 +18,8 @@ namespace HealthInfoApp.Controllers
         [Route("AllList1")]
         public List<NursingHomeGroup> AllList1()
         {
-            NursingHomeGroupRepository nikotinDataRepository = new NursingHomeGroupRepository();
-            return nikotinDataRepository.allNursingHomeGroupDataList();
+            NursingHomeGroupRepository nursingHomeGroupRepository = new NursingHomeGroupRepository();
+            return nursingHomeGroupRepository.allNursingHomeGroupDataList();
         }
     }
 }

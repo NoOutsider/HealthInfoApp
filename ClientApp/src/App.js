@@ -9,6 +9,8 @@ import SeoulChart from "./components/SeoulChart"
 import NursingHomeLocationDataTable from "./components/NursingHomeLocationDataTable"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NursingHomeGroupDataTable from "./components/NursingHomeGroupDataTable"
+import MaleOutPatientDataTable from "./components/MaleOutPatientDataTable"
+import FemaleOutPatientDataTable from "./components/FemaleOutPatientDataTable"
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
               <Route path="/SeoulChart" element={<SeoulChart />} />
               <Route path="/NursingHomeLocationDataTable" element={<NursingHomeLocationDataTable />} />
               <Route path="/NursingHomeGroupDataTable" element={<NursingHomeGroupDataTable />} />
+              <Route path="/MaleOutPatientDataTable" element={<MaleOutPatientDataTable />} />
+              <Route path="/FemaleOutPatientDataTable" element={<FemaleOutPatientDataTable />} />
             </Routes>
         <Footer />
       </div>
