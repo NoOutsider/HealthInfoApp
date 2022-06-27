@@ -8,20 +8,22 @@ import MapView from "./components/MapView"
 import SeoulChart from "./components/SeoulChart"
 import NursingHomeLocationDataTable from "./components/NursingHomeLocationDataTable"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NursingHomeGroupDataTable from "./components/NursingHomeGroupDataTable"
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/show" element={<Show />} />
-          <Route path="/mapView" element={<MapView />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/SeoulChart" element={<SeoulChart />} />
-                  <Route path="/NursingHomeLocationDataTable" element={<NursingHomeLocationDataTable />} />
-        </Routes>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/show" element={<Show />} />
+              <Route path="/mapView" element={<MapView />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/SeoulChart" element={<SeoulChart />} />
+              <Route path="/NursingHomeLocationDataTable" element={<NursingHomeLocationDataTable />} />
+              <Route path="/NursingHomeGroupDataTable" element={<NursingHomeGroupDataTable />} />
+            </Routes>
         <Footer />
       </div>
     </BrowserRouter>
