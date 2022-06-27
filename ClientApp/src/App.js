@@ -2,7 +2,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Login from "./components/Login";
-import Show from "./components/ShowData";
+import ShowData from "./components/ShowData";
 import Footer from "./components/Footer";
 import MapView from "./components/MapView"
 import SeoulChart from "./components/SeoulChart"
@@ -15,7 +15,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/show" element={<Show />} />
+          <Route path="/showData" element={<ShowData />} />
           <Route path="/mapView" element={<MapView />} />
           <Route path="/login" element={<Login />} />
           <Route path="/SeoulChart" element={<SeoulChart />} />

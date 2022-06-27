@@ -37,6 +37,10 @@ li {
     margin: 30px 50px;
 }
 
+#showData{
+    color: black;
+}
+
 .locationImg {
     display : flex;
     justify-content : center;

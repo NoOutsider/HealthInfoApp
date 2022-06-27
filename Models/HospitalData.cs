@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Hospital.models
 {
-    public class Data
+    public class HospitalData
     {
         public string col01 { get; set; }
         public string col02 { get; set; }

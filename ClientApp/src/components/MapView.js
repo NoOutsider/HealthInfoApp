@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react'
 import "./MapView.css"
 import Sidebar from "./Sidebar/Sidebar";
+import HospitalTableData from "./HospitalTableData";
 
 function MapView() {
 
@@ -77,6 +78,7 @@ function MapView() {
         <div className="mapView">
             <Sidebar width={300} />
             <div className="map" id="map" style={{ width: "auto", height: "400px" }}></div>
+            <HospitalTableData margin-left="300" />
         </div>
     );
 }

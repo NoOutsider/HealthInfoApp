@@ -44,5 +44,20 @@ namespace ADHD.Controllers
 
             return new JsonResult(dataRepository.ChartDataXXX());
         }
+
+        [HttpGet]
+        [Route("loadData")]
+        public JsonResult loadData()
+        {
+            Dictionary<string, List<Object>> result = new Dictionary<string, List<Object>>();
+            Object[] chartLabels = { "January", "February", "March", "April", "May", "June", "July" };
+            Object[] chartData = { 10, 20, 50, 40, 30, 700, 38 };
+
+            result.Add("chartLabels", new List<Object>(chartLabels));
+            result.Add("chartData", new List<Object>(chartData));
+
+            return new JsonResult(result);
+        }
+
     }
 }

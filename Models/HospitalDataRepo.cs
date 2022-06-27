@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 
 namespace Hospital.models
 {
-    public class DataRepository
+    public class HospitalDataRepo
     {
         private OracleConnection conn;
 
-        public DataRepository()
+        public HospitalDataRepo()
         {
             conn = new OracleConnection("User Id = admin;Password = 1q2w3e4r5tAA;Data Source = orcl_medium");
             conn.Open();
         }
 
-        ~DataRepository()
+        ~HospitalDataRepo()
         {
             conn.Close();
         }
 
-        public List<Data> AllList()
+        public List<HospitalData> AllList()
         {
             //[0] TodoItem을 저장할 목록 객체를 생성한다 
-            List<Data> list = new List<Data>();
+            List<HospitalData> list = new List<HospitalData>();
 
             //[1] Command 객체 생성
             OracleCommand cmd = new OracleCommand();
@@ -34,13 +34,13 @@ namespace Hospital.models
             cmd.CommandType = System.Data.CommandType.Text;
 
             //[3] SQL 생성 및 실행 
-            cmd.CommandText = $"select * from HOSPITAL";
+            cmd.CommandText = $"select * from HOSPITAL where rownum <= 100";
             OracleDataReader dataReader = cmd.ExecuteReader();
             //[4] 자료를 읽어 객체와 해서 목록 객체에 추가한다 
             while(dataReader.Read())
             {
                 //[5] TodoItem 객체를 생성한다
-                Data todoItem = new Data();
+                HospitalData todoItem = new HospitalData();
 
                 //[6] TodoItem 객체의 속성에 값을 설정한다 
                 todoItem.col01 = dataReader.GetString(0);
@@ -69,46 +69,6 @@ namespace Hospital.models
 
             //[9] 목록 객체를 리턴한다
             return list;
-        }
-
-        public Dictionary<string, List<Object>> ChartDataXXX()
-        {
-            Dictionary<string, List<Object>> result = new Dictionary<string, List<Object>>();
-
-            //[1] Command 객체 생성
-            OracleCommand cmd = new OracleCommand();
-
-            //[2] Connection 객체 연결
-            cmd.Connection = conn;
-            cmd.CommandType = System.Data.CommandType.Text;
-
-            //[3] SQL 생성 및 실행 
-            cmd.CommandText = $"select * from HOSPITAL";
-            OracleDataReader dataReader = cmd.ExecuteReader();
-
-            List<Object> chartLabels = new List<Object>();
-            List<Object> chartData = new List<Object>();
-
-            //[4] 자료를 읽어 객체와 해서 목록 객체에 추가한다 
-            while (dataReader.Read())
-            {
-                //[5] TodoItem 객체를 생성한다
-                Data todoItem = new Data();
-
-                //[6] TodoItem 객체의 속성에 값을 설정한다 
-                chartLabels.Add(dataReader.GetString(0));
-                chartData.Add(dataReader.GetString(1));
-
-            }
-
-            //[8] DB 작업한 것을 정리한다
-            dataReader.Close();
-            cmd.Dispose();
-
-            result.Add("chartLabels", chartLabels);
-            result.Add("chartData", chartData);
-
-            return result;
         }
     }
 }
