@@ -6,7 +6,7 @@ import Show from "./components/ShowData";
 import Footer from "./components/Footer";
 import MapView from "./components/MapView"
 import SeoulChart from "./components/SeoulChart"
-import NikotinDataTable from "./components/NikotinDataTable"
+import NursingHomeLocationDataTable from "./components/NursingHomeLocationDataTable"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
           <Route path="/mapView" element={<MapView />} />
           <Route path="/login" element={<Login />} />
           <Route path="/SeoulChart" element={<SeoulChart />} />
-          <Route path="/NikotinDataTable" element={<NikotinDataTable />} />
+                  <Route path="/NursingHomeLocationDataTable" element={<NursingHomeLocationDataTable />} />
         </Routes>
         <Footer />
       </div>

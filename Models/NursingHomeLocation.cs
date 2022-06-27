@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HealthInfoApp.Models
 {
-    public class NikotinData
+    public class NursingHomeLocation
     {
         public string 진료년월 { get; set; }
         public string state { get; set; }

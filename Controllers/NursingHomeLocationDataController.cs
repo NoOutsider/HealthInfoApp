@@ -12,14 +12,14 @@ namespace HealthInfoApp.Models
 {
     [ApiController]
     [Route("[controller]")]
-    public class NikotinDataController : ControllerBase
+    public class NursingHomeLocationDataController : ControllerBase
     {
         [HttpGet]
         [Route("AllList")]
-        public List<NikotinData> AllList()
+        public List<NursingHomeLocation> AllList()
         {
-            NikotinDataRepository nikotinDataRepository = new NikotinDataRepository();
-            return nikotinDataRepository.allNikotinDataList();
+            NursingHomeLocationRepository nikotinDataRepository = new NursingHomeLocationRepository();
+            return nikotinDataRepository.allNursingHomeLocationDataList();
         }
 
         
