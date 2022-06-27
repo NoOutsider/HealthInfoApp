@@ -11,6 +11,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NursingHomeGroupDataTable from "./components/NursingHomeGroupDataTable"
 import MaleOutPatientDataTable from "./components/MaleOutPatientDataTable"
 import FemaleOutPatientDataTable from "./components/FemaleOutPatientDataTable"
+import FemaleTenAgeDataTable from "./components/FemaleTenAgeDataTable"
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route path="/NursingHomeGroupDataTable" element={<NursingHomeGroupDataTable />} />
               <Route path="/MaleOutPatientDataTable" element={<MaleOutPatientDataTable />} />
               <Route path="/FemaleOutPatientDataTable" element={<FemaleOutPatientDataTable />} />
+              <Route path="/FemaleTenAgeDataTable" element={<FemaleTenAgeDataTable />} />
             </Routes>
         <Footer />
       </div>

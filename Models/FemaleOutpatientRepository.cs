@@ -8,7 +8,7 @@ namespace HealthInfoApp.Models
 {
     public class FemaleOutpatientRepository
     {
-        OracleConnection conn;
+        private OracleConnection conn;
         public FemaleOutpatientRepository()
         {
             conn = new OracleConnection("User Id=user1;Password=passwd!@;Data Source=xe_db;");

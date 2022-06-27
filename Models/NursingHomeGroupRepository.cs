@@ -8,7 +8,7 @@ namespace HealthInfoApp.Models
 {
     public class NursingHomeGroupRepository
     {
-        OracleConnection conn;
+        private OracleConnection conn;
         public NursingHomeGroupRepository()
         {
             conn = new OracleConnection("User Id=user1;Password=passwd!@;Data Source=xe_db;");
