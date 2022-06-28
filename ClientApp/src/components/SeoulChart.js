@@ -38,30 +38,30 @@ const dataReducer = (state, action) => {
   }
 }
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+//ChartJS.register(
+//  CategoryScale,
+//  LinearScale,
+//  BarElement,
+//  Title,
+//  Tooltip,
+//  Legend
+//);
 
-export const options = {
-  indexAxis: 'y',
-  elements: {
-    bar: {
-      borderWidth: 2,
-    },
-  },
-  responsive: true,
-  plugins: {
-    title: {
-      display: true,
-      text: '서울 2017년 1월 자료',
-    },
-  },
-};
+//export const options = {
+//  indexAxis: 'y',
+//  elements: {
+//    bar: {
+//      borderWidth: 2,
+//    },
+//  },
+//  responsive: true,
+//  plugins: {
+//    title: {
+//      display: true,
+//      text: '서울 2017년 1월 자료',
+//    },
+//  },
+//};
 
 
 const ADHDTableData = () => {
