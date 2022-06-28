@@ -19,29 +19,19 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Header />
-<<<<<<< HEAD
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/showData" element={<ShowData />} />
           <Route path="/mapView" element={<MapView />} />
           <Route path="/login" element={<Login />} />
           <Route path="/SeoulChart" element={<SeoulChart />} />
+          <Route path="/NursingHomeLocationDataTable" element={<NursingHomeLocationDataTable />} />
+          <Route path="/NursingHomeGroupDataTable" element={<NursingHomeGroupDataTable />} />
+          <Route path="/MaleOutPatientDataTable" element={<MaleOutPatientDataTable />} />
+          <Route path="/FemaleOutPatientDataTable" element={<FemaleOutPatientDataTable />} />
+          <Route path="/FemaleTenAgeDataTable" element={<FemaleTenAgeDataTable />} />
+          <Route path="/FemaleFiveAgeDataTable" element={<FemaleFiveAgeDataTable />} />
         </Routes>
-=======
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/show" element={<Show />} />
-              <Route path="/mapView" element={<MapView />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/SeoulChart" element={<SeoulChart />} />
-              <Route path="/NursingHomeLocationDataTable" element={<NursingHomeLocationDataTable />} />
-              <Route path="/NursingHomeGroupDataTable" element={<NursingHomeGroupDataTable />} />
-              <Route path="/MaleOutPatientDataTable" element={<MaleOutPatientDataTable />} />
-              <Route path="/FemaleOutPatientDataTable" element={<FemaleOutPatientDataTable />} />
-              <Route path="/FemaleTenAgeDataTable" element={<FemaleTenAgeDataTable />} />
-              <Route path="/FemaleFiveAgeDataTable" element={<FemaleFiveAgeDataTable />} />
-            </Routes>
->>>>>>> nikotin_table
         <Footer />
       </div>
     </BrowserRouter>
