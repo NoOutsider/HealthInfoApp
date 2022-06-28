@@ -26,6 +26,12 @@ function App() {
           <Route path="/mapView" element={<MapView />} />
           <Route path="/login" element={<Login />} />
           <Route path="/SeoulChart" element={<SeoulChart />} />
+          <Route path="/NursingHomeLocationDataTable" element={<NursingHomeLocationDataTable />} />
+          <Route path="/NursingHomeGroupDataTable" element={<NursingHomeGroupDataTable />} />
+          <Route path="/MaleOutPatientDataTable" element={<MaleOutPatientDataTable />} />
+          <Route path="/FemaleOutPatientDataTable" element={<FemaleOutPatientDataTable />} />
+          <Route path="/FemaleTenAgeDataTable" element={<FemaleTenAgeDataTable />} />
+          <Route path="/FemaleFiveAgeDataTable" element={<FemaleFiveAgeDataTable />} />
         </Routes>
 =======
             <Routes>

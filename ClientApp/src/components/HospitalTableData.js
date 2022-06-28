@@ -45,6 +45,7 @@ const HospitalTableData = () => {
         <tbody>
           {dataList.map(data =>
             <tr key={data.col01}>
+              <td>{data.col01}</td>
               <td>{data.col02}</td>
               <td>{data.col03}</td>
               <td>{data.col04}</td>
