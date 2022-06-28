@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HealthInfoApp.models
+namespace Pharmacy.models
 {
     public class PharmacyDataRepository
     {
@@ -35,7 +35,7 @@ namespace HealthInfoApp.models
             cmd.CommandType = System.Data.CommandType.Text;
 
             //[3] SQL 생성 및 실행 
-            cmd.CommandText = $"select * from pharmacy";
+            cmd.CommandText = $"select * from PHARMACY where rownum <= 2";
             OracleDataReader dataReader = cmd.ExecuteReader();
 
             //[4] 자료를 읽어 객체화 하여 목록 객체에 추가
@@ -62,62 +62,12 @@ namespace HealthInfoApp.models
                 list.Add(Item);
             }
 
-            Console.WriteLine("???????????????????????????????????????????????????" + list);
-
-
             //[8] DB 작업한 것을 정리 
             dataReader.Close();
             cmd.Dispose();
 
             //[9] 목록 객체를 리턴
             return list;
-        }
-
-
-        public Dictionary<string, List<Object>> ChartDataXXX()
-        {
-            //Console.WriteLine("???????????????????????????????????????????????????");
-            //System.Diagnostics.Trace.WriteLine("????????????????????????????");
-            
-            Dictionary<string, List<Object>> result = new Dictionary<string, List<Object>>();
-
-            //[1] Command 객체 생성
-            OracleCommand cmd = new OracleCommand();
-
-            //[2] Connection 객체 연결
-            cmd.Connection = conn;
-            cmd.CommandType = System.Data.CommandType.Text;
-
-            //[3] SQL 생성 및 실행 
-            // OracleCommand 문법 확인해보기
-            // 미심쩍음--------------
-            cmd.CommandText = $"select \"state\", X좌표 from pharmacy";
-            OracleDataReader dataReader = cmd.ExecuteReader();
-
-            List<Object> chartLabels = new List<Object>();
-            List<Object> chartData = new List<Object>();
-
-            //[4] 자료를 읽어 객체화 해서 목록 객체에 추가
-            while (dataReader.Read())
-            {
-                //[5] Item 객체를 생성
-                PharmacyData Item = new PharmacyData();
-
-                //[6] Item 객체의 속성에 값을 설정
-                //
-                chartLabels.Add(dataReader.GetString(0));
-                chartData.Add(dataReader.GetInt32(1));
-
-            }
-
-            //[8] DB 작업한 것을 정리
-            dataReader.Close();
-            cmd.Dispose();
-
-            result.Add("chartLabels", chartLabels);
-            result.Add("chartData", chartData);
-
-            return result;
         }
 
     }
