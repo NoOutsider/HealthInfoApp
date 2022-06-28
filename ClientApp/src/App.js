@@ -12,6 +12,7 @@ import NursingHomeGroupDataTable from "./components/NursingHomeGroupDataTable"
 import MaleOutPatientDataTable from "./components/MaleOutPatientDataTable"
 import FemaleOutPatientDataTable from "./components/FemaleOutPatientDataTable"
 import FemaleTenAgeDataTable from "./components/FemaleTenAgeDataTable"
+import FemaleFiveAgeDataTable from "./components/FemaleFiveAgeDataTable"
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path="/MaleOutPatientDataTable" element={<MaleOutPatientDataTable />} />
               <Route path="/FemaleOutPatientDataTable" element={<FemaleOutPatientDataTable />} />
               <Route path="/FemaleTenAgeDataTable" element={<FemaleTenAgeDataTable />} />
+              <Route path="/FemaleFiveAgeDataTable" element={<FemaleFiveAgeDataTable />} />
             </Routes>
         <Footer />
       </div>

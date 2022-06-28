@@ -62,7 +62,7 @@ const dataReducer = (state, action) => {
 //  },
 //};
 
-const FemaleTenAgeDataTable= () => {
+const FemaleFiveAgeDataTable= () => {
   const [state, dispatch] = useReducer(
     dataReducer,
     {
@@ -96,7 +96,7 @@ const FemaleTenAgeDataTable= () => {
   //  ],
   //};
 
-    const renderFemaleTenAgeDataTable = (dataList) => {
+    const renderFemaleFiveAgeDataTable = (dataList) => {
     return (
       <table className="table table-striped" aria-labelledby="tabelLabel">
         <thead>
@@ -104,15 +104,23 @@ const FemaleTenAgeDataTable= () => {
             <th>진료년월</th>
             <th style={{ width: "200px" }}>state</th>
             <th style={{ width: "50px" }}>소계</th>
-            <th style={{ width: "50px" }}>10대 미만</th>
-            <th style={{ width: "50px" }}>10대</th>
-            <th style={{ width: "50px" }}>20대</th>
-            <th style={{ width: "50px" }}>30대</th>
-            <th style={{ width: "50px" }}>40대</th>
-            <th style={{ width: "50px" }}>50대</th>
-            <th style={{ width: "50px" }}>60대</th>
-            <th style={{ width: "50px" }}>70대</th>
-            <th style={{ width: "50px" }}>80대 이상</th>
+            <th style={{ width: "50px" }}>나이5세미만</th>
+            <th style={{ width: "50px" }}>나이5세이상</th>
+            <th style={{ width: "50px" }}>나이10대초중반</th>
+            <th style={{ width: "50px" }}>나이10대중후반</th>
+            <th style={{ width: "50px" }}>나이20대초중반</th>
+            <th style={{ width: "50px" }}>나이20대중후반</th>
+            <th style={{ width: "50px" }}>나이30대초중반</th>
+            <th style={{ width: "50px" }}>나이30대중후반</th>
+            <th style={{ width: "50px" }}>나이40대초중반</th>
+            <th style={{ width: "50px" }}>나이40대중후반</th>
+            <th style={{ width: "50px" }}>나이50대초중반</th>
+            <th style={{ width: "50px" }}>나이50대중후반</th>
+            <th style={{ width: "50px" }}>나이60대초중반</th>
+            <th style={{ width: "50px" }}>나이60대중후반</th>
+            <th style={{ width: "50px" }}>나이70대초중반</th>
+            <th style={{ width: "50px" }}>나이70대중후반</th>
+            <th style={{ width: "50px" }}>나이80세이상</th>                    
           </tr>
         </thead>
         <tbody>
@@ -122,15 +130,23 @@ const FemaleTenAgeDataTable= () => {
               <td>{data.진료년월}</td>
               <td>{data.state}</td>
               <td>{data.소계}</td>
-              <td>{data.나이10대미만}</td>
-              <td>{data.나이10대}</td>
-              <td>{data.나이20대}</td>
-              <td>{data.나이30대}</td>
-              <td>{data.나이40대}</td>
-              <td>{data.나이50대}</td>
-              <td>{data.나이60대}</td>
-              <td>{data.나이70대}</td>
-              <td>{data.나이80대이상}</td>
+              <td>{data.나이5세미만}</td>
+              <td>{data.나이5세이상}</td>
+              <td>{data.나이10대초중반}</td>
+              <td>{data.나이10대중후반}</td>
+              <td>{data.나이20대초중반}</td>
+              <td>{data.나이20대중후반}</td>
+              <td>{data.나이30대초중반}</td>
+              <td>{data.나이30대중후반}</td>
+              <td>{data.나이40대초중반}</td>
+              <td>{data.나이40대중후반}</td>
+              <td>{data.나이50대초중반}</td>
+              <td>{data.나이50대중후반}</td>
+              <td>{data.나이60대초중반}</td>
+              <td>{data.나이60대중후반}</td>
+              <td>{data.나이70대초중반}</td>
+              <td>{data.나이70대중후반}</td>
+              <td>{data.나이80세이상}</td>
             </tr>
           ))}
         </tbody>
@@ -141,7 +157,7 @@ const FemaleTenAgeDataTable= () => {
   async function initData() {
     /*await loadChartData();*/
 
-      const response = await fetch("FemaleTenAge/AllList4");
+      const response = await fetch("FemaleFiveAge/AllList5");
     dispatch({
       type: ACTION_TYPE.ALL_LIST,
       dataList: await response.json(),
@@ -167,7 +183,7 @@ const FemaleTenAgeDataTable= () => {
       <em>Loading...</em>
     </p>
   ) : (
-          renderFemaleTenAgeDataTable(state.dataList)
+          renderFemaleFiveAgeDataTable(state.dataList)
   );
 
   return (
@@ -187,4 +203,4 @@ const FemaleTenAgeDataTable= () => {
   );
 };
 
-export default FemaleTenAgeDataTable;
+export default FemaleFiveAgeDataTable;
