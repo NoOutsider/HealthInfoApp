@@ -9,7 +9,7 @@ namespace Hospital.models
     {
         public string col01 { get; set; }
         public string col02 { get; set; }
-        public string col03 { get; set; }
+        public int col03 { get; set; }
         public string col04 { get; set; }
         public string col05 { get; set; }
         public string col06 { get; set; }
@@ -20,8 +20,8 @@ namespace Hospital.models
         public string col11 { get; set; }
         public string col12 { get; set; }
         public string col13 { get; set; }
-        public string col14 { get; set; }
-        public string col15 { get; set; }
+        public double col14 { get; set; }
+        public double col15 { get; set; }
 
     }
 }
