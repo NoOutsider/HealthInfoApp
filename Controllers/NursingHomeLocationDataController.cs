@@ -22,28 +22,14 @@ namespace HealthInfoApp.Models
             return nikotinDataRepository.allNursingHomeLocationDataList();
         }
 
-        
-        //[HttpGet]
-        //[Route("loadChartData")]
-        //public JsonResult loadChartData()
-        //{
-        //    Dictionary<string, List<Object>> result = new Dictionary<string, List<Object>>();
-        //    Object[] chartLabels = { "January", "February", "March", "April", "May", "June", "July" };
-        //    Object[] chartData = { 10, 20, 50, 40, 30, 700, 38 };
 
-        //    result.Add("chartLabels", new List<Object>(chartLabels));
-        //    result.Add("chartData", new List<Object>(chartData));
+        [HttpGet]
+        [Route("loadChartData")]
+        public JsonResult loadChartData()
+        {
+            NursingHomeLocationRepository dataRepository = new NursingHomeLocationRepository();
 
-        //    return new JsonResult(result);
-        //}
-
-        //[HttpGet]
-        //[Route("loadChartDataXXX")]
-        //public JsonResult loadChartDataXXX()
-        //{
-        //    DataRepository dataRepository = new DataRepository();
-
-        //    return new JsonResult(dataRepository.ChartDataXXX());
-        //}
+            return new JsonResult(dataRepository.NursingHomeLocationChartData());
+        }
     }
 }
