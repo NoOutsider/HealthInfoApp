@@ -12,9 +12,7 @@ namespace ADHD.models
 
         public DataRepository()
         {
-
             conn = new OracleConnection("User Id = admin;Password = 1q2w3e4r5tAAA;Data Source = orcl_medium");
-
             conn.Open();
         }
 
