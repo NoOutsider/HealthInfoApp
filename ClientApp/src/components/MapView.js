@@ -1,7 +1,7 @@
 /*global kakao*/
 import React, { useEffect } from 'react'
 import "./MapView.css"
-import Sidebar from "./Sidebar/Sidebar";
+import Sidebar from "./Sidebar/SidebarHospital";
 import HospitalTableData from "./HospitalTableData";
 
 function MapView() {
@@ -70,6 +70,7 @@ function MapView() {
                 infowindow.open(map, marker);
             };
         }
+
     }, [])
 
 
