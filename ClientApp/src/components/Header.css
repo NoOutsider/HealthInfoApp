@@ -6,6 +6,7 @@
   position: sticky; /* 스크롤 위치에 따라 어디 위치에 있는지 */
   top: 0;
   z-index: 100; /* 겹칠 때 우선순위 */
+     
 }
 
 .header_logo{
