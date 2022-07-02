@@ -32,26 +32,27 @@ namespace HealthInfoApp.Models
             while (dataReader.Read())
             {
                 NursingHomeLocation nursingHomeLocation = new NursingHomeLocation();
-                nursingHomeLocation.진료년월 = dataReader.GetString(0);
-                nursingHomeLocation.state = dataReader.GetString(1);
-                nursingHomeLocation.계 = dataReader.GetInt32(2);
-                nursingHomeLocation.서울 = dataReader.GetString(3);
-                nursingHomeLocation.부산 = dataReader.GetString(4);
-                nursingHomeLocation.인천 = dataReader.GetString(5);
-                nursingHomeLocation.대구 = dataReader.GetString(6);
-                nursingHomeLocation.광주 = dataReader.GetString(7);
-                nursingHomeLocation.대전 = dataReader.GetString(8);
-                nursingHomeLocation.울산 = dataReader.GetString(9);
-                nursingHomeLocation.경기 = dataReader.GetString(10);
-                nursingHomeLocation.강원 = dataReader.GetString(11);
-                nursingHomeLocation.충북 = dataReader.GetString(12);
-                nursingHomeLocation.충남 = dataReader.GetString(13);
-                nursingHomeLocation.전북 = dataReader.GetString(14);
-                nursingHomeLocation.전남 = dataReader.GetString(15);
-                nursingHomeLocation.경북 = dataReader.GetString(16);
-                nursingHomeLocation.경남 = dataReader.GetString(17);
-                nursingHomeLocation.제주 = dataReader.GetString(18);
-                nursingHomeLocation.세종 = dataReader.GetString(19);
+                nursingHomeLocation.id = dataReader.GetInt32(0);
+                nursingHomeLocation.진료년월 = dataReader.GetString(1);
+                nursingHomeLocation.state = dataReader.GetString(2);
+                nursingHomeLocation.계 = dataReader.GetInt32(3);
+                nursingHomeLocation.서울 = dataReader.GetString(4);
+                nursingHomeLocation.부산 = dataReader.GetString(5);
+                nursingHomeLocation.인천 = dataReader.GetString(6);
+                nursingHomeLocation.대구 = dataReader.GetString(7);
+                nursingHomeLocation.광주 = dataReader.GetString(8);
+                nursingHomeLocation.대전 = dataReader.GetString(9);
+                nursingHomeLocation.울산 = dataReader.GetString(10);
+                nursingHomeLocation.경기 = dataReader.GetString(11);
+                nursingHomeLocation.강원 = dataReader.GetString(12);
+                nursingHomeLocation.충북 = dataReader.GetString(13);
+                nursingHomeLocation.충남 = dataReader.GetString(14);
+                nursingHomeLocation.전북 = dataReader.GetString(15);
+                nursingHomeLocation.전남 = dataReader.GetString(16);
+                nursingHomeLocation.경북 = dataReader.GetString(17);
+                nursingHomeLocation.경남 = dataReader.GetString(18);
+                nursingHomeLocation.제주 = dataReader.GetString(19);
+                nursingHomeLocation.세종 = dataReader.GetString(20);
                 nursingHomeLocations.Add(nursingHomeLocation);
             }
             dataReader.Close();

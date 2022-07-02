@@ -33,6 +33,7 @@ namespace HealthInfoApp.Models
             while (dataReader.Read())
             {
                 FemaleTenAge femaleTenAge = new FemaleTenAge();
+                femaleTenAge.id = dataReader.GetInt32(0);
                 femaleTenAge.진료년월 = dataReader.GetString(0);
                 femaleTenAge.state = dataReader.GetString(1);
                 femaleTenAge.소계 = dataReader.GetInt32(2);

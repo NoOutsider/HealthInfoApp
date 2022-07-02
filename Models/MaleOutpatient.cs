@@ -7,6 +7,7 @@ namespace HealthInfoApp.Models
 {
     public class MaleOutpatient
     {
+        public int id { get; set; }
         public string 진료년월 {get;set;}
         public string state { get; set; }
         public int 소계 { get; set; }

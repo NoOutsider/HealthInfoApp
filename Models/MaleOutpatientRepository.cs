@@ -31,11 +31,12 @@ namespace HealthInfoApp.Models
             while (dataReader.Read())
             {
                 MaleOutpatient maleOutpatient = new MaleOutpatient();
-                maleOutpatient.진료년월 = dataReader.GetString(0);
-                maleOutpatient.state = dataReader.GetString(1);
-                maleOutpatient.소계 = dataReader.GetInt32(2);
-                maleOutpatient.외래 = dataReader.GetInt32(3);
-                maleOutpatient.입원 = dataReader.GetInt32(4);
+                maleOutpatient.id = dataReader.GetInt32(0);
+                maleOutpatient.진료년월 = dataReader.GetString(1);
+                maleOutpatient.state = dataReader.GetString(2);
+                maleOutpatient.소계 = dataReader.GetInt32(3);
+                maleOutpatient.외래 = dataReader.GetInt32(4);
+                maleOutpatient.입원 = dataReader.GetInt32(5);
 
                 maleOutpatients.Add(maleOutpatient);
             }

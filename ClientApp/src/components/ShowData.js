@@ -10,12 +10,8 @@ function ShowData() {
       <SidebarIllness  />
       <HeaderIllness/>
       <div className="show-container">
-        {/* <SeoulChart /> */}
-        <img
-          className="show-img"
-          src="https://forward.nhn.com/2020/seoul/hands-on-labs/toastui.chart-dashboard/_images/step08.png"
-          alt=""
-        />
+         <SeoulChart /> 
+        
       </div>
     </div>
   );

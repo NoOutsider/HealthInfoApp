@@ -139,8 +139,7 @@ const NursingHomeLocationDataTable= () => {
         </thead>
         <tbody>
           {dataList.map((data) => (
-            /*<tr key={data.진료년월}>*/
-            <tr>
+            <tr key={data.id}>            
               <td>{data.진료년월}</td>
               <td>{data.state}</td>
               <td>{data.계}</td>
