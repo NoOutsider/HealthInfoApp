@@ -3,9 +3,7 @@ import HeaderDetailCondition from "./HeaderDetailCondition";
 import "./HeaderIllness.css";
 
 const HeaderMenu = () => {
-
   const [visible, setVisible] = useState("");
-
   const handleMenuSelect = useCallback(
     (e) => {
       setVisible(e.target.value);
@@ -30,7 +28,7 @@ const HeaderMenu = () => {
             type={"radio"}
             name="menu"
             value="nursingHomeGroup"
-            onChange={handleMenuSelect}
+            onClick={handleMenuSelect}
           />
           요양기관그룹별
           <br />
@@ -38,14 +36,14 @@ const HeaderMenu = () => {
             type={"radio"}
             name="menu"
             value="genderoutPatient"
-            onChange={handleMenuSelect}
+            onClick={handleMenuSelect}
           />
           성별입원외래별
           <input
             type={"radio"}
             name="menu"
             value="genderTenAge"
-            onChange={handleMenuSelect}
+            onClick={handleMenuSelect}
           />
           성별연령10세구간
           <br />
@@ -53,7 +51,7 @@ const HeaderMenu = () => {
             type={"radio"}
             name="menu"
             value="genderFiveAge"
-            onChange={handleMenuSelect}
+            onClick={handleMenuSelect}
           />
           성별연령5세구간
         </fieldset>

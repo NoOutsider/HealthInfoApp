@@ -46,5 +46,21 @@ namespace HealthInfoApp.Models
 
             return maleOutpatients;
         }
+
+        public string selectQuery(MaleOutpatient maleOutpatient)
+        {
+            //[1] Command 객체 생성
+            OracleCommand cmd = new OracleCommand();
+
+            //[2] Connection 객체 연결
+            cmd.Connection = conn;
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            //[3] 수정 SQL 생성 및 실행 
+            cmd.CommandText = $"select 진료년월, 소계 from tb_arthritis_male_outpatient" +
+                $" where 진료년월 = to_date('{maleOutpatient.진료년월}', 'yyyy/mm/dd');";
+            string getQuery = cmd.CommandText;
+            return getQuery;
+        }
     }
 }

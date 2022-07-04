@@ -19,5 +19,18 @@ namespace HealthInfoApp.Controllers
             MaleOutpatientRepository maleOutpatientRepository = new MaleOutpatientRepository();
             return maleOutpatientRepository.allMaleOutpatientDataList();
         }
+
+        [HttpPost]
+        [Route("Test")]
+        //호출시 : TodoItem/UpdateTodoItem 
+        //테스트 하는것은 postman 을 사용하면 됨 
+        public JsonResult setQuery([FromBody] MaleOutpatient maleOutpatient)
+        {
+            MaleOutpatientRepository maleOutpatientRepository = new MaleOutpatientRepository();
+            string setQuery= maleOutpatientRepository.selectQuery(maleOutpatient);
+
+            return new JsonResult("{setQuery : " + setQuery + "}");
+            //return new JsonResult(todoItem);
+        }
     }  
 }
