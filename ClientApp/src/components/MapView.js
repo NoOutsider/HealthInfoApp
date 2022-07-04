@@ -4,9 +4,45 @@ import "./MapView.css"
 import Sidebar from "./Sidebar/SidebarHospital";
 import HospitalTableData from "./HospitalTableData";
 
+const ACTION_TYPE = {
+    ALL_LIST: 1,
+};
+Object.freeze(ACTION_TYPE);
+
+
+const dataReducer = (state, action) => {
+    switch (action.type) {
+        case ACTION_TYPE.ALL_LIST:
+            return { dataList: action.dataList, loading: action.loading };
+        default:
+            return state;
+    }
+}
 
 
 function MapView() {
+
+    const [state, dispatch] = useReducer(dataReducer, {
+        dataList: [],
+        loading: false
+    }, initData);
+
+    async function initData() {
+        const response = await fetch('HospitalData/AllList');
+        dispatch({
+            type: ACTION_TYPE.ALL_LIST,
+            dataList: await response.json(),
+            loading: true
+        });
+    }
+
+    // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+    var positions = !state.loading ? [] : state.dataList.map(data => {
+        return {
+            latlng: new kakao.maps.LatLng(data.col15, data.col14),
+            content: '<div>' + data.col02 + '</div>'
+        };
+    });
 
     useEffect(() => {
 
@@ -28,27 +64,32 @@ function MapView() {
         var zoomControl = new kakao.maps.ZoomControl();
         map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
+        //console.log("state.loading = " + state.loading);
 
+
+        //console.log("positions.length = " + positions.length);
+        //console.log("positions[0].latlng = ", positions[0].latlng);
+        //console.log("positions[0].content = ", positions[0].content);
 
         // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
-        var positions = [
-            {
-                content: '<div>카카오</div>',
-                latlng: new kakao.maps.LatLng(33.450705, 126.570677)
-            },
-            {
-                content: '<div style="padding:5px;">Hello World! <br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>',
-                latlng: new kakao.maps.LatLng(33.450936, 126.569477)
-            },
-            {
-                content: '<div>텃밭</div>',
-                latlng: new kakao.maps.LatLng(33.450879, 126.569940)
-            },
-            {
-                content: '<div>근린공원</div>',
-                latlng: new kakao.maps.LatLng(33.451393, 126.570738)
-            }
-        ];
+        // var positions = [
+        //     {
+        //         content: '<div>카카오</div>',
+        //         latlng: new kakao.maps.LatLng(33.450705, 126.570677)
+        //     },
+        //     {
+        //         content: '<div style="padding:5px;">Hello World! <br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>',
+        //         latlng: new kakao.maps.LatLng(33.450936, 126.569477)
+        //     },
+        //     {
+        //         content: '<div>텃밭</div>',
+        //         latlng: new kakao.maps.LatLng(33.450879, 126.569940)
+        //     },
+        //     {
+        //         content: '<div>근린공원</div>',
+        //         latlng: new kakao.maps.LatLng(33.451393, 126.570738)
+        //     }
+        // ];
 
 
         for (var i = 0; i < positions.length; i++) {
@@ -127,7 +168,7 @@ function MapView() {
             map.setCenter(locPosition);
         }
 
-    }, [])
+    })
 
 
 

@@ -34,7 +34,7 @@ namespace Hospital.models
             cmd.CommandType = System.Data.CommandType.Text;
 
             //[3] SQL 생성 및 실행 
-            cmd.CommandText = $"select * from HOSPITAL where rownum <= 10";
+            cmd.CommandText = $"select * from HOSPITAL where rownum <= 100";
             OracleDataReader dataReader = cmd.ExecuteReader();
             //[4] 자료를 읽어 객체와 해서 목록 객체에 추가한다 
             while(dataReader.Read())
