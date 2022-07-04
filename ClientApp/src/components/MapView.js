@@ -1,12 +1,15 @@
 /*global kakao*/
-import React, { useEffect } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import "./MapView.css"
 import Sidebar from "./Sidebar/SidebarHospital";
 import HospitalTableData from "./HospitalTableData";
 
+
+
 function MapView() {
 
     useEffect(() => {
+
         var mapContainer = document.getElementById('map'),
             mapOption = {
                 center: new kakao.maps.LatLng(33.450701, 126.570667),
@@ -24,6 +27,8 @@ function MapView() {
         // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
         var zoomControl = new kakao.maps.ZoomControl();
         map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+
 
         // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
         var positions = [
@@ -44,6 +49,7 @@ function MapView() {
                 latlng: new kakao.maps.LatLng(33.451393, 126.570738)
             }
         ];
+
 
         for (var i = 0; i < positions.length; i++) {
             // 마커를 생성합니다
@@ -120,7 +126,6 @@ function MapView() {
             // 지도 중심좌표를 접속위치로 변경합니다
             map.setCenter(locPosition);
         }
-
 
     }, [])
 
