@@ -1,17 +1,6 @@
 import React, { useEffect } from "react";
 
-const HeaderDetailCondition = (props) => {
-  const {
-    nursingHomeLocation,
-    nursingHomeGroup,
-    genderoutPatient,
-    genderTenAge,
-    genderFiveAge,
-  } = props;
-
-  useEffect(() => {
-    return () => {};
-  });
+const HeaderDetailCondition = ({ visible }) => {
   return (
     <div className="searchConditionDetailHeader">
       <div>
@@ -20,13 +9,36 @@ const HeaderDetailCondition = (props) => {
           style={{ width: "250px" }}
           placeholder="입력 예시) 2022년 7월 26일 -> 22/07/26"
         />
+        {/* <DatePicker
+        selected={startDate}
+        onChange={(date: Date) => setStartDate(date)}
+        selectsStart
+        locale={ko}
+        dateFormat="yyyy년 MM월 dd일"
+        isClearable
+        placeholderText="날짜를 선택해주세요"
+        mindate={new Date("2017/01/01")}
+        startDate={startDate}
+        endDate={new Date()}
+      /> */}
         -
         <input
           style={{ width: "250px" }}
           placeholder="입력 예시) 2022년 7월 26일 -> 22/07/26"
         />
+        {/* <DatePicker
+        selected={endDate}
+        onChange={(date: Date) => setEndDate(date)}
+        selectsEnd
+        locale={ko}
+        dateFormat="yyyy년 MM월 dd일"
+        isClearable
+        placeholderText="날짜를 선택해주세요"
+        startDate={new Date(startDate)}
+        endDate={endDate}
+      /> */}
       </div>
-      {genderoutPatient && (
+      {visible === "genderoutPatient" && (
         <div>
           성별
           <input type={"checkbox"} />
@@ -35,7 +47,7 @@ const HeaderDetailCondition = (props) => {
           남성
         </div>
       )}
-      {genderTenAge && (
+      {visible === "genderTenAge" && (
         <div>
           연령대
           <input type={"checkbox"} />
@@ -64,7 +76,7 @@ const HeaderDetailCondition = (props) => {
         <input type={"checkbox"} />
         보험자부담금
       </div>
-      {nursingHomeLocation && (
+      {visible === "nursingHomeLocation" && (
         <div>
           지역
           <input type={"checkbox"} />

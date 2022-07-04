@@ -1,54 +1,19 @@
 import React, { useEffect, useState, useReducer, useCallback } from "react";
-// import HeaderDetailCondition from "./HeaderDetailCondition";
+import HeaderDetailCondition from "./HeaderDetailCondition";
 import "./HeaderIllness.css";
-
-function select(visible, selector) {
-  return {
-    ...visible,
-    [selector.name]: true,
-  };
-}
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { ko } from "date-fns/esm/locale";
 
 const HeaderMenu = () => {
-  // const [visible, setVisible] = useReducer(select, {
-  //   nursingHomeLocation: false,
-  //   nursingHomeGroup: false,
-  //   genderoutPatient: false,
-  //   genderTenAge: false,
-  //   genderFiveAge: false,
-  // });
-  const [visible, setVisible] = useState({
-    nursingHomeLocation: false,
-    nursingHomeGroup: false,
-    genderoutPatient: false,
-    genderTenAge: false,
-    genderFiveAge: false,
-  });
+  const [startDate, setStartDate] = useState(new Date("2017/01/01"));
+  const [endDate, setEndDate] = useState(new Date("2021/10/01"));
 
-  // useEffect(() => {
-  //   return () => {
-  //     const invisible = setVisible({
-  //       nursingHomeLocation: false,
-  //       nursingHomeGroup: false,
-  //       genderoutPatient: false,
-  //       genderTenAge: false,
-  //       genderFiveAge: false,
-  //     });
-  //     setVisible(invisible);
-  //   };
-  // }, [visible]);
+  const [visible, setVisible] = useState("");
 
   const handleMenuSelect = useCallback(
     (e) => {
-      // setVisible(e.target);
-      setVisible({
-        nursingHomeLocation: false,
-        nursingHomeGroup: false,
-        genderoutPatient: false,
-        genderTenAge: false,
-        genderFiveAge: false,
-      });
-      setVisible({ ...visible, [e.target.value]: true });
+      setVisible(e.target.value);
       console.log(visible);
     },
     [visible]
@@ -98,66 +63,7 @@ const HeaderMenu = () => {
           성별연령5세구간
         </fieldset>
       </div>
-      {/* <HeaderDetailCondition visibleState={visible}></HeaderDetailCondition> */}
-
-      <div className="searchConditionDetailHeader">
-        <div>
-          기간
-          <input
-            style={{ width: "250px" }}
-            placeholder="입력 예시) 2022년 7월 26일 -> 22/07/26"
-          />
-          -
-          <input
-            style={{ width: "250px" }}
-            placeholder="입력 예시) 2022년 7월 26일 -> 22/07/26"
-          />
-        </div>
-        {visible.genderoutPatient && (
-          <div>
-            성별
-            <input type={"checkbox"} />
-            여성
-            <input type={"checkbox"} />
-            남성
-          </div>
-        )}
-        {visible.genderTenAge && (
-          <div>
-            연령대
-            <input type={"checkbox"} />
-            10세
-            <input type={"checkbox"} />
-            5세
-          </div>
-        )}
-        <div>
-          입원외래별
-          <input type={"checkbox"} />
-          입원
-          <input type={"checkbox"} />
-          외래
-        </div>
-        <div>
-          항목
-          <input type={"checkbox"} />
-          환자수
-          <input type={"checkbox"} />
-          내원일수
-          <input type={"checkbox"} />
-          청구건수
-          <input type={"checkbox"} />
-          요양급여비용총액
-          <input type={"checkbox"} />
-          보험자부담금
-        </div>
-        {visible.nursingHomeLocation && (
-          <div>
-            지역
-            <input type={"checkbox"} />
-          </div>
-        )}
-      </div>
+      <HeaderDetailCondition visible={visible}/>
     </div>
   );
 };
