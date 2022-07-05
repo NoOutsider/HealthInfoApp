@@ -22,6 +22,7 @@ const dataReducer = (state, action) => {
 function MapView() {
   var map;
   var markers = [];
+  var locPosition;
 
   const [stateHP, dispatchHP] = useReducer(
     dataReducer,
@@ -77,30 +78,13 @@ function MapView() {
         };
       });
 
-  // const [positionsHP, setPositionsHP] = useState([
-  //   {
-  //     content: "<div>카카오</div>",
-  //     latlng: new kakao.maps.LatLng(33.450705, 126.570677),
-  //   },
-  //   {
-  //     content:
-  //       '<div style="padding:5px;">Hello World! <br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>',
-  //     latlng: new kakao.maps.LatLng(33.450936, 126.569477),
-  //   },
-  // ]);
+  const [isCurrent, setIsCurrent] = useState(0);
 
-  // const [positionsPM, setPositions2] = useState([
-  //   {
-  //     content: "<div>텃밭</div>",
-  //     latlng: new kakao.maps.LatLng(33.450879, 126.56994),
-  //   },
-  //   {
-  //     content: "<div>근린공원</div>",
-  //     latlng: new kakao.maps.LatLng(33.451393, 126.570738),
-  //   },
-  // ]);
+  useEffect(() => {
+    console.log("isCurrent : +++++++++++++++++++++++++++++", isCurrent);
+  }, [isCurrent]);
 
-  // 화면 초기화될 때 무조건 실행되는 useEffect
+  /********************************************화면 초기화될 때 무조건 실행되는 useEffect******************************************/
   useEffect(() => {
     var mapContainer = document.getElementById("map"),
       mapOption = {
@@ -129,16 +113,16 @@ function MapView() {
         var lat = position.coords.latitude, // 위도
           lon = position.coords.longitude; // 경도
 
-        var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성
-          message = '<div style="padding:5px;">현재위치</div>'; // 인포윈도우에 표시될 내용
+        locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성
+        var message = '<div style="padding:5px;">현재위치</div>'; // 인포윈도우에 표시될 내용
 
         // 마커와 인포윈도우를 표시
         displayMarker(locPosition, message);
       });
     } else {
       // HTML5의 GeoLocation을 사용할 수 없을 때 마커 표시 위치와 인포윈도우 내용 설정
-      var locPosition = new kakao.maps.LatLng(37.5666805, 126.9784147),
-        message = "현재 위치를 알 수 없어 기본 위치로 이동";
+      locPosition = new kakao.maps.LatLng(37.5666805, 126.9784147);
+      var message = "현재 위치를 알 수 없어 기본 위치로 이동";
 
       displayMarker(locPosition, message);
     }
@@ -166,6 +150,7 @@ function MapView() {
       // 지도 중심좌표를 접속위치로 변경
       map.setCenter(locPosition);
     }
+    /*************************************************************************************************/
   });
 
   // 배열에 추가된 마커들을 지도에서 삭제하는 함수
@@ -212,8 +197,34 @@ function MapView() {
 
   const showHP = () => {
     // console.log("병원보여줌");
+
+    var currentHPs = [];
+
     delPin();
-    addPin(positionsHP);
+
+    // 1. 만약에 isCurrent == 1이면 positionsHP에서 현재 위치에 1km 이내 반경만 골라서 보여줌
+    if (isCurrent) {
+      // 1-1. positionsHP의 요소 하나하나를 돌기 위해 for문 작성
+      for (var i = 0; i < positionsHP.length; i++) {
+        // 1-2. 현재위치와 요소 하나하나를 비교해서 거리가 1km 이내를 확인
+
+        // eslint-disable-next-line no-unused-expressions
+        var distance = Math.sqrt(
+          (locPosition.La - positionsHP[i].latlng.La) ** 2 +
+            (locPosition.Ma - positionsHP[i].latlng.Ma) ** 2
+        );
+
+        // 1-3. 만약 거리가 1km 이내면 새 배열에 넣음, 아니면 continue
+        if (distance <= 0.1) currentHPs.push(positionsHP[i]);
+        else continue;
+
+        //console.log("currentHPs+++++++++++++++++++++++++++++", currentHPs);
+        addPin(currentHPs);
+      }
+    }
+    // 2. 만약에 isCurrent == 0이면 positionsHP를 보여줌
+    else addPin(positionsHP);
+
     // console.log("병원.length = " + positionsHP.length);
     // console.log("병원[0].latlng = ", positionsHP[0].latlng);
     // console.log("병원[0].content = ", positionsHP[0].content);
@@ -221,28 +232,44 @@ function MapView() {
 
   const showPM = () => {
     // console.log("약국보여줌");
+
+    var currentPMs = [];
+
     delPin();
-    addPin(positionsPM);
-    //positions
-    // () =>
-    // setPositionsPM(
-    //   !state.loading
-    //     ? []
-    //     : state.dataList.map((data) => {
-    //         return {
-    //           content: "<div>" + data.이름 + "</div>",
-    //           latlng: new kakao.maps.LatLng(data.x좌표, data.y좌표),
-    //         };
-    //       })
-    // )
+
+    if (isCurrent) {
+      for (var i = 0; i < positionsPM.length; i++) {
+        // eslint-disable-next-line no-unused-expressions
+        var distance = Math.sqrt(
+          (locPosition.La - positionsPM[i].latlng.La) ** 2 +
+            (locPosition.Ma - positionsPM[i].latlng.Ma) ** 2
+        );
+
+        if (distance <= 0.1) currentPMs.push(positionsPM[i]);
+        else continue;
+
+        addPin(currentPMs);
+      }
+    } else addPin(positionsPM);
 
     // console.log("약국.length = " + positionsPM.length);
     // console.log("약국[0].latlng = ", positionsPM[0].latlng);
     // console.log("약국[0].content = ", positionsPM[0].content);
   };
 
+  const setFlag = () => {
+    //console.log("setFlag 확인");
+    const newValue = isCurrent === 0 ? 1 : 0;
+    setIsCurrent(newValue);
+    // 여기 바로 콘솔 찍으면 반영 안됨;;;
+  };
+
   return (
     <Container>
+      <div id="locationCheck">
+        <input type="checkbox" onChange={setFlag} />
+        현재 위치 주변만 보기
+      </div>
       <div id="btn">
         <button onClick={showHP}>병원</button>
       </div>
