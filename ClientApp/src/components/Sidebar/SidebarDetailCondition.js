@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 
-const HeaderDetailCondition = ({ visible, string, setString }) => {
+const SidebarDetailCondition = ({ visible, string, setString }) => {
   const [startDate, setStartDate] = useState(new Date("2017/01/01"));
   const [endDate, setEndDate] = useState(new Date("2021/10/01"));
   return (
@@ -109,4 +109,4 @@ const HeaderDetailCondition = ({ visible, string, setString }) => {
   );
 };
 
-export default HeaderDetailCondition;
+export default SidebarDetailCondition;

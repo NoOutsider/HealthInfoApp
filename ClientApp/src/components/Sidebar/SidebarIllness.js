@@ -1,8 +1,17 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import styles from "./Sidebar.module.css";
+import SidebarDetailCondition from "./SidebarDetailCondition";
 
-const SidebarIllness = ({ width = 280, children }) => {
+const SidebarIllness = ({ width = 280 }) => {
   const [illnessName, setIllnessName] = useState("");
+  const [visible, setVisible] = useState("");
+  const handleMenuSelect = useCallback(
+    (e) => {
+      setVisible(e.target.value);
+      console.log(visible);
+    },
+    [visible]
+  );
   const inputEl = useRef(null);
 
   const inputIllnessName = (e) => {
@@ -43,7 +52,52 @@ const SidebarIllness = ({ width = 280, children }) => {
         <p>질병명3</p>
         <p>질병명4</p>
 
-        <div className={styles.content}>{children}</div>
+        <div className="illnessPageHeader">
+          <div className="searchConditionHeader">
+            <fieldset>
+              <legend>메뉴</legend>
+              <input
+                type={"radio"}
+                name="menu"
+                value="nursingHomeLocation"
+                onClick={handleMenuSelect}
+              />
+              요양기관소재지별
+              <input
+                type={"radio"}
+                name="menu"
+                value="nursingHomeGroup"
+                onClick={handleMenuSelect}
+              />
+              요양기관그룹별
+              <br />
+              <input
+                type={"radio"}
+                name="menu"
+                value="genderoutPatient"
+                onClick={handleMenuSelect}
+              />
+              성별입원외래별
+              <input
+                type={"radio"}
+                name="menu"
+                value="genderTenAge"
+                onClick={handleMenuSelect}
+              />
+              성별연령10세구간
+              <br />
+              <input
+                type={"radio"}
+                name="menu"
+                value="genderFiveAge"
+                onClick={handleMenuSelect}
+              />
+              성별연령5세구간
+            </fieldset>
+          </div>
+          {visible && <SidebarDetailCondition visible={visible} />}
+          {/* <button onClick={onSubmit}/> */}
+        </div>
       </div>
     </div>
   );

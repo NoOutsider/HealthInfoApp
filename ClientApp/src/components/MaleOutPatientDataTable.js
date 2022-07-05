@@ -62,7 +62,7 @@ const dataReducer = (state, action) => {
 //  },
 //};
 
-const MaleOutPatientDataTable= () => {
+const MaleOutPatientDataTable = () => {
   const [state, dispatch] = useReducer(
     dataReducer,
     {
@@ -96,7 +96,7 @@ const MaleOutPatientDataTable= () => {
   //  ],
   //};
 
-    const renderMaleOutPatientDataTable = (dataList) => {
+  const renderMaleOutPatientDataTable = (dataList) => {
     return (
       <table className="table table-striped" aria-labelledby="tabelLabel">
         <thead>
@@ -105,7 +105,7 @@ const MaleOutPatientDataTable= () => {
             <th style={{ width: "200px" }}>state</th>
             <th>소계</th>
             <th>외래</th>
-            <th>입원</th>            
+            <th>입원</th>
           </tr>
         </thead>
         <tbody>
@@ -127,7 +127,7 @@ const MaleOutPatientDataTable= () => {
   async function initData() {
     /*await loadChartData();*/
 
-      const response = await fetch("MaleOutpatient/AllList2");
+    const response = await fetch("MaleOutpatient/AllList2");
     dispatch({
       type: ACTION_TYPE.ALL_LIST,
       dataList: await response.json(),
@@ -153,7 +153,7 @@ const MaleOutPatientDataTable= () => {
       <em>Loading...</em>
     </p>
   ) : (
-          renderMaleOutPatientDataTable(state.dataList)
+    renderMaleOutPatientDataTable(state.dataList)
   );
 
   return (
