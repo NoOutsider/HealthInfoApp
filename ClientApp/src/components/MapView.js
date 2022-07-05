@@ -1,41 +1,104 @@
 /*global kakao*/
 import { Container } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import "./MapView.css";
 import MapSidebar from "./Sidebar/MapSidebar";
 //import HospitalTableData from "./HospitalTableData";
+
+const ACTION_TYPE = {
+  ALL_LIST: 1,
+};
+Object.freeze(ACTION_TYPE);
+
+const dataReducer = (state, action) => {
+  switch (action.type) {
+    case ACTION_TYPE.ALL_LIST:
+      return { dataList: action.dataList, loading: action.loading };
+    default:
+      return state;
+  }
+};
 
 function MapView() {
   var map;
   var markers = [];
 
-  const [positionsHP, setPositions1] = useState([
+  const [stateHP, dispatchHP] = useReducer(
+    dataReducer,
     {
-      content: "<div>카카오</div>",
-      latlng: new kakao.maps.LatLng(33.450705, 126.570677),
+      dataList: [],
+      loading: false,
     },
-    {
-      content:
-        '<div style="padding:5px;">Hello World! <br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>',
-      latlng: new kakao.maps.LatLng(33.450936, 126.569477),
-    },
-  ]);
+    DataHP
+  );
 
-  const [positionsPM, setPositions2] = useState([
-    {
-      content: "<div>텃밭</div>",
-      latlng: new kakao.maps.LatLng(33.450879, 126.56994),
-    },
-    {
-      content: "<div>근린공원</div>",
-      latlng: new kakao.maps.LatLng(33.451393, 126.570738),
-    },
-  ]);
+  async function DataHP() {
+    const response = await fetch("HospitalData/AllList");
+    dispatchHP({
+      type: ACTION_TYPE.ALL_LIST,
+      dataList: await response.json(),
+      loading: true,
+    });
+  }
 
-  ////////////////////////////////////////////////
-  // state변수 (약국positions, 병원postions) 가 변경될 때마다 실행 될 함수를 지정해 줄 useEffect가 필요함.
-  // 아래 useEffect는 시작 때 무조건 실행되는 거라 별개임!!!!
-  ////////////////////////////////////////////////
+  var positionsHP = !stateHP.loading
+    ? []
+    : stateHP.dataList.map((data) => {
+        return {
+          content: "<div>" + data.col02 + "</div>",
+          latlng: new kakao.maps.LatLng(data.col15, data.col14),
+        };
+      });
+
+  const [statePM, dispatchPM] = useReducer(
+    dataReducer,
+    {
+      dataList: [],
+      loading: false,
+    },
+    DataPM
+  );
+
+  async function DataPM() {
+    const response = await fetch("PharmacyData/AllList");
+    dispatchPM({
+      type: ACTION_TYPE.ALL_LIST,
+      dataList: await response.json(),
+      loading: true,
+    });
+  }
+
+  var positionsPM = !statePM.loading
+    ? []
+    : statePM.dataList.map((data) => {
+        return {
+          content: "<div>" + data.이름 + "</div>",
+          latlng: new kakao.maps.LatLng(data.y좌표, data.x좌표),
+        };
+      });
+
+  // const [positionsHP, setPositionsHP] = useState([
+  //   {
+  //     content: "<div>카카오</div>",
+  //     latlng: new kakao.maps.LatLng(33.450705, 126.570677),
+  //   },
+  //   {
+  //     content:
+  //       '<div style="padding:5px;">Hello World! <br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>',
+  //     latlng: new kakao.maps.LatLng(33.450936, 126.569477),
+  //   },
+  // ]);
+
+  // const [positionsPM, setPositions2] = useState([
+  //   {
+  //     content: "<div>텃밭</div>",
+  //     latlng: new kakao.maps.LatLng(33.450879, 126.56994),
+  //   },
+  //   {
+  //     content: "<div>근린공원</div>",
+  //     latlng: new kakao.maps.LatLng(33.451393, 126.570738),
+  //   },
+  // ]);
 
   // 화면 초기화될 때 무조건 실행되는 useEffect
   useEffect(() => {
@@ -57,7 +120,7 @@ function MapView() {
     // 지도 확대 축소를 제어할 수 있는 줌 컨트롤 생성
     var zoomControl = new kakao.maps.ZoomControl();
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-  }, []);
+  });
 
   // 배열에 추가된 마커들을 지도에서 삭제하는 함수
   const delPin = () => {
@@ -101,15 +164,33 @@ function MapView() {
   };
 
   const showHP = () => {
-    // console.log("병원보여줌");
+    console.log("병원보여줌");
     delPin();
     addPin(positionsHP);
+    console.log("병원.length = " + positionsHP.length);
+    console.log("병원[0].latlng = ", positionsHP[0].latlng);
+    console.log("병원[0].content = ", positionsHP[0].content);
   };
 
   const showPM = () => {
-    // console.log("약국보여줌");
+    console.log("약국보여줌");
     delPin();
     addPin(positionsPM);
+    //positions
+    // () =>
+    // setPositionsPM(
+    //   !state.loading
+    //     ? []
+    //     : state.dataList.map((data) => {
+    //         return {
+    //           content: "<div>" + data.이름 + "</div>",
+    //           latlng: new kakao.maps.LatLng(data.x좌표, data.y좌표),
+    //         };
+    //       })
+    // )
+    console.log("약국.length = " + positionsPM.length);
+    console.log("약국[0].latlng = ", positionsPM[0].latlng);
+    console.log("약국[0].content = ", positionsPM[0].content);
   };
 
   return (
