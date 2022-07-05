@@ -7,8 +7,7 @@ function ShowData() {
   return (
     <div className="showData">
           <SidebarIllness></SidebarIllness>
-       <SeoulChart /> 
-      
+       <SeoulChart />      
     </div>
   );
 }

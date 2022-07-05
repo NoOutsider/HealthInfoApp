@@ -47,61 +47,61 @@ const SidebarDetailCondition = ({ visible, string, setString }) => {
         항목
         <input type={"checkbox"} value="환자수" />
         환자수
-        <input type={"checkbox"} />
+        <input type={"checkbox"} value="내원일수" />
         내원일수
-        <input type={"checkbox"} />
+        <input type={"checkbox"} value="청구건수" />
         청구건수
-        <input type={"checkbox"} />
+        <input type={"checkbox"} value="요양급여비용총액" />
         요양급여비용총액
-        <input type={"checkbox"} />
+        <input type={"checkbox"} value="보험자부담금" />
         보험자부담금
       </div>
       {visible.includes("gender") && (
         <div>
           성별
-          <input type={"checkbox"} />
+          <input type={"checkbox"} value="female" />
           여성
-          <input type={"checkbox"} />
+          <input type={"checkbox"} value="male" />
           남성
         </div>
       )}
       {visible.includes("Age") && (
         <div>
           연령대
-          <input type={"checkbox"} />
-          10세
-          <input type={"checkbox"} />
-          5세
+          <input type={"checkbox"} value="tenAge" />
+          10세 콤보박스..
+          <input type={"checkbox"} value="fiveAge" />
+          5세 콤보박스..
         </div>
       )}
       {visible.includes("OutPatient") && (
         <div>
           입원외래별
-          <input type={"checkbox"} />
+          <input type={"checkbox"} value="입원" />
           입원
-          <input type={"checkbox"} />
+          <input type={"checkbox"} value="외래" />
           외래
         </div>
       )}
       {visible.includes("Group") && (
         <div>
           요양기관
-          <input type={"checkbox"} />
+          <input type={"checkbox"} value="상급종합병원" />
           상급종합병원
-          <input type={"checkbox"} />
+          <input type={"checkbox"} value="종합병원" />
           종합병원
-          <input type={"checkbox"} />
+          <input type={"checkbox"} value="병원급" />
           병원급
-          <input type={"checkbox"} />
+          <input type={"checkbox"} value="의원급" />
           의원급
-          <input type={"checkbox"} />
+          <input type={"checkbox"} value="보건기관등" />
           보건기관등
         </div>
       )}
 
       {visible.includes("Location") && (
         <div>
-          지역
+          지역 콤보박스..
           <input type={"checkbox"} />
         </div>
       )}
