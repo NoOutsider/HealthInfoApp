@@ -105,7 +105,7 @@ function MapView() {
     var mapContainer = document.getElementById("map"),
       mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 3, // 지도의 확대 레벨
+        level: 12, // 지도의 확대 레벨
       };
 
     map = new kakao.maps.Map(mapContainer, mapOption); //지도 생성
@@ -120,6 +120,52 @@ function MapView() {
     // 지도 확대 축소를 제어할 수 있는 줌 컨트롤 생성
     var zoomControl = new kakao.maps.ZoomControl();
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+    /****************************************현재 위치************************************************/
+    // HTML5의 geolocation으로 사용 가능 확인
+    if (navigator.geolocation) {
+      // GeoLocation을 이용해서 접속 위치를 얻기
+      navigator.geolocation.getCurrentPosition(function (position) {
+        var lat = position.coords.latitude, // 위도
+          lon = position.coords.longitude; // 경도
+
+        var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성
+          message = '<div style="padding:5px;">현재위치</div>'; // 인포윈도우에 표시될 내용
+
+        // 마커와 인포윈도우를 표시
+        displayMarker(locPosition, message);
+      });
+    } else {
+      // HTML5의 GeoLocation을 사용할 수 없을 때 마커 표시 위치와 인포윈도우 내용 설정
+      var locPosition = new kakao.maps.LatLng(37.5666805, 126.9784147),
+        message = "현재 위치를 알 수 없어 기본 위치로 이동";
+
+      displayMarker(locPosition, message);
+    }
+
+    // 지도에 현재 위치 마커와 인포윈도우를 표시하는 함수
+    function displayMarker(locPosition, message) {
+      // 마커 생성
+      var marker = new kakao.maps.Marker({
+        map: map,
+        position: locPosition,
+      });
+
+      var iwContent = message, // 인포윈도우에 표시할 내용
+        iwRemoveable = true;
+
+      // 인포윈도우 생성
+      var infowindow = new kakao.maps.InfoWindow({
+        content: iwContent,
+        removable: iwRemoveable,
+      });
+
+      // 인포윈도우를 마커 위에 표시
+      infowindow.open(map, marker);
+
+      // 지도 중심좌표를 접속위치로 변경
+      map.setCenter(locPosition);
+    }
   });
 
   // 배열에 추가된 마커들을 지도에서 삭제하는 함수
@@ -129,6 +175,7 @@ function MapView() {
     }
   };
 
+  // 좌표 정보 있는 데이터 지도에 마커 표시하는 함수
   const addPin = (positions) => {
     for (var i = 0; i < positions.length; i++) {
       // 마커 생성
@@ -164,16 +211,16 @@ function MapView() {
   };
 
   const showHP = () => {
-    console.log("병원보여줌");
+    // console.log("병원보여줌");
     delPin();
     addPin(positionsHP);
-    console.log("병원.length = " + positionsHP.length);
-    console.log("병원[0].latlng = ", positionsHP[0].latlng);
-    console.log("병원[0].content = ", positionsHP[0].content);
+    // console.log("병원.length = " + positionsHP.length);
+    // console.log("병원[0].latlng = ", positionsHP[0].latlng);
+    // console.log("병원[0].content = ", positionsHP[0].content);
   };
 
   const showPM = () => {
-    console.log("약국보여줌");
+    // console.log("약국보여줌");
     delPin();
     addPin(positionsPM);
     //positions
@@ -188,9 +235,10 @@ function MapView() {
     //         };
     //       })
     // )
-    console.log("약국.length = " + positionsPM.length);
-    console.log("약국[0].latlng = ", positionsPM[0].latlng);
-    console.log("약국[0].content = ", positionsPM[0].content);
+
+    // console.log("약국.length = " + positionsPM.length);
+    // console.log("약국[0].latlng = ", positionsPM[0].latlng);
+    // console.log("약국[0].content = ", positionsPM[0].content);
   };
 
   return (
