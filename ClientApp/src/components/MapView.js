@@ -79,16 +79,17 @@ function MapView() {
       });
 
   const [isCurrent, setIsCurrent] = useState(0);
+  // isCurrent(현재 위치 체크 여부 확인 변수)의 상태가 변할 때 사용하는 useEffect
+  useEffect(() => {
+    if (isCurrent === 1) geoLocation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isCurrent]);
 
-  // useEffect(() => {
-  //   console.log("isCurrent : +++++++++++++++++++++++++++++", isCurrent);
-  // }, [isCurrent]);
-
-  /********************************************화면 초기화될 때 무조건 실행되는 useEffect******************************************/
+  // 화면 초기화될 때 무조건 실행되는 useEffect
   useEffect(() => {
     var mapContainer = document.getElementById("map"),
       mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        center: new kakao.maps.LatLng(37.5666805, 126.9784147),
         level: 12, // 지도의 확대 레벨
       };
 
@@ -105,7 +106,55 @@ function MapView() {
     var zoomControl = new kakao.maps.ZoomControl();
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-    /****************************************현재 위치************************************************/
+    addPin(positionsHP);
+
+    if (isCurrent === 1) delPin();
+  });
+
+  // 좌표 정보 있는 데이터 지도에 마커 표시하는 함수
+  const addPin = (positions) => {
+    for (var i = 0; i < positions.length; i++) {
+      // 마커 생성
+      var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng, // 마커의 위치
+        clickable: true, // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
+      });
+
+      // 마커에 표시할 인포윈도우 생성
+      var infowindow = new kakao.maps.InfoWindow({
+        content: positions[i].content, // 인포윈도우에 표시할 내용
+        removable: true,
+      });
+      // 마커에 mouseover 이벤트와 mouseout 이벤트 등록
+      // 이벤트 리스너로는 클로저를 만들어 등록
+      // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록
+      kakao.maps.event.addListener(
+        marker,
+        "click",
+        makeOverListener(map, marker, infowindow)
+      );
+
+      markers.push(marker);
+    }
+  };
+
+  // 배열에 추가된 마커들을 지도에서 삭제하는 함수
+  const delPin = () => {
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(null);
+    }
+  };
+
+  // 인포윈도우를 표시하는 클로저를 만드는 함수
+  const makeOverListener = (map, marker, infowindow) => {
+    return function () {
+      infowindow.open(map, marker);
+    };
+  };
+
+  // 현재 위치를 가져오는 함수
+  const geoLocation = () => {
     // HTML5의 geolocation으로 사용 가능 확인
     if (navigator.geolocation) {
       // GeoLocation을 이용해서 접속 위치를 얻기
@@ -150,54 +199,16 @@ function MapView() {
       // 지도 중심좌표를 접속위치로 변경
       map.setCenter(locPosition);
     }
-    /*************************************************************************************************/
-  });
-
-  // 배열에 추가된 마커들을 지도에서 삭제하는 함수
-  const delPin = () => {
-    for (var i = 0; i < markers.length; i++) {
-      markers[i].setMap(null);
-    }
   };
 
-  // 좌표 정보 있는 데이터 지도에 마커 표시하는 함수
-  const addPin = (positions) => {
-    for (var i = 0; i < positions.length; i++) {
-      // 마커 생성
-      var marker = new kakao.maps.Marker({
-        map: map, // 마커를 표시할 지도
-        position: positions[i].latlng, // 마커의 위치
-        clickable: true, // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
-      });
-
-      // 마커에 표시할 인포윈도우 생성
-      var infowindow = new kakao.maps.InfoWindow({
-        content: positions[i].content, // 인포윈도우에 표시할 내용
-        removable: true,
-      });
-      // 마커에 mouseover 이벤트와 mouseout 이벤트 등록
-      // 이벤트 리스너로는 클로저를 만들어 등록
-      // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록
-      kakao.maps.event.addListener(
-        marker,
-        "click",
-        makeOverListener(map, marker, infowindow)
-      );
-
-      markers.push(marker);
-    }
+  // 현재 위치 체크 여부를 확인하는 함수
+  const setFlag = () => {
+    const newValue = isCurrent === 0 ? 1 : 0;
+    setIsCurrent(newValue);
   };
 
-  // 인포윈도우를 표시하는 클로저를 만드는 함수
-  const makeOverListener = (map, marker, infowindow) => {
-    return function () {
-      infowindow.open(map, marker);
-    };
-  };
-
+  // 지도에 병원 보여주는 함수
   const showHP = () => {
-    // console.log("병원보여줌");
-
     var currentHPs = [];
 
     delPin();
@@ -224,15 +235,10 @@ function MapView() {
     }
     // 2. 만약에 isCurrent == 0이면 positionsHP를 보여줌
     else addPin(positionsHP);
-
-    // console.log("병원.length = " + positionsHP.length);
-    // console.log("병원[0].latlng = ", positionsHP[0].latlng);
-    // console.log("병원[0].content = ", positionsHP[0].content);
   };
 
+  // 지도에 약국 보여주는 함수
   const showPM = () => {
-    // console.log("약국보여줌");
-
     var currentPMs = [];
 
     delPin();
@@ -251,17 +257,6 @@ function MapView() {
         addPin(currentPMs);
       }
     } else addPin(positionsPM);
-
-    // console.log("약국.length = " + positionsPM.length);
-    // console.log("약국[0].latlng = ", positionsPM[0].latlng);
-    // console.log("약국[0].content = ", positionsPM[0].content);
-  };
-
-  const setFlag = () => {
-    //console.log("setFlag 확인");
-    const newValue = isCurrent === 0 ? 1 : 0;
-    setIsCurrent(newValue);
-    // 여기 바로 콘솔 찍으면 반영 안됨;;;
   };
 
   return (
