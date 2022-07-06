@@ -13,6 +13,29 @@ const SidebarIllness = ({ width = 280 }) => {
     (e) => {
       setVisible(e.target.value);
       console.log(visible);
+      let illnessName = document.getElementById("illnessName");
+      let tableName = document.getElementById("menu");
+      let condition = document.getElementById("menu2");
+      fetch("AllillnessData/searchData", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          Param01: illnessName.value,
+          Param02: tableName.value,
+          Param03: "2017/01/01",
+          Param04: "2021/01/01",
+          Param05: condition.value,
+        }),
+      })
+        .then((searchParam) => searchParam.json())
+        .then((searchParam) => {
+          console.log(searchParam);
+        })
+        .catch((ex) => {
+          alert("네트웍 문제로 인하여 처리할 수 없습니다");
+        });
     },
     [visible]
   );
@@ -38,24 +61,31 @@ const SidebarIllness = ({ width = 280 }) => {
         className={styles.sidebar}
         style={{ width: `${width}px`, height: "100%" }}
       >
-        <input
-          className={styles.inputIllnessName}
-          ref={inputEl}
-          value={illnessName}
-          name="illnessName"
-          placeholder="질병명을 입력하세요"
-          onChange={inputIllnessName}
-          onKeyPress={pressEnter}
-          style={{ height: "30px" }}
-        />
-        <button onClick={searchIllnessName}>확인</button>
-        <p>흡연(니코틴 중독)</p>
-        <p>거북목</p>
-        <p>관절염</p>
-        <p>오십견</p>
-        <p>당뇨</p>
+        <div id="질병명">
+          <input
+            className={styles.inputIllnessName}
+            ref={inputEl}
+            value={illnessName}
+            name="illnessName"
+            placeholder="질병명을 입력하세요"
+            onChange={inputIllnessName}
+            onKeyPress={pressEnter}
+            style={{ height: "30px" }}
+          />
+          <button onClick={searchIllnessName}>확인</button>
+          <input type={"radio"} name="illness" id="illnessName" value="흡연" />
+          흡연(니코틴 중독)
+          <input type={"radio"} name="illness" />
+          거북목
+          <input type={"radio"} name="illness" />
+          관절염
+          <input type={"radio"} name="illness" />
+          오십견
+          <input type={"radio"} name="illness" />
+          당뇨
+        </div>
         <div className="illnessPageHeader">
-          <div className="searchConditionHeader">
+          <div className="searchConditionHeader" id="menu">
             <fieldset>
               <legend>메뉴</legend>
               <input
@@ -68,7 +98,7 @@ const SidebarIllness = ({ width = 280 }) => {
               <input
                 type={"radio"}
                 name="menu"
-                value="nursingHomeGroup"
+                value="TB_ALLILLNESS_NURSINGHOME_GROUP"
                 onClick={handleMenuSelect}
               />
               요양기관그룹별
@@ -90,6 +120,7 @@ const SidebarIllness = ({ width = 280 }) => {
               <br />
               <input
                 type={"radio"}
+                id="menu"
                 name="menu"
                 value="genderFiveAge"
                 onClick={handleMenuSelect}
@@ -137,15 +168,15 @@ const SidebarIllness = ({ width = 280 }) => {
           </div>
           <div>
             항목
-            <input type={"checkbox"} value="환자수" />
+            <input id="menu2" type={"checkbox"} value="환자수" />
             환자수
-            <input type={"checkbox"} value="내원일수" />
+            <input id="menu2" type={"checkbox"} value="내원일수" />
             내원일수
-            <input type={"checkbox"} value="청구건수" />
+            <input id="menu2" type={"checkbox"} value="청구건수" />
             청구건수
-            <input type={"checkbox"} value="요양급여비용총액" />
+            <input id="menu2" type={"checkbox"} value="요양급여비용총액" />
             요양급여비용총액
-            <input type={"checkbox"} value="보험자부담금" />
+            <input id="menu2" type={"checkbox"} value="보험자부담금" />
             보험자부담금
           </div>
           {visible.includes("gender") && (
@@ -190,13 +221,13 @@ const SidebarIllness = ({ width = 280 }) => {
               보건기관등
             </div>
           )}
-
           {visible.includes("Location") && (
             <div>
               지역
               <input type={"checkbox"} />
             </div>
           )}
+          {/* <button onClick={confirmCondition}>검색</button> */}
         </div>
       </div>
     </div>
