@@ -1,18 +1,19 @@
 import React, { useReducer, useState } from "react";
-//import {
-//  Chart as ChartJS,
-//  CategoryScale,
-//  LinearScale,
-//  BarElement,
-//  Title,
-//  Tooltip,
-//  Legend,
-//} from 'chart.js';
-//import { Bar } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
 
 const ACTION_TYPE = {
   ALL_LIST: 1,
-  //CHART_DATA_LOADED : 2
+  CHART_DATA_LOADED : 2
 };
 Object.freeze(ACTION_TYPE);
 
@@ -24,43 +25,44 @@ const dataReducer = (state, action) => {
         dataList: action.dataList,
         loading: action.loading,
       };
-    //case ACTION_TYPE.CHART_DATA_LOADED:
-    //console.log(action)
-    //return {
-    //  ...state,
-    //  chartLabels: action.chartLabels,
-    //  chartData: action.chartData,
-    //  chartLoading: true
-    //};
+    case ACTION_TYPE.CHART_DATA_LOADED:
+    console.log(action)
+    return {
+      ...state,
+      chartLabels: action.chartLabels,
+      chartData: action.chartData,
+      chartLoading: true
+    };
     default:
       return state;
   }
 };
 
-//ChartJS.register(
-//  CategoryScale,
-//  LinearScale,
-//  BarElement,
-//  Title,
-//  Tooltip,
-//  Legend
-//);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-//export const options = {
-//  indexAxis: 'y',
-//  elements: {
-//    bar: {
-//      borderWidth: 2,
-//    },
-//  },
-//  responsive: true,
-//  plugins: {
-//    title: {
-//      display: true,
-//      text: '서울 2017년 1월 자료',
-//    },
-//  },
-//};
+export const options = {
+  indexAxis: 'y',
+  elements: {
+    line: {
+      borderWidth: 2,
+    },
+  },
+  responsive: true,
+  plugins: {
+    title: {
+      display: true,
+      text: '보험자부담금 총계',
+    },
+  },
+};
 
 const NursingHomeLocationDataTable= () => {
   const [state, dispatch] = useReducer(
@@ -68,33 +70,45 @@ const NursingHomeLocationDataTable= () => {
     {
       dataList: [],
       loading: false,
-      //chartLoading: false,
-      //chartLabels: [],
-      //chartData: []
+      chartLoading: false,
+      chartLabels: [],
+      chartData: []
     },
     initData
   );
-  const [illnessName, setIllnessName] = useState("");
-  const handleIllnessName = (e) => {
-    setIllnessName(e.target.value);
-    console.log(illnessName);
-  };
 
-  // const handleClick=()=>{
 
-  // }
 
-  //const data = {
-  //  labels: !state.chartLoading ? [] : state.chartLabels,
-  //  datasets: [
-  //    {
-  //      label: 'Dataset 2',
-  //      data: !state.chartLoading ? [] : state.chartData,
-  //      borderColor: 'rgb(53, 162, 235)',
-  //      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-  //    },
-  //  ],
-  //};
+  const data = {
+    labels: !state.chartLoading ? [] : state.chartLabels,
+    datasets: [
+      {
+        label: '보험자부담금',
+        data: !state.chartLoading ? [] : state.chartData,
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      },
+    ],
+    };
+    //const data = {
+    //    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    //    datasets: [
+    //        {
+    //            label: "First dataset",
+    //            data: [33, 53, 85, 41, 44, 65],
+    //            fill: true,
+    //            backgroundColor: "rgba(75,192,192,0.2)",
+    //            borderColor: "rgba(75,192,192,1)"
+    //        },
+    //        {
+    //            label: "Second dataset",
+    //            data: [33, 25, 35, 51, 54, 76],
+    //            fill: false,
+    //            borderColor: "#742774"
+    //        }
+    //    ]
+    //};
+
 
     const renderNursingHomeLocationDataTable = (dataList) => {
     return (
@@ -125,8 +139,7 @@ const NursingHomeLocationDataTable= () => {
         </thead>
         <tbody>
           {dataList.map((data) => (
-            /*<tr key={data.진료년월}>*/
-            <tr>
+            <tr key={data.id}>            
               <td>{data.진료년월}</td>
               <td>{data.state}</td>
               <td>{data.계}</td>
@@ -155,7 +168,7 @@ const NursingHomeLocationDataTable= () => {
   };
 
   async function initData() {
-    /*await loadChartData();*/
+    await loadChartData();
 
       const response = await fetch("NursingHomeLocationData/AllList");
     dispatch({
@@ -165,18 +178,18 @@ const NursingHomeLocationDataTable= () => {
     });
   }
 
-  /*async function loadChartData() {*/
-  //fetch('data/loadChartDataXXX')
-  //  .then(response => response.json())
-  //  .then(data => {
-  //    dispatch({
-  //      type: ACTION_TYPE.,
-  //      chartLabels: data.chartLabels,
-  //      chartData: data.chartData,
-  //      chart_loading: true
-  //    });
-  //  })
-  /*}*/
+  async function loadChartData() {
+      fetch('NursingHomeLocationData/loadChartData')
+    .then(response => response.json())
+    .then(data => {
+      dispatch({
+          type: ACTION_TYPE.CHART_DATA_LOADED,
+        chartLabels: data.chartLabels,
+        chartData: data.chartData,
+        chart_loading: true
+      });
+    })
+  }
 
   let contents = !state.loading ? (
     <p>
@@ -188,13 +201,10 @@ const NursingHomeLocationDataTable= () => {
 
   return (
     <div>
-      <div>{/*<Bar options={options} data={data} />*/}</div>
+      <div><Line options={options} data={data} /></div>
       <input
-        placeholder="질병명"
-        value={illnessName}
-        onChange={handleIllnessName}
+        placeholder="질병명"      
       />
-      {/* <button onClick={handleClick}>확인</button> */}
       <div>
         <h1 id="tabelLabel">Data</h1>
         {contents}

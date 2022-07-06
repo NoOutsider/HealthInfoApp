@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HealthInfoApp.Models;
+using Microsoft.Extensions.Configuration;
 
 
 namespace HealthInfoApp.Controllers
@@ -19,5 +20,5 @@ namespace HealthInfoApp.Controllers
             MaleOutpatientRepository maleOutpatientRepository = new MaleOutpatientRepository();
             return maleOutpatientRepository.allMaleOutpatientDataList();
         }
-    }  
+   }  
 }

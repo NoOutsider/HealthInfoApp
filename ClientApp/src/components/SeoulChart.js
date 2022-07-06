@@ -1,4 +1,4 @@
-import React, { Component, useReducer } from 'react';
+import React, { useReducer } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -7,15 +7,14 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
 
 const ACTION_TYPE = {
   ALL_LIST: 1,
-  CHART_DATA_LOADED: 2
+  CHART_DATA_LOADED: 2,
 };
 Object.freeze(ACTION_TYPE);
-
 
 const dataReducer = (state, action) => {
   switch (action.type) {
@@ -26,17 +25,17 @@ const dataReducer = (state, action) => {
         loading: action.loading,
       };
     case ACTION_TYPE.CHART_DATA_LOADED:
-      console.log(action)
+      console.log(action);
       return {
         ...state,
         chartLabels: action.chartLabels,
         chartData: action.chartData,
-        chartLoading: true
+        chartLoading: true,
       };
     default:
       return state;
   }
-}
+};
 
 ChartJS.register(
   CategoryScale,
@@ -48,7 +47,7 @@ ChartJS.register(
 );
 
 export const options = {
-  indexAxis: 'y',
+  indexAxis: "y",
   elements: {
     bar: {
       borderWidth: 2,
@@ -58,36 +57,39 @@ export const options = {
   plugins: {
     title: {
       display: true,
-      text: '서울 2017년 1월 자료',
+      text: "서울 2017년 1월 자료",
     },
   },
 };
 
-
-const SeoulChart = () => {
-    const [state, dispatch] = useReducer(dataReducer, {
+const ADHDTableData = () => {
+  const [state, dispatch] = useReducer(
+    dataReducer,
+    {
       dataList: [],
       loading: false,
       chartLoading: false,
       chartLabels: [],
-      chartData : []
-    }, initData);
+      chartData: [],
+    },
+    initData
+  );
 
   const data = {
     labels: !state.chartLoading ? [] : state.chartLabels,
     datasets: [
       {
-        label: 'Dataset 2',
+        label: "Dataset 2",
         data: !state.chartLoading ? [] : state.chartData,
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
     ],
   };
 
   const renderForecastsTable = (dataList) => {
     return (
-      <table className='table table-striped' aria-labelledby="tabelLabel">
+      <table className="table table-striped" aria-labelledby="tabelLabel">
         <thead>
           <tr>
             <th>날짜</th>
@@ -112,7 +114,7 @@ const SeoulChart = () => {
           </tr>
         </thead>
         <tbody>
-          {dataList.map(data =>
+          {dataList.map((data) => (
             <tr key={data.col01}>
               <td>{data.col02}</td>
               <td>{data.col03}</td>
@@ -133,7 +135,7 @@ const SeoulChart = () => {
               <td>{data.col18}</td>
               <td>{data.col19}</td>
             </tr>
-          )}
+          ))}
         </tbody>
       </table>
     );
@@ -142,45 +144,46 @@ const SeoulChart = () => {
   async function initData() {
     await loadChartData();
 
-      //const response = await fetch('data/AllList');
-      //  dispatch({
-      //      type: ACTION_TYPE.ALL_LIST,
-      //      dataList: await response.json(),
-      //      loading: true
-      //  });
-
+    //const response = await fetch('data/AllList');
+    //  dispatch({
+    //      type: ACTION_TYPE.ALL_LIST,
+    //      dataList: await response.json(),
+    //      loading: true
+    //  });
   }
 
   async function loadChartData() {
-    fetch('data/loadChartDataXXX')
-      .then(response => response.json())
-      .then(data => {
+    fetch("data/loadChartDataXXX")
+      .then((response) => response.json())
+      .then((data) => {
         dispatch({
           type: ACTION_TYPE.CHART_DATA_LOADED,
           chartLabels: data.chartLabels,
           chartData: data.chartData,
-          chart_loading: true
+          chart_loading: true,
         });
-      })
+      });
   }
 
+  let contents = !state.loading ? (
+    <p>
+      <em>Loading...</em>
+    </p>
+  ) : (
+    renderForecastsTable(state.dataList)
+  );
 
-  let contents = !state.loading
-    ? <p><em>Loading...</em></p>
-    : renderForecastsTable(state.dataList);
-
-    return (
-        <div>
-            <div>
-                <Bar options={options} data={data} />
-            </div>
-            <div>
-                <h1 id="tabelLabel">Data</h1>
-                {contents}
-            </div>
-        </div>
-    );
+  return (
+    <div>
+      <div>
+        <Bar options={options} data={data} />
+      </div>
+      <div>
+        <h1 id="tabelLabel">Data</h1>
+        {contents}
+      </div>
+    </div>
+  );
 };
 
-export default SeoulChart;
-
+export default ADHDTableData;

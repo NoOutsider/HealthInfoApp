@@ -28,6 +28,7 @@ namespace HealthInfoApp
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,8 +65,8 @@ namespace HealthInfoApp
                 }
             });
 
-            OracleConfiguration.TnsAdmin = @"C:\Oracle_Infinitt\Wallet_orcl";
-            OracleConfiguration.WalletLocation = OracleConfiguration.TnsAdmin;
+            //OracleConfiguration.TnsAdmin = @"C:\Oracle_Infinitt\Wallet_orcl";
+            //OracleConfiguration.WalletLocation = OracleConfiguration.TnsAdmin;
         }
     }
 }

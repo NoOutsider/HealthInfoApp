@@ -34,14 +34,15 @@ namespace HealthInfoApp.Models
             {
                 NursingHomeGroup nursingHomegroup = new NursingHomeGroup();
 
-                nursingHomegroup.진료년월 = dataReader.GetString(0);
-                nursingHomegroup.state = dataReader.GetString(1);
-                nursingHomegroup.계 = dataReader.GetInt32(2);
-                nursingHomegroup.상급종합병원 = dataReader.GetInt32(3);
-                nursingHomegroup.종합병원 = dataReader.GetInt32(4);
-                nursingHomegroup.병원급 = dataReader.GetInt32(5);
-                nursingHomegroup.의원급 = dataReader.GetInt32(6);
-                nursingHomegroup.보건기관등 = dataReader.GetInt32(7);
+                nursingHomegroup.id = dataReader.GetInt32(0);
+                nursingHomegroup.진료년월 = dataReader.GetString(1);
+                nursingHomegroup.state = dataReader.GetString(2);
+                nursingHomegroup.계 = dataReader.GetInt32(3);
+                nursingHomegroup.상급종합병원 = dataReader.GetInt32(4);
+                nursingHomegroup.종합병원 = dataReader.GetInt32(5);
+                nursingHomegroup.병원급 = dataReader.GetInt32(6);
+                nursingHomegroup.의원급 = dataReader.GetInt32(7);
+                nursingHomegroup.보건기관등 = dataReader.GetInt32(8);
 
                 nursingHomeGroup.Add(nursingHomegroup);
             }
