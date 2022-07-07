@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css';
 import { Link } from 'react-router-dom';
+import { auth } from '../firebase';
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -8,10 +9,18 @@ function Login() {
 
   const signIn = e => {
     e.preventDefault();
+    console.log("signIn");
   }
 
   const register = e => {
     e.preventDefault();
+
+    auth.createUserWithEmailAndPassword(email, password)
+      .then((auth) => {
+        console.log(auth);
+      })
+      .catch((err) => { alert(err); });
+
   }
 
 
@@ -37,7 +46,7 @@ function Login() {
 
         <p> 이용 약관 동의하십니까? </p>
 
-        <button Onclick={register} className="login_registerButton"> 회원가입 </button>
+        <button onClick={register} className="login_registerButton"> 회원가입 </button>
 
 
       </div>
