@@ -12,8 +12,7 @@ namespace HealthInfoApp.models
 
         public DataRepository()
         {
-            conn = new OracleConnection("User Id = admin;Password = 1q2w3e4r5tAAA;Data Source = orcl_medium");
-            //conn = new OracleConnection("User Id = user1;Password = passwd!@;Data Source = xe_db");
+            conn = new OracleConnection("User Id=user1;Password=passwd;Data Source=xe;");
             conn.Open();
         }
 
@@ -88,7 +87,7 @@ namespace HealthInfoApp.models
             cmd.CommandType = System.Data.CommandType.Text;
 
             //[3] SQL 생성 및 실행 
-            cmd.CommandText = $"select \"state\", 서울 from TB_HEPATITISA_SANATORIUM_LOCATION where to_char(날짜, 'YYYY-MM-DD') = '2017-07-01'";
+            cmd.CommandText = $"select \"state\", 서울 from A010101 where to_char(날짜, 'YYYY-MM-DD') = '2017-07-01'";
             OracleDataReader dataReader = cmd.ExecuteReader();
 
             List<Object> chartLabels = new List<Object>();

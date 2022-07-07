@@ -153,7 +153,7 @@ const ADHDTableData = () => {
   }
 
   async function loadChartData() {
-    fetch("data/loadChartDataXXX")
+      fetch("AllillnessData/loadChartDataXXA")
       .then((response) => response.json())
       .then((data) => {
         dispatch({

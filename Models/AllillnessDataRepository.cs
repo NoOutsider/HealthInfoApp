@@ -12,7 +12,7 @@ namespace HealthInfoApp.Models
 
         public AllillnessDataRepository()
         {
-            conn = new OracleConnection("User Id=user1;Password=passwd!@;Data Source=xe_db;");
+            conn = new OracleConnection("User Id=user1;Password=passwd;Data Source=xe;");
             conn.Open();
         }
 
@@ -21,7 +21,7 @@ namespace HealthInfoApp.Models
             conn.Close();
         }
 
-        public Dictionary<string, List<Object>> NursingHomeLocationChartData()
+        public Dictionary<string, List<Object>> ChartDataXXX()
         {
             Dictionary<string, List<Object>> result = new Dictionary<string, List<Object>>();
 
@@ -33,7 +33,7 @@ namespace HealthInfoApp.Models
             cmd.CommandType = System.Data.CommandType.Text;
 
             //[3] SQL 생성 및 실행 
-            cmd.CommandText = $"select 진료년월, 계 from TB_NIKOTIN_NURSINGHOME_LOCATION where \"STATE\"='보험자부담금' order by 진료년월 ";
+            cmd.CommandText = $"select \"STATE\", 서울 from tb_allillness_nursinghome_location where to_char(진료년월, 'YYYY-MM-DD') = '2017-07-01'";
             OracleDataReader dataReader = cmd.ExecuteReader();
 
             List<Object> chartLabels = new List<Object>();
@@ -42,8 +42,8 @@ namespace HealthInfoApp.Models
             //[4] 자료를 읽어 객체와 해서 목록 객체에 추가한다 
             while (dataReader.Read())
             {
-                //[5] TodoItem 객체를 생성한다                
-                //NursingHomeLocation nursingHomeLocation = new NursingHomeLocation(); 왜 필요?
+                //[5] TodoItem 객체를 생성한다
+                AllillnessData todoItem = new AllillnessData();
 
                 //[6] TodoItem 객체의 속성에 값을 설정한다 
                 chartLabels.Add(dataReader.GetString(0));

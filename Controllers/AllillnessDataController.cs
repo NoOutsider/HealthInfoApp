@@ -17,5 +17,15 @@ namespace HealthInfoApp.Controllers
         {
             return new JsonResult(searchParam);
         }
+
+        [HttpGet]
+        [Route("loadChartDataXXA")]
+        public JsonResult loadChartDataXXX()
+        {
+            AllillnessDataRepository dataRepository = new AllillnessDataRepository();
+
+            return new JsonResult(dataRepository.ChartDataXXX());
+        }
+
     }
 }
