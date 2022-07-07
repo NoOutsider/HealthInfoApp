@@ -9,7 +9,7 @@ namespace HealthInfoApp.Models
     {  
         public string visible { get; set; }
         public string illnessName{get;set;}
-        public string menuName   {get;set;}
+        public string menuName   {get;set;} = "STATE";
         public string startDate  {get;set;}
         public string endDate    {get;set;}
         public string item       {get;set;}

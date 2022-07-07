@@ -8,7 +8,7 @@ const SidebarIllness = ({ width = 280 }) => {
   const [form, setForm] = useState({
     visible: "",
     illnessName: "흡연",
-    menuName: "nursingLocation",
+    menuName: "STATE",
     startDate: "2017-01-01",
     endDate: "2021-10-01",
     item: "환자수",
