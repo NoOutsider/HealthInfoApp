@@ -9,11 +9,11 @@ namespace HealthInfoApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AllillnessDataController : Controller
+    public class AllillnessDataController : ControllerBase
     {
         [HttpPost]
-        [Route("searchData")]
-        public JsonResult Get([FromBody] AllillnessDataParam searchParam)
+        [Route("Get")]
+        public JsonResult Get([FromBody] AllillnessData searchParam)
         {
             return new JsonResult(searchParam);
         }

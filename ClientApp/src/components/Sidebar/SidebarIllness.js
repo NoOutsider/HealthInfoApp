@@ -1,59 +1,71 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useReducer } from "react";
 import styles from "./Sidebar.module.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 
 const SidebarIllness = ({ width = 280 }) => {
-  const [illnessName, setIllnessName] = useState("");
-  const [visible, setVisible] = useState("");
-  const [startDate, setStartDate] = useState(new Date("2017/01/01"));
-  const [endDate, setEndDate] = useState(new Date("2021/10/01"));
-  const handleMenuSelect = useCallback(
+  const [form, setForm] = useState({
+    visible: "",
+    illnessName: "흡연",
+    menuName: "nursingLocation",
+    startDate: "2017-01-01",
+    endDate: "2021-10-01",
+    item: "환자수",
+    gender: "",
+    age: "",
+    ioPatient: "",
+    nursingHome: "",
+  });
+
+  const onSelect = useCallback(
     (e) => {
-      setVisible(e.target.value);
-      console.log(visible);
-      let illnessName = document.getElementById("illnessName");
-      let tableName = document.getElementById("menu");
-      let condition = document.getElementById("menu2");
-      fetch("AllillnessData/searchData", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          Param01: illnessName.value,
-          Param02: tableName.value,
-          Param03: "2017/01/01",
-          Param04: "2021/01/01",
-          Param05: condition.value,
-        }),
-      })
-        .then((searchParam) => searchParam.json())
-        .then((searchParam) => {
-          console.log(searchParam);
-        })
-        .catch((ex) => {
-          alert("네트웍 문제로 인하여 처리할 수 없습니다");
-        });
+      getServerDataLoad(e.target.name, e.target.value);
     },
-    [visible]
+    [form]
   );
-  const inputEl = useRef(null);
-  const inputIllnessName = (e) => {
-    setIllnessName(e.target.value);
-    console.log(illnessName);
+
+  const getServerDataLoad = (name, value) => {
+    const newForm = {
+      ...form,
+      [name]: value,
+    };
+    setForm(newForm);
+
+    fetch("AllillnessData/Get", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        visible: newForm.visible,
+        illnessName: newForm.illnessName,
+        menuName: newForm.menuName,
+        startDate: newForm.startDate,
+        endDate: newForm.endDate,
+        item: newForm.item,
+        gender: newForm.gender,
+        age: newForm.age,
+        ioPatient: newForm.ioPatient,
+        nursingHome: newForm.nursingHome,
+      }),
+    })
+      .then((searchParam) => searchParam.json())
+      .then((searchParam) => {
+        console.log("searchParam-> ", searchParam);
+      })
+      .catch((ex) => {
+        alert("네트웍 문제로 인하여 처리할 수 없습니다");
+      });
   };
-  const searchIllnessName = () => {
-    alert(illnessName);
-    setIllnessName("");
-    inputEl.current.focus();
-  };
-  const pressEnter = (e) => {
-    if (e.key === "Enter") {
-      searchIllnessName();
-    }
-  };
+
+  // const onStartDateChange = (date) => {
+  //   getServerDataLoad("startDate", date.toString());
+  // };
+
+  // const onEndDateChange = (date) => {
+  //   getServerDataLoad("endDate", date.toString());
+  // };
 
   return (
     <div className={styles.container}>
@@ -63,25 +75,39 @@ const SidebarIllness = ({ width = 280 }) => {
       >
         <div id="질병명">
           <input
-            className={styles.inputIllnessName}
-            ref={inputEl}
-            value={illnessName}
+            type={"radio"}
             name="illnessName"
-            placeholder="질병명을 입력하세요"
-            onChange={inputIllnessName}
-            onKeyPress={pressEnter}
-            style={{ height: "30px" }}
+            value="흡연"
+            onClick={onSelect}
           />
-          <button onClick={searchIllnessName}>확인</button>
-          <input type={"radio"} name="illness" id="illnessName" value="흡연" />
           흡연(니코틴 중독)
-          <input type={"radio"} name="illness" />
+          <input
+            type={"radio"}
+            name="illnessName"
+            value="거북목"
+            onClick={onSelect}
+          />
           거북목
-          <input type={"radio"} name="illness" />
+          <input
+            type={"radio"}
+            name="illnessName"
+            value="관절염"
+            onClick={onSelect}
+          />
           관절염
-          <input type={"radio"} name="illness" />
+          <input
+            type={"radio"}
+            name="illnessName"
+            value="오십견"
+            onClick={onSelect}
+          />
           오십견
-          <input type={"radio"} name="illness" />
+          <input
+            type={"radio"}
+            name="illnessName"
+            value="당뇨"
+            onClick={onSelect}
+          />
           당뇨
         </div>
         <div className="illnessPageHeader">
@@ -89,43 +115,33 @@ const SidebarIllness = ({ width = 280 }) => {
             <fieldset>
               <legend>메뉴</legend>
               <input
-                type={"radio"}
-                name="menu"
-                value="nursingHomeLocation"
-                onClick={handleMenuSelect}
+                id="menu"
+                type="radio"
+                name="menuName"
+                value="nursingLocation"
+                onClick={onSelect}
               />
               요양기관소재지별
               <input
-                type={"radio"}
-                name="menu"
-                value="TB_ALLILLNESS_NURSINGHOME_GROUP"
-                onClick={handleMenuSelect}
+                type="radio"
+                name="menuName"
+                value="nursingGroup"
+                onClick={onSelect}
               />
               요양기관그룹별
               <br />
-              <input
-                type={"radio"}
-                name="menu"
-                value="genderOutPatient"
-                onClick={handleMenuSelect}
-              />
+              <input type="radio" name="menuName" value="genderOutPatient" />
               성별입원외래별
-              <input
-                type={"radio"}
-                name="menu"
-                value="genderTenAge"
-                onClick={handleMenuSelect}
-              />
+              <input type="radio" name="menuName" value="genderTenAge" />
               성별연령10세구간 combobox..
               <br />
               <input
-                type={"radio"}
+                type="radio"
                 id="menu"
-                name="menu"
+                name="menuName"
                 value="genderFiveAge"
-                onClick={handleMenuSelect}
               />
-              성별연령5세구
+              성별연령5세구간
             </fieldset>
           </div>
         </div>
@@ -138,15 +154,18 @@ const SidebarIllness = ({ width = 280 }) => {
           placeholder="입력 예시) 2022년 7월 26일 -> 22/07/26"
         /> */}
             <DatePicker
-              selected={startDate}
-              onChange={(date: Date) => setStartDate(date)}
+              id="startDate"
+              name="startDate"
+              value="startDate"
+              selected={form.startDate}
+              // onChange={(date: Date) => onStartDateChange(date)}
               selectsStart
               locale={ko}
               dateFormat="yyyy년 MM월 dd일"
               isClearable
               placeholderText="날짜를 선택해주세요"
               mindate={new Date("2017/01/01")}
-              startDate={startDate}
+              startDate={form.startDate}
               endDate={new Date()}
             />
             -
@@ -155,79 +174,156 @@ const SidebarIllness = ({ width = 280 }) => {
           placeholder="입력 예시) 2022년 7월 26일 -> 22/07/26"
         /> */}
             <DatePicker
-              selected={endDate}
-              onChange={(date: Date) => setEndDate(date)}
+              id="endDate"
+              name="endDate"
+              value="endDate"
+              selected={form.endDate}
+              // onChange={(date: Date) => onEndDateChange(date)}
               selectsEnd
               locale={ko}
               dateFormat="yyyy년 MM월 dd일"
               isClearable
               placeholderText="날짜를 선택해주세요"
-              startDate={new Date(startDate)}
-              endDate={endDate}
+              // startDate={new Date(startDate)}
+              endDate={form.endDate}
             />
           </div>
           <div>
             항목
-            <input id="menu2" type={"checkbox"} value="환자수" />
+            <input
+              type={"checkbox"}
+              name="item"
+              value="환자수"
+              onClick={onSelect}
+            />
             환자수
-            <input id="menu2" type={"checkbox"} value="내원일수" />
+            <input
+              type={"checkbox"}
+              name="item"
+              value="내원일수"
+              onClick={onSelect}
+            />
             내원일수
-            <input id="menu2" type={"checkbox"} value="청구건수" />
+            <input
+              type={"checkbox"}
+              name="item"
+              value="청구건수"
+              onClick={onSelect}
+            />
             청구건수
-            <input id="menu2" type={"checkbox"} value="요양급여비용총액" />
+            <input
+              type={"checkbox"}
+              name="item"
+              value="요양급여비용총액"
+              onClick={onSelect}
+            />
             요양급여비용총액
-            <input id="menu2" type={"checkbox"} value="보험자부담금" />
+            <input
+              type={"checkbox"}
+              name="item"
+              value="보험자부담금"
+              onClick={onSelect}
+            />
             보험자부담금
           </div>
-          {visible.includes("gender") && (
-            <div>
-              성별
-              <input type={"checkbox"} value="female" />
-              여성
-              <input type={"checkbox"} value="male" />
-              남성
-            </div>
-          )}
-          {visible.includes("Age") && (
-            <div>
-              연령대
-              <input type={"checkbox"} value="tenAge" />
-              10세 콤보박스..
-              <input type={"checkbox"} value="fiveAge" />
-              5세 콤보박스..
-            </div>
-          )}
-          {visible.includes("OutPatient") && (
-            <div>
-              입원외래별
-              <input type={"checkbox"} value="입원" />
-              입원
-              <input type={"checkbox"} value="외래" />
-              외래
-            </div>
-          )}
-          {visible.includes("Group") && (
-            <div>
-              요양기관
-              <input type={"checkbox"} value="상급종합병원" />
-              상급종합병원
-              <input type={"checkbox"} value="종합병원" />
-              종합병원
-              <input type={"checkbox"} value="병원급" />
-              병원급
-              <input type={"checkbox"} value="의원급" />
-              의원급
-              <input type={"checkbox"} value="보건기관등" />
-              보건기관등
-            </div>
-          )}
-          {visible.includes("Location") && (
-            <div>
-              지역
-              <input type={"checkbox"} />
-            </div>
-          )}
-          {/* <button onClick={confirmCondition}>검색</button> */}
+
+          <div>
+            성별
+            <input
+              type={"checkbox"}
+              name="gender"
+              value="female"
+              onClick={onSelect}
+            />
+            여성
+            <input
+              type={"checkbox"}
+              name="gender"
+              value="male"
+              onClick={onSelect}
+            />
+            남성
+          </div>
+
+          <div>
+            연령대
+            <input
+              type={"checkbox"}
+              name="age"
+              value="tenAge"
+              onClick={onSelect}
+            />
+            10세 콤보박스..
+            <input
+              type={"checkbox"}
+              name="age"
+              value="fiveAge"
+              onClick={onSelect}
+            />
+            5세 콤보박스..
+          </div>
+
+          <div>
+            입원외래별
+            <input
+              type={"checkbox"}
+              name="ioPatient"
+              value="입원"
+              onClick={onSelect}
+            />
+            입원
+            <input
+              type={"checkbox"}
+              name="ioPatient"
+              value="외래"
+              onClick={onSelect}
+            />
+            외래
+          </div>
+
+          <div>
+            요양기관
+            <input
+              type={"checkbox"}
+              name="nursingHome"
+              value="상급종합병원"
+              onClick={onSelect}
+            />
+            상급종합병원
+            <input
+              type={"checkbox"}
+              name="nursingHome"
+              value="종합병원"
+              onClick={onSelect}
+            />
+            종합병원
+            <input
+              type={"checkbox"}
+              name="nursingHome"
+              value="병원급"
+              onClick={onSelect}
+            />
+            병원급
+            <input
+              type={"checkbox"}
+              name="nursingHome"
+              value="의원급"
+              onClick={onSelect}
+            />
+            의원급
+            <input
+              type={"checkbox"}
+              name="nursingHome"
+              value="보건기관등"
+              onClick={onSelect}
+            />
+            보건기관등
+          </div>
+
+          <div>
+            지역
+            <input type={"checkbox"} name="location" />
+          </div>
         </div>
       </div>
     </div>
