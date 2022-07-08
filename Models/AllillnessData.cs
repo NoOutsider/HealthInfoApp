@@ -17,5 +17,6 @@ namespace HealthInfoApp.Models
         public string age        {get;set;}
         public string ioPatient  {get;set;}
         public string nursingHome { get; set; }
+        public string location { get; set; } = "서울";
     }
 }

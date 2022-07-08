@@ -16,6 +16,7 @@ const SidebarIllness = ({ width = 280 }) => {
     age: "",
     ioPatient: "",
     nursingHome: "",
+    locatino: "서울",
   });
 
   const onSelect = useCallback(
@@ -52,6 +53,7 @@ const SidebarIllness = ({ width = 280 }) => {
           age: newForm.age,
           ioPatient: newForm.ioPatient,
           nursingHome: newForm.nursingHome,
+          location: newForm.location,
         }),
       })
         .then((searchParam) => searchParam.json())
@@ -123,14 +125,14 @@ const SidebarIllness = ({ width = 280 }) => {
                   id="menu"
                   type="radio"
                   name="menuName"
-                  value="nursingLocation"
+                  value="tb_allillness_nursinghome_location"
                   onClick={onSelect}
                 />
                 요양기관소재지별
                 <input
                   type="radio"
                   name="menuName"
-                  value="nursingGroup"
+                  value="tb_allillness_nursinghome_group"
                   onClick={onSelect}
                 />
                 요양기관그룹별
@@ -138,14 +140,14 @@ const SidebarIllness = ({ width = 280 }) => {
                 <input
                   type="radio"
                   name="menuName"
-                  value="genderOutPatient"
+                  value="tb_allillness_gender_outpatient"
                   onClick={onSelect}
                 />
                 성별입원외래별
                 <input
                   type="radio"
                   name="menuName"
-                  value="genderTenAge"
+                  value="tb_allillness_gender_ten_years"
                   onClick={onSelect}
                 />
                 성별연령10세구간 combobox..
@@ -154,7 +156,7 @@ const SidebarIllness = ({ width = 280 }) => {
                   type="radio"
                   id="menu"
                   name="menuName"
-                  value="genderFiveAge"
+                  value="tb_allillness_gender_five_years"
                 />
                 성별연령5세구간
               </fieldset>
@@ -164,15 +166,9 @@ const SidebarIllness = ({ width = 280 }) => {
           <div className="searchConditionDetailHeader">
             <div>
               기간
-              {/* <input
-          style={{ width: "250px" }}
-          placeholder="입력 예시) 2022년 7월 26일 -> 22/07/26"
-        /> */}
+              {/* <DatePicker
+ startDate={form.startDate} */}
               -
-              {/* <input
-          style={{ width: "250px" }}
-          placeholder="입력 예시) 2022년 7월 26일 -> 22/07/26"
-        /> */}
             </div>
             <div>
               항목

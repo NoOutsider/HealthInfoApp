@@ -33,8 +33,24 @@ namespace HealthInfoApp.Models
             cmd.Connection = conn;
             cmd.CommandType = System.Data.CommandType.Text;
 
-            //[3] SQL 생성 및 실행 
-            cmd.CommandText = $"select \"STATE\", 서울 from {illness.menuName} where to_char(진료년월, 'YYYY-MM-DD') = '{illness.startDate}' and 질병명 = '{illness.illnessName}'";
+            //[3] 선택 메뉴에 따른 SQL 생성 및 실행 
+            if (illness.menuName == "tb_allillness_nursinghome_location")
+            {
+                cmd.CommandText = $"select 진료년월, {illness.location} from  {illness.menuName} where 진료년월 between to_date('{illness.startDate}','yyyy/mm/dd') and to_date('{illness.endDate}','yyyy/mm//dd') and state = '{illness.item}' and 질병명 = '{illness.illnessName}' order by 진료년월";
+            }
+            else if (illness.menuName == "tb_allillness_nursinghome_group")
+            {
+                cmd.CommandText = $"select 진료년월, { illness.nursingHome} from { illness.menuName} where 진료년월 between to_date('{illness.startDate}','yyyy/mm/dd') and to_date('{illness.endDate}','yyyy/mm//dd') and state = '{illness.item}' and 질병명 = '{illness.illnessName}' order by 진료년월";
+            }
+            else if (illness.menuName == "tb_allillness_gender_outpatient")
+            {
+                cmd.CommandText = $"select 진료년월, { illness.ioPatient} from { illness.menuName} where 진료년월 between to_date('{illness.startDate}','yyyy/mm/dd') and to_date('{illness.endDate}','yyyy/mm//dd') and state = '{illness.item}' and 질병명 = '{illness.illnessName}' and 성별 = '{illness.gender}' order by 진료년월";
+            }
+            else
+            {
+                cmd.CommandText = $"select 진료년월, { illness.age} from { illness.menuName} where 진료년월 between to_date('{illness.startDate}','yyyy/mm/dd') and to_date('{illness.endDate}','yyyy/mm//dd') and state = '{illness.item}' and 질병명 = '{illness.illnessName}' and 성별 = '{illness.gender}' order by 진료년월";
+            }
+
             OracleDataReader dataReader = cmd.ExecuteReader();
 
             List<Object> chartLabels = new List<Object>();
