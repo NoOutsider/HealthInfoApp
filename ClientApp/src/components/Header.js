@@ -1,9 +1,20 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
 import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
+import { auth } from "../firebase";
+import { useStateValue } from "../StateProvider";
 
 function header() {
+    const [{ user }, dispatch] = useStateValue();
+
+    const handleAuthentication = () => {
+        if (user) {
+            auth.signOut();
+        }
+    }
+
     return (
         <div className="header">
             <Link to="/">
@@ -29,8 +40,8 @@ function header() {
             </div>
 
             <div className="header_leftLocation">
-                <Link to="/login" id="login">
-                    <div className="header_option">로그인</div>
+                <Link to={!user && "/login"} id="login">
+                    <div onClick={handleAuthentication} className="header_option">{user ? '로그아웃' : '로그인'}</div>
                 </Link>
 
                 <input className="header_searchInput" type="text" />

@@ -45,11 +45,13 @@ function MapView() {
   var positionsHP = !stateHP.loading
     ? []
     : stateHP.dataList.map((data) => {
-        return {
-          content: "<div>" + data.col02 + "</div>",
-          latlng: new kakao.maps.LatLng(data.col15, data.col14),
-        };
-      });
+      return {
+        latlng: new kakao.maps.LatLng(data.col15, data.col14),
+        content: '<div>' + data.col02 +
+          '<br> 전화번호: ' + data.col10 +
+          '<br> URL: <a href=' + data.col11 + 'style="color: blue" target="_blank">' + data.col11 + '</a></div>'
+      };
+    });
 
   const [statePM, dispatchPM] = useReducer(
     dataReducer,
@@ -72,11 +74,11 @@ function MapView() {
   var positionsPM = !statePM.loading
     ? []
     : statePM.dataList.map((data) => {
-        return {
-          content: "<div>" + data.이름 + "</div>",
-          latlng: new kakao.maps.LatLng(data.y좌표, data.x좌표),
-        };
-      });
+      return {
+        content: "<div>" + data.이름 + "</div>",
+        latlng: new kakao.maps.LatLng(data.y좌표, data.x좌표),
+      };
+    });
 
   const [isCurrent, setIsCurrent] = useState(0);
   // isCurrent(현재 위치 체크 여부 확인 변수)의 상태가 변할 때 사용하는 useEffect
@@ -178,10 +180,19 @@ function MapView() {
 
     // 지도에 현재 위치 마커와 인포윈도우를 표시하는 함수
     function displayMarker(locPosition, message) {
+      // 마커 이미지의 이미지 주소입니다
+      var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+      // 마커 이미지의 이미지 크기 입니다
+      var imageSize = new kakao.maps.Size(24, 35);
+
+      // 마커 이미지를 생성합니다    
+      var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
       // 마커 생성
       var marker = new kakao.maps.Marker({
         map: map,
         position: locPosition,
+        image: markerImage // 마커 이미지 
       });
 
       var iwContent = message, // 인포윈도우에 표시할 내용
@@ -222,7 +233,7 @@ function MapView() {
         // eslint-disable-next-line no-unused-expressions
         var distance = Math.sqrt(
           (locPosition.La - positionsHP[i].latlng.La) ** 2 +
-            (locPosition.Ma - positionsHP[i].latlng.Ma) ** 2
+          (locPosition.Ma - positionsHP[i].latlng.Ma) ** 2
         );
 
         // 1-3. 만약 거리가 1km 이내면 새 배열에 넣음, 아니면 continue
@@ -248,7 +259,7 @@ function MapView() {
         // eslint-disable-next-line no-unused-expressions
         var distance = Math.sqrt(
           (locPosition.La - positionsPM[i].latlng.La) ** 2 +
-            (locPosition.Ma - positionsPM[i].latlng.Ma) ** 2
+          (locPosition.Ma - positionsPM[i].latlng.Ma) ** 2
         );
 
         if (distance <= 0.1) currentPMs.push(positionsPM[i]);
