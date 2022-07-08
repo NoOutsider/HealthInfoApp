@@ -12,11 +12,9 @@ const Home = () => {
       </div>
       <div className="margin" />
       <div>
-        <p>
-          <Link to="/showData" id="showData">
-            <h2>질병통계</h2>
-          </Link>
-        </p>
+        <Link to="/showData" id="showData">
+          <h2>질병통계</h2>
+        </Link>
         <ul>
           <li>
             <img src="images/ageIcon.png" width="50%" alt="" />
@@ -52,9 +50,7 @@ const Home = () => {
           </li>
         </ul>
       </div>
-      <p>
-        <h2>위치찾기</h2>
-      </p>
+      <h2>위치찾기</h2>
       <div className="locationImg">
         <img
           id="hosImg"
