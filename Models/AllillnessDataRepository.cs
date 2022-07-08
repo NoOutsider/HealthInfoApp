@@ -12,7 +12,7 @@ namespace HealthInfoApp.Models
 
         public AllillnessDataRepository()
         {
-            conn = new OracleConnection("User Id=user1;Password=passwd;Data Source=xe;");
+            conn = new OracleConnection("User Id=user1;Password=passwd!@;Data Source=xe_db;");
             conn.Open();
         }
 
@@ -34,7 +34,7 @@ namespace HealthInfoApp.Models
             cmd.CommandType = System.Data.CommandType.Text;
 
             //[3] SQL 생성 및 실행 
-            cmd.CommandText = $"select '{illness.menuName}', 서울 from tb_allillness_nursinghome_location where to_char(진료년월, 'YYYY-MM-DD') = '2017-07-01'";
+            cmd.CommandText = $"select \"STATE\", 서울 from {illness.menuName} where to_char(진료년월, 'YYYY-MM-DD') = '{illness.startDate}' and 질병명 = '{illness.illnessName}'";
             OracleDataReader dataReader = cmd.ExecuteReader();
 
             List<Object> chartLabels = new List<Object>();
