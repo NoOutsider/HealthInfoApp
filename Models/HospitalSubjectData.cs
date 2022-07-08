@@ -7,10 +7,13 @@ namespace Hospital.models
 {
     public class HospitalSubjectData
     {
-        public string 암호화요양기호 { get; set; }
-        public string 요양기관명 { get; set; }
-        public int 진료과목코드 { get; set; }
+        //public string 암호화요양기호 { get; set; }
+        //public string 요양기관명 { get; set; }
+        //public int 진료과목코드 { get; set; }
         public string 진료과목코드명 { get; set; }
-        public int 과목별전문의수 { get; set; }
+        //public int 과목별전문의수 { get; set; }
+
+        public double x좌표 { get; set; }
+        public double y좌표 { get; set; }
     }
 }

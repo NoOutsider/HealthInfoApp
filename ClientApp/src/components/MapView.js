@@ -274,7 +274,7 @@ function MapView() {
         <legend>병원 정보 검색</legend>
         <fieldset id="SearchHPChild">
           <legend>진료과목</legend>
-          <select>
+          {/* <select>
             <option key="family" value="family">
               가정의학과
             </option>
@@ -293,7 +293,7 @@ function MapView() {
             <option key="radiation" value="radiation">
               방사선종양학과
             </option>
-          </select>
+          </select> */}
         </fieldset>
         <fieldset id="SearchHPChild">
           <legend>전문병원지정분야</legend>

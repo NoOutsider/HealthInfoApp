@@ -21,5 +21,7 @@ namespace Hospital.Controllers
             return dataRepository.AllList();
         }
 
+
+
     }
 }

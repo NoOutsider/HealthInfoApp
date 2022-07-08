@@ -31,17 +31,19 @@ namespace Hospital.models
             cmd.Connection = conn;
             cmd.CommandType = System.Data.CommandType.Text;
 
-            cmd.CommandText = $"select * from HOSPITAL_SUBJECT where rownum <= 100";
+            cmd.CommandText = $"SELECT total.진료과목코드명, total.x좌표, total.y좌표 FROM (SELECT * FROM hospital hp FULL OUTER JOIN hospital_subject hp_sub ON hp.암호화요양기호 = hp_sub.암호화요양기호) total WHERE total.x좌표 IS NOT NULL AND total.진료과목코드명 IS NOT NULL AND rownum <= 10";
             OracleDataReader dataReader = cmd.ExecuteReader();
             while (dataReader.Read())
             {
                 HospitalSubjectData HPSubData = new HospitalSubjectData();
 
-                HPSubData.암호화요양기호 = dataReader.GetString(0);
-                HPSubData.요양기관명 = dataReader.GetString(1);
-                HPSubData.진료과목코드 = dataReader.GetInt32(2);
-                HPSubData.진료과목코드명 = dataReader.GetString(3);
-                HPSubData.과목별전문의수 = dataReader.GetInt32(4);
+                //HPSubData.암호화요양기호 = dataReader.GetString(0);
+                //HPSubData.요양기관명 = dataReader.GetString(1);
+                //HPSubData.진료과목코드 = dataReader.GetInt32(2);
+                HPSubData.진료과목코드명 = dataReader.GetString(0);
+                //HPSubData.과목별전문의수 = dataReader.GetInt32(4);
+                HPSubData.x좌표 = dataReader.GetDouble(1);
+                HPSubData.y좌표 = dataReader.GetDouble(2);
 
                 list.Add(HPSubData);
             }
