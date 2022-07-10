@@ -18,13 +18,24 @@ namespace HealthInfoApp.Controllers
             return new JsonResult(searchParam);
         }
 
-        [HttpGet]
-        [Route("loadChartDataXXA")]
-        public JsonResult loadChartDataXXX()
+        //[HttpPost]
+        //[Route("loadChart")]
+        //public JsonResult loadChart()
+        //{
+        //    AllillnessDataRepository allillnessDataRepository = new AllillnessDataRepository();
+        //    return new JsonResult(allillnessDataRepository.ChartDataXXX());
+        //}
+        [HttpPost]
+        [Route("SetSidebar")]
+        public JsonResult SetSidebar([FromBody] AllillnessDataRepository dataRepository)
         {
-            AllillnessDataRepository dataRepository = new AllillnessDataRepository();
-
-            return new JsonResult(dataRepository.ChartDataXXX());
+            return new JsonResult(dataRepository.SetSidebar());
+        }
+        [HttpPost]
+        [Route("loadChartData")]
+        public JsonResult loadChartData([FromBody] AllillnessDataRepository dataRepository)
+        {
+            return new JsonResult(dataRepository.SetChartData());
         }
 
     }

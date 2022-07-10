@@ -144,16 +144,16 @@ const ADHDTableData = () => {
   async function initData() {
     await loadChartData();
 
-    //const response = await fetch('data/AllList');
-    //  dispatch({
-    //      type: ACTION_TYPE.ALL_LIST,
-    //      dataList: await response.json(),
-    //      loading: true
-    //  });
+    const response = await fetch("data/AllList");
+    dispatch({
+      type: ACTION_TYPE.ALL_LIST,
+      dataList: await response.json(),
+      loading: true,
+    });
   }
 
   async function loadChartData() {
-      fetch("AllillnessData/loadChartDataXXA")
+    fetch("AllillnessData/loadChartDataXXA")
       .then((response) => response.json())
       .then((data) => {
         dispatch({
