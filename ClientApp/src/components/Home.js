@@ -1,6 +1,23 @@
 import React from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
+// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+// import * as THREE from 'three';
+
+// <canvas id="canvas" width="300" height="300"></canvas>
+
+// let scene = new THREE.Scene();
+// let renderer = new THREE.WebGLRenderer({
+//   canvas: document.querySelector('#canvas')
+// });
+
+// let camera = new THREE.PerspectiveCamera(30, 1);
+
+// let loader = new GLTFLoader();
+// loader.load('images/luna/scene.gltf', function (gltf) {
+//   scene.add(gltf.scene);
+//   renderer.render(scene, camera);
+// })
 
 const Home = () => {
   return (
