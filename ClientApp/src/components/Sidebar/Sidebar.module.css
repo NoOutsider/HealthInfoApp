@@ -12,16 +12,10 @@
   transition: 0.4s ease;
   color: #202020;
   height: 100%;  
-  margin-top:120px;
+  z-index: inherit;
+  
+  
 
 }
 
 /*질별통계 데이터 페이지 CSS 부분*/
-.illnessList{
-
-}
-.inputIllnessName{
-  z-index:1;
-  
-}
-/*질병 통계 데이터 페이지 CSS 부분 끝*/

@@ -3,12 +3,12 @@ import "./ShowData.css";
 import SidebarIllness from "./Sidebar/SidebarIllness";
 import SeoulChart from "./SeoulChart";
 import ShowChart from "./ShowChart";
+import SidebarTemplate from "./Sidebar/SidebarTemplate";
 
 function ShowData() {
   return (
     <div className="showData">
-      <SidebarIllness></SidebarIllness>
-      {/* <SeoulChart />       */}
+      <SidebarTemplate />
       <ShowChart />
     </div>
   );

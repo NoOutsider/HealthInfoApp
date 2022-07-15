@@ -25,11 +25,13 @@ namespace HealthInfoApp.Controllers
         //    AllillnessDataRepository allillnessDataRepository = new AllillnessDataRepository();
         //    return new JsonResult(allillnessDataRepository.ChartDataXXX());
         //}
-        [HttpPost]
+
+        [HttpGet]
         [Route("SetSidebar")]
-        public JsonResult SetSidebar([FromBody] AllillnessDataRepository dataRepository)
+        public List<AllillnessData> SetSidebar()
         {
-            return new JsonResult(dataRepository.SetSidebar());
+            AllillnessDataRepository dataRepository = new AllillnessDataRepository();
+            return dataRepository.SetSidebar();
         }
         [HttpPost]
         [Route("loadChartData")]

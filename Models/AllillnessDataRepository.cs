@@ -35,13 +35,21 @@ namespace HealthInfoApp.Models
         //    OracleDataReader dataReader = cmd.ExecuteReader();
         //    while (dataReader.Read())
         //    {
-                
+
         //    }
         //}
 
-        public List<List<string>> SetSidebar()
+        public static string SafeGetString(OracleDataReader reader, int colIndex)
         {
-            Dictionary<string, List<Object>> result = new Dictionary<string, List<Object>>();
+            if (!reader.IsDBNull(colIndex))
+                return reader.GetString(colIndex);
+            return string.Empty;
+        }
+
+
+        public List<AllillnessData> SetSidebar()
+        {
+            List<AllillnessData> result = new List<AllillnessData>();
 
 
             //[1] Command 객체 생성
@@ -50,28 +58,34 @@ namespace HealthInfoApp.Models
             //[2] Connection 객체 연결
             cmd.Connection = conn;
             cmd.CommandType = System.Data.CommandType.Text;
-            
-            
-            string[] list = { "지역", "질병명", "메뉴", "항목", "성별", "연령대", "입원외래별", "요양기관" };
+               
+           
 
-            for (int i = 0; i < list.Length; i++)
-            {
-                cmd.CommandText = $"select " + list + $"from  tb_selectitemname";
+            cmd.CommandText = $"select LOCATION,ILLNESS,MENU,ITEM,GENDER,AGE,IOPATIENT,NURSINGHOME from tb_selectitemname";
 
-                OracleDataReader dataReader = cmd.ExecuteReader();
-
-                List<Object> itemList = new List<Object>();
+            OracleDataReader dataReader = cmd.ExecuteReader();                
                 
-                while (dataReader.Read())
-                {
-                    itemList.Add(dataReader.GetString(0));
-                }
-            }
-            dataReader.Close();
-            cmd.Dispose();
+            while (dataReader.Read())
+            {
+                
+                
+                AllillnessData allillnessData = new AllillnessData();
+                
+                allillnessData.location = SafeGetString(dataReader, 0);                
+                allillnessData.illnessName = SafeGetString(dataReader, 1);
+                allillnessData.menuName = SafeGetString(dataReader, 2);
+                allillnessData.item = SafeGetString(dataReader, 3);
+                allillnessData.gender = SafeGetString(dataReader, 4);
+                allillnessData.age = SafeGetString(dataReader, 5);
+                allillnessData.ioPatient = SafeGetString(dataReader, 6);
+                allillnessData.nursingHome = SafeGetString(dataReader, 7);
 
-            result.Add("chartLabels", chartLabels);
-            result.Add("chartData", chartData);
+                result.Add(allillnessData);
+            }
+          
+            dataReader.Close();            
+            cmd.Dispose();
+           
 
             return result;
         }
