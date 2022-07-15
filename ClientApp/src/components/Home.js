@@ -1,28 +1,18 @@
 import React from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
-// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-// import * as THREE from 'three';
-
-// <canvas id="canvas" width="300" height="300"></canvas>
-
-// let scene = new THREE.Scene();
-// let renderer = new THREE.WebGLRenderer({
-//   canvas: document.querySelector('#canvas')
-// });
-
-// let camera = new THREE.PerspectiveCamera(30, 1);
-
-// let loader = new GLTFLoader();
-// loader.load('images/luna/scene.gltf', function (gltf) {
-//   scene.add(gltf.scene);
-//   renderer.render(scene, camera);
-// })
+import { GLTFModel, AmbientLight, DirectionLight } from 'react-3d-viewer'
 
 const Home = () => {
   return (
     <div>
       <div className="contents">
+        <GLTFModel width="100" height="100" background="rgba(3,32,50)" position={{ x: 0, y: 0, z: 0 }} src="images/luna/scene.gltf">
+          {/* 조명 */}
+          {/* <AmbientLight color={0xffffff} />
+          <DirectionLight color={0xffffff} position={{ x: 100, y: 200, z: 100 }} />
+          <DirectionLight color={0xff00ff} position={{ x: -100, y: 200, z: -100 }} /> */}
+        </GLTFModel>
         <div className="contentTxt">
           <h2>HEALTH CARE INFORMATION</h2>
         </div>

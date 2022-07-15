@@ -16,7 +16,6 @@ import FemaleTenAgeDataTable from "./components/FemaleTenAgeDataTable"
 import FemaleFiveAgeDataTable from "./components/FemaleFiveAgeDataTable"
 import HospitalTableData from "./components/HospitalTableData";
 import PharmacyTableData from "./components/PharmacyTableData";
-import ShowMoon from "./components/ShowMoon";
 import { auth } from "./firebase";
 import { useStateValue } from "./StateProvider";
 
@@ -45,7 +44,6 @@ function App() {
       <div className="App">
         <Header />
         <Routes>
-          <Route path="/ShowMoon" element={<ShowMoon />} />
           <Route path="/" element={<Home />} />
           <Route path="/showData" element={<ShowData />} />
           <Route path="/mapView" element={<MapView />} />
