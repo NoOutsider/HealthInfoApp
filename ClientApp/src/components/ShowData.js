@@ -6,6 +6,7 @@ import SidebarTemplate from "./Sidebar/SidebarTemplate";
 const ACTION_TYPE = {
   sidebarRendering: 1,
   selectCondition: 2,
+  chartType: 3,
 };
 Object.freeze(ACTION_TYPE);
 
@@ -22,6 +23,12 @@ const sidebarRender = (state, action) => {
         ...state,
         illnessName: action.illnessName,
       };
+    case ACTION_TYPE.chartType:
+      return {
+        ...state,
+        chartLabels: action.chartLabels,
+        chartData: action.chartData,
+      };
     default:
       return state;
   }
@@ -33,6 +40,9 @@ function ShowData() {
     {
       dataList: [],
       loading: false,
+      chartLoading: false,
+      chartLabels: [],
+      chartData: [],
       illnessName: "",
     },
     initData
@@ -44,7 +54,28 @@ function ShowData() {
       dataList: await response.json(),
       loading: true,
     });
+    await loadChartData();
   }
+
+  async function loadChartData() {
+    fetch("AllillnessData/loadChartData", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch({
+          type: ACTION_TYPE.chartType,
+          chartLabels: data.chartLabels,
+          chartData: data.chartData,
+          chartLoading: true,
+        });
+      });
+  }
+
   const onSelect = useCallback((e) => {
     dispatch({
       type: ACTION_TYPE.selectCondition,
