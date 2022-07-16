@@ -4,50 +4,7 @@ import styles from "./Sidebar.module.css";
 import SidebarMenuName from "./SidebarMenuName";
 import SidebarDetail from "./SidebarDetail";
 
-const ACTION_TYPE = {
-  tableType: 1,
-  selectCondition: 2,
-};
-Object.freeze(ACTION_TYPE);
-
-const sidebarRender = (state, action) => {
-  switch (action.type) {
-    case ACTION_TYPE.tableType:
-      return {
-        ...state,
-        dataList: action.dataList,
-        loading: action.loading,
-      };
-    case ACTION_TYPE.selectCondition:
-      return {
-        ...state,
-        illnessName: action.illnessName,
-      };
-    default:
-      return state;
-  }
-};
-
-const SidebarTemplate = () => {
-  const [state, dispatch] = useReducer(
-    sidebarRender,
-    {
-      dataList: [],
-      loading: false,
-      illnessName: "",
-    },
-    initData
-  );
-
-  async function initData() {
-    const response = await fetch("AllillnessData/SetSidebar");
-    dispatch({
-      type: ACTION_TYPE.tableType,
-      dataList: await response.json(),
-      loading: true,
-    });
-  }
-
+const SidebarTemplate = ({ onSelect, state }) => {
   return (
     <div className={styles.containter}>
       <div
@@ -56,7 +13,7 @@ const SidebarTemplate = () => {
       >
         <fieldset>
           <legend>질병명</legend>
-          <SidebarIllnessName state={state} ACTION_TYPE={ACTION_TYPE} dispatch={dispatch} />
+          <SidebarIllnessName state={state} onSelect={onSelect} />
         </fieldset>
         <fieldset>
           <legend>메뉴</legend>

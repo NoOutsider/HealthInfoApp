@@ -1,27 +1,20 @@
-import React, { useCallback } from "react";
+import React from "react";
 
-const SidebarIllnessName = ({ state, ACTION_TYPE, dispatch }) => {
+const SidebarIllnessName = ({ state, onSelect }) => {
   const rendering = (dataList) => {
     return (
       <select onClick={onSelect}>
         {dataList.map((data) => {
           if (data.illnessName)
-            return <option value={data.illnessName}>{data.illnessName}</option>;
+            return (
+              <option key={data.id} value={data.illnessName} name="illnessName">
+                {data.illnessName}
+              </option>
+            );
         })}
       </select>
     );
   };
-
-  const onSelect = useCallback(
-    (e) => {
-      dispatch({
-        type: ACTION_TYPE.selectCondition,
-        illnessName: e.target.value,
-      });
-      console.log(state);
-    },
-    [state.illnessName]
-  );
 
   let contents = !state.loading ? (
     <p>

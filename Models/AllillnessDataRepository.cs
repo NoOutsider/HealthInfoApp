@@ -43,6 +43,7 @@ namespace HealthInfoApp.Models
         {
             if (!reader.IsDBNull(colIndex))
                 return reader.GetString(colIndex);
+
             return string.Empty;
         }
 
@@ -61,24 +62,24 @@ namespace HealthInfoApp.Models
                
            
 
-            cmd.CommandText = $"select LOCATION,ILLNESS,MENU,ITEM,GENDER,AGE,IOPATIENT,NURSINGHOME from tb_selectitemname";
+            cmd.CommandText = $"select * from tb_selectitemname";
 
             OracleDataReader dataReader = cmd.ExecuteReader();                
                 
             while (dataReader.Read())
-            {
-                
-                
+            {            
+               
                 AllillnessData allillnessData = new AllillnessData();
-                
-                allillnessData.location = SafeGetString(dataReader, 0);                
-                allillnessData.illnessName = SafeGetString(dataReader, 1);
-                allillnessData.menuName = SafeGetString(dataReader, 2);
-                allillnessData.item = SafeGetString(dataReader, 3);
-                allillnessData.gender = SafeGetString(dataReader, 4);
-                allillnessData.age = SafeGetString(dataReader, 5);
-                allillnessData.ioPatient = SafeGetString(dataReader, 6);
-                allillnessData.nursingHome = SafeGetString(dataReader, 7);
+
+                allillnessData.id = SafeGetString(dataReader, 0);
+                allillnessData.location = SafeGetString(dataReader, 1);                
+                allillnessData.illnessName = SafeGetString(dataReader, 2);
+                allillnessData.menuName = SafeGetString(dataReader, 3);
+                allillnessData.item = SafeGetString(dataReader, 4);
+                allillnessData.gender = SafeGetString(dataReader, 5);
+                allillnessData.age = SafeGetString(dataReader, 6);
+                allillnessData.ioPatient = SafeGetString(dataReader, 7);
+                allillnessData.nursingHome = SafeGetString(dataReader, 8);
 
                 result.Add(allillnessData);
             }
@@ -93,7 +94,7 @@ namespace HealthInfoApp.Models
         public Dictionary<string, List<Object>> SetChartData()
         {
             Dictionary<string, List<Object>> result = new Dictionary<string, List<Object>>();
-            
+            AllillnessData allillnessData = new AllillnessData();
 
             //[1] Command 객체 생성
             OracleCommand cmd = new OracleCommand();
@@ -120,7 +121,7 @@ namespace HealthInfoApp.Models
             //    cmd.CommandText = $"select 진료년월, { illness.age} from { illness.menuName} where 진료년월 between to_date('{illness.startDate}','yyyy/mm/dd') and to_date('{illness.endDate}','yyyy/mm//dd') and state = '{illness.item}' and 질병명 = '{illness.illnessName}' and 성별 = '{illness.gender}' order by 진료년월";
             //}
 
-            cmd.CommandText = $"select 진료년월, 부산 from  tb_allillness_nursinghome_location where 진료년월 between to_date('2017/01/01','yyyy/mm/dd') and to_date('2021/10/01','yyyy/mm//dd') and state = '환자수' and 질병명 = '흡연' order by 진료년월";
+            cmd.CommandText = $"select 진료년월, 부산 from  tb_allillness_nursinghome_location where 진료년월 between to_date('2017/01/01','yyyy/mm/dd') and to_date('2021/10/01','yyyy/mm//dd') and state = '환자수' and 질병명 = '{allillnessData.illnessName}' order by 진료년월";
 
             OracleDataReader dataReader = cmd.ExecuteReader();
 

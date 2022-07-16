@@ -5,7 +5,12 @@ const SidebarMenuName = ({ state }) => {
     return (
       <select>
         {dataList.map((data) => {
-          if (data.menuName) return <option>{data.menuName}</option>;
+          if (data.menuName)
+            return (
+              <option key={data.id} name="menuName">
+                {data.menuName}
+              </option>
+            );
         })}
       </select>
     );

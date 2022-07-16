@@ -6,32 +6,62 @@ const SidebarDetail = ({ state }) => {
       <div>
         <select>
           {dataList.map((data) => {
-            if (data.item) return <option>{data.item}</option>;
+            if (data.item)
+              return (
+                <option key={data.id} name="item">
+                  {data.item}
+                </option>
+              );
           })}
         </select>
         <select>
           {dataList.map((data) => {
-            if (data.gender) return <option>{data.gender}</option>;
+            if (data.gender)
+              return (
+                <option key={data.id} name="gender">
+                  {data.gender}
+                </option>
+              );
           })}
         </select>
         <select>
           {dataList.map((data) => {
-            if (data.age) return <option>{data.age}</option>;
+            if (data.age)
+              return (
+                <option key={data.id} name="age">
+                  {data.age}
+                </option>
+              );
           })}
         </select>
         <select>
           {dataList.map((data) => {
-            if (data.ioPatient) return <option>{data.ioPatient}</option>;
+            if (data.ioPatient)
+              return (
+                <option key={data.id} name="ioPatient">
+                  {data.ioPatient}
+                </option>
+              );
           })}
         </select>
         <select>
           {dataList.map((data) => {
-            if (data.nursingHome) return <option>{data.nursingHome}</option>;
+            if (data.nursingHome)
+              return (
+                <option key={data.id} name="nursingHome">
+                  {data.nursingHome}
+                </option>
+              );
           })}
         </select>
         <select>
           {dataList.map((data) => {
-            if (data.location) return <option>{data.location}</option>;
+            if (data.location)
+              return (
+                <option key={data.id} name="location">
+                  {data.location}
+                </option>
+              );
           })}
         </select>
       </div>
