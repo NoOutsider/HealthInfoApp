@@ -17,14 +17,7 @@ namespace HealthInfoApp.Controllers
         {
             return new JsonResult(searchParam);
         }
-
-        //[HttpPost]
-        //[Route("loadChart")]
-        //public JsonResult loadChart()
-        //{
-        //    AllillnessDataRepository allillnessDataRepository = new AllillnessDataRepository();
-        //    return new JsonResult(allillnessDataRepository.ChartDataXXX());
-        //}
+        
 
         [HttpGet]
         [Route("SetSidebar")]
@@ -38,6 +31,14 @@ namespace HealthInfoApp.Controllers
         public JsonResult loadChartData([FromBody] AllillnessDataRepository dataRepository)
         {
             return new JsonResult(dataRepository.SetChartData());
+        }
+        [HttpPost]
+        [Route("resetChartData")]
+        public JsonResult resetChartData([FromBody] AllillnessData allillnessData)
+        {
+            AllillnessDataRepository dataRepository = new AllillnessDataRepository();
+            dataRepository.setObject(allillnessData);
+            return new JsonResult(dataRepository.SetChartData2(allillnessData));
         }
 
     }

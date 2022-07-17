@@ -77,25 +77,34 @@ function ShowData() {
   }
 
   const onSelect = useCallback((e) => {
-    dispatch({
-      type: ACTION_TYPE.selectCondition,
-      illnessName: e.target.value,
-    });
-    postData("AllillnessData/Get");
-    console.log(state);
-  });
-
-  async function postData(url) {
-    // 옵션 기본 값은 *로 강조
-    const response = await fetch(url, {
+    fetch("AllillnessData/resetChartData", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(state),
-    });
-    return response.json();
-  }
+      body: JSON.stringify({
+        illnessName: e.target.value,
+        menuName: "STATE",
+        startDate: "2017-01-01",
+        endDate: "2021-10-01",
+        item: "환자수",
+        gender: "",
+        age: "",
+        ioPatient: "",
+        nursingHome: "",
+        location: "서울",
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch({
+          type: ACTION_TYPE.chartType,
+          chartLabels: data.chartLabels,
+          chartData: data.chartData,
+          chartLoading: true,
+        });
+      });
+  });
 
   return (
     <div className="showData">
