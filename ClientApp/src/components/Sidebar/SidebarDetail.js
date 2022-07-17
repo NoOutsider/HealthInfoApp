@@ -1,64 +1,68 @@
 import React from "react";
 
-const SidebarDetail = ({ state }) => {
+const SidebarDetail = ({ state, onSelect }) => {
   const rendering = (dataList) => {
     return (
       <div>
-        <select>
+        <select onClick={onSelect}>
           {dataList.map((data) => {
             if (data.item)
               return (
-                <option key={data.id} name="item">
+                <option key={data.id} value={data.item} name="item">
                   {data.item}
                 </option>
               );
           })}
         </select>
-        <select>
+        <select onClick={onSelect}>
           {dataList.map((data) => {
             if (data.gender)
               return (
-                <option key={data.id} name="gender">
+                <option key={data.id} value={data.gender} name="gender">
                   {data.gender}
                 </option>
               );
           })}
         </select>
-        <select>
+        <select onClick={onSelect}>
           {dataList.map((data) => {
             if (data.age)
               return (
-                <option key={data.id} name="age">
+                <option key={data.id} value={data.age} name="age">
                   {data.age}
                 </option>
               );
           })}
         </select>
-        <select>
+        <select onClick={onSelect}>
           {dataList.map((data) => {
             if (data.ioPatient)
               return (
-                <option key={data.id} name="ioPatient">
+                <option key={data.id} value={data.ioPatient} name="ioPatient">
                   {data.ioPatient}
                 </option>
               );
           })}
         </select>
-        <select>
+        <select onClick={onSelect}>
           {dataList.map((data) => {
             if (data.nursingHome)
               return (
-                <option key={data.id} name="nursingHome">
+                <option
+                  key={data.id}
+                  value={data.nursingHome}
+                  name="nursingHome"
+                >
                   {data.nursingHome}
                 </option>
               );
           })}
         </select>
-        <select>
+        <select onClick={onSelect}>
           {dataList.map((data) => {
             if (data.location)
               return (
-                <option key={data.id} name="location">
+                <option key={data.id} value={data.location} name="location">
                   {data.location}
                 </option>
               );

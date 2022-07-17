@@ -1,10 +1,10 @@
-import React, { useCallback, useReducer } from "react";
+import React from "react";
 import SidebarIllnessName from "./SidebarIllnessName";
 import styles from "./Sidebar.module.css";
 import SidebarMenuName from "./SidebarMenuName";
 import SidebarDetail from "./SidebarDetail";
 
-const SidebarTemplate = ({ onSelect, state }) => {
+const SidebarTemplate = ({ state, onSelect }) => {
   return (
     <div className={styles.containter}>
       <div
@@ -17,11 +17,11 @@ const SidebarTemplate = ({ onSelect, state }) => {
         </fieldset>
         <fieldset>
           <legend>메뉴</legend>
-          <SidebarMenuName state={state} />
+          <SidebarMenuName state={state} onSelect={onSelect} />
         </fieldset>
         <fieldset>
           <legend>상세조건</legend>
-          <SidebarDetail state={state} />
+          <SidebarDetail state={state} onSelect={onSelect} />
         </fieldset>
       </div>
     </div>

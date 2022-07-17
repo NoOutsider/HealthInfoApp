@@ -1,13 +1,13 @@
 import React from "react";
 
-const SidebarMenuName = ({ state }) => {
+const SidebarMenuName = ({ state, onSelect }) => {
   const rendering = (dataList) => {
     return (
-      <select>
+      <select onClick={onSelect}>
         {dataList.map((data) => {
           if (data.menuName)
             return (
-              <option key={data.id} name="menuName">
+              <option key={data.id} value={data.menuName} name="menuName">
                 {data.menuName}
               </option>
             );

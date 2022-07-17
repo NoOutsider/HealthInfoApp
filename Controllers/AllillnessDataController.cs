@@ -30,15 +30,17 @@ namespace HealthInfoApp.Controllers
         [Route("loadChartData")]
         public JsonResult loadChartData([FromBody] AllillnessDataRepository dataRepository)
         {
-            return new JsonResult(dataRepository.SetChartData());
+            return new JsonResult(dataRepository.MountChartData());
         }
+
+
         [HttpPost]
         [Route("resetChartData")]
         public JsonResult resetChartData([FromBody] AllillnessData allillnessData)
         {
             AllillnessDataRepository dataRepository = new AllillnessDataRepository();
-            dataRepository.setObject(allillnessData);
-            return new JsonResult(dataRepository.SetChartData2(allillnessData));
+         
+            return new JsonResult(dataRepository.UpdateChartData(allillnessData));
         }
 
     }

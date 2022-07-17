@@ -22,6 +22,15 @@ const sidebarRender = (state, action) => {
       return {
         ...state,
         illnessName: action.illnessName,
+        menuName: action.menuName,
+        startDate: action.startDate,
+        endDate: action.endDate,
+        item: action.item,
+        gender: action.gender,
+        age: action.age,
+        ioPatient: action.ioPatient,
+        nursingHome: action.nursingHome,
+        location: action.location,
       };
     case ACTION_TYPE.chartType:
       return {
@@ -44,6 +53,15 @@ function ShowData() {
       chartLabels: [],
       chartData: [],
       illnessName: "",
+      menuName: "",
+      startDate: "",
+      endDate: "",
+      item: "",
+      gender: "",
+      age: "",
+      ioPatient: "",
+      nursingHome: "",
+      location: "",
     },
     initData
   );
@@ -108,14 +126,7 @@ function ShowData() {
 
   return (
     <div className="showData">
-      <SidebarTemplate
-        ACTION_TYPE={ACTION_TYPE}
-        sidebarRender={sidebarRender}
-        onSelect={onSelect}
-        state={state}
-        dispatch={dispatch}
-        initData={initData}
-      />
+      <SidebarTemplate state={state} onSelect={onSelect} />
       <ShowChart state={state} />
     </div>
   );
