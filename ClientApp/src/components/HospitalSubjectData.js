@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import "./HospitalSubjectData.css";
 
 const ACTION_TYPE = {
   ALL_LIST: 1,
@@ -27,8 +28,8 @@ const HospitalSubjectData = () => {
   const renderHospitalSubjectData = (dataList) => {
     return (
       <div>
-        <fieldset>
-          <legend>검색항목</legend>
+        <fieldset className="SearchHP">
+          <legend>병원 정보 검색</legend>
           {dataList.map((row, idx) => {
             if (idx === 0) {
               return (
@@ -93,19 +94,12 @@ const HospitalSubjectData = () => {
   }
 
   let contents = !state.loading ? (
-    <p>
-      <em>Loading...</em>
-    </p>
+    <p></p>
   ) : (
     renderHospitalSubjectData(state.dataList)
   );
 
-  return (
-    <div>
-      <h1 id="tabelLabel">HospitalSearchListData</h1>
-      {contents}
-    </div>
-  );
+  return <div>{contents}</div>;
 };
 
 export default HospitalSubjectData;
