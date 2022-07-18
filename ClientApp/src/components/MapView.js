@@ -274,7 +274,6 @@ function MapView() {
     <div>
       <SidebarHospital setFlag={setFlag} showHP={showHP} showPM={showPM} />
       <div className="mapView" id="mapwrap">
-        {/* <MapSidebar width={300} /> */}
         <div
           className="map"
           id="map"
