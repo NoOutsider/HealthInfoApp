@@ -24,16 +24,26 @@ const SidebarDetail = ({ state, onSelect }) => {
               );
           })}
         </select>
-        <select onClick={onSelect} name="age">
+        <select onClick={onSelect} name="age_5">
           {dataList.map((data) => {
-            if (data.age)
+            if (data.age_5)
               return (
-                <option key={data.id} value={data.age}>
-                  {data.age}
+                <option key={data.id} value={data.age_5}>
+                  {data.age_5}
                 </option>
               );
           })}
-        </select>
+            </select>
+            <select onClick={onSelect} name="age_10">
+                {dataList.map((data) => {
+                    if (data.age_10)
+                        return (
+                            <option key={data.id} value={data.age_10}>
+                                {data.age_10}
+                            </option>
+                        );
+                })}
+            </select>
         <select onClick={onSelect} name="ioPatient">
           {dataList.map((data) => {
             if (data.ioPatient)
