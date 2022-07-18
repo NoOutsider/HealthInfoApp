@@ -29,7 +29,7 @@ const HospitalSubjectData = () => {
     return dataList.map((row, idx) => {
       console.log("row???????????????????", row);
       console.log("idx>>>>>>>>>>>>>>>>>>>>", idx);
-      if ((idx = 1)) {
+      if (idx === 0 || idx === 3) {
         return (
           <select>
             {row.map((col) => {
@@ -38,17 +38,14 @@ const HospitalSubjectData = () => {
             })}
           </select>
         );
+      } else if (idx === 1 || idx === 2) {
+        return row.map((col) => (
+          <div>
+            <input type="checkbox" value={col} />
+            {col}
+          </div>
+        ));
       }
-      // else {
-      //   return (
-      //     <select>
-      //       {row.map((col) => {
-      //         console.log("col????????????????", col);
-      //         return <option>{col}</option>;
-      //       })}
-      //     </select>
-      //   );
-      // }
     });
   };
 
