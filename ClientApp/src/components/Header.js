@@ -23,7 +23,7 @@ function header() {
           <div className="header_option">병의원 / 약국 찾기</div>
         </Link>
 
-        <Link to="/HospitalSubjectTableData">
+        <Link to="/HospitalSubjectData">
           <div className="header_option">데이터 올리기 연습</div>
         </Link>
       </div>

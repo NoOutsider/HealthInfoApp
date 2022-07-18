@@ -16,6 +16,7 @@ import FemaleFiveAgeDataTable from "./components/FemaleFiveAgeDataTable";
 import HospitalTableData from "./components/HospitalTableData";
 import PharmacyTableData from "./components/PharmacyTableData";
 import HospitalSubjectTableData from "./components/HospitalSubjectTableData";
+import HospitalSubjectData from "./components/HospitalSubjectData";
 
 function App() {
   return (
@@ -33,6 +34,10 @@ function App() {
           <Route
             path="/HospitalSubjectTableData"
             element={<HospitalSubjectTableData />}
+          />
+          <Route
+            path="/HospitalSubjectData"
+            element={<HospitalSubjectData />}
           />
           <Route
             path="/NursingHomeLocationDataTable"
