@@ -3,11 +3,11 @@ import React from "react";
 const SidebarIllnessName = ({ state, onSelect }) => {
   const rendering = (dataList) => {
     return (
-      <select onClick={onSelect}>
+      <select name="illnessName" onClick={onSelect}>
         {dataList.map((data) => {
           if (data.illnessName)
             return (
-              <option key={data.id} value={data.illnessName} name="illnessName">
+              <option key={data.id} value={data.illnessName}>
                 {data.illnessName}
               </option>
             );

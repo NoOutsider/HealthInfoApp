@@ -28,8 +28,9 @@ namespace HealthInfoApp.Controllers
         }
         [HttpPost]
         [Route("loadChartData")]
-        public JsonResult loadChartData([FromBody] AllillnessDataRepository dataRepository)
+        public JsonResult loadChartData()
         {
+            AllillnessDataRepository dataRepository = new AllillnessDataRepository();
             return new JsonResult(dataRepository.MountChartData());
         }
 

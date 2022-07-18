@@ -6,7 +6,8 @@ import SidebarTemplate from "./Sidebar/SidebarTemplate";
 const ACTION_TYPE = {
   sidebarRendering: 1,
   selectCondition: 2,
-  chartType: 3,
+  CHANGE_VALUE: 3,
+  chartType: 4,
 };
 Object.freeze(ACTION_TYPE);
 
@@ -18,20 +19,12 @@ const sidebarRender = (state, action) => {
         dataList: action.dataList,
         loading: action.loading,
       };
-    case ACTION_TYPE.selectCondition:
+    case ACTION_TYPE.CHANGE_VALUE: {
       return {
         ...state,
-        illnessName: action.illnessName,
-        menuName: action.menuName,
-        startDate: action.startDate,
-        endDate: action.endDate,
-        item: action.item,
-        gender: action.gender,
-        age: action.age,
-        ioPatient: action.ioPatient,
-        nursingHome: action.nursingHome,
-        location: action.location,
+        [action.name]: action.value,
       };
+    }
     case ACTION_TYPE.chartType:
       return {
         ...state,
@@ -52,16 +45,28 @@ function ShowData() {
       chartLoading: false,
       chartLabels: [],
       chartData: [],
-      illnessName: "",
-      menuName: "",
-      startDate: "",
-      endDate: "",
-      item: "",
-      gender: "",
-      age: "",
-      ioPatient: "",
-      nursingHome: "",
-      location: "",
+      // select: {
+      //   illnessName: "",
+      //   menuName: "",
+      //   startDate: "",
+      //   endDate: "",
+      //   item: "",
+      //   gender: "",
+      //   age: "",
+      //   ioPatient: "",
+      //   nursingHome: "",
+      //   location: "",
+      // },
+      illnessName: "흡연",
+      menuName: "TB_ALLILLNESS_NURSINGHOME_LOCATION",
+      startDate: "2017-07-01",
+      endDate: "2021-10-01",
+      item: "환자수",
+      gender: "여",
+      age: "5세구간별",
+      ioPatient: "외래",
+      nursingHome: "상급종합병원",
+      location: "서울",
     },
     initData
   );
@@ -95,23 +100,26 @@ function ShowData() {
   }
 
   const onSelect = useCallback((e) => {
+    const newState = {
+      ...state,
+      [e.target.name]: e.target.value,
+    };
+
+    console.log("state", state);
+    console.log("newState", newState);
+    console.log(JSON.stringify(newState));
+
+    dispatch({
+      type: ACTION_TYPE.CHANGE_VALUE,
+      action: e.target,
+    });
+
     fetch("AllillnessData/resetChartData", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        illnessName: e.target.value,
-        menuName: "STATE",
-        startDate: "2017-01-01",
-        endDate: "2021-10-01",
-        item: "환자수",
-        gender: "",
-        age: "",
-        ioPatient: "",
-        nursingHome: "",
-        location: "서울",
-      }),
+      body: JSON.stringify(newState),
     })
       .then((response) => response.json())
       .then((data) => {

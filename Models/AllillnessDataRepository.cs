@@ -110,24 +110,28 @@ namespace HealthInfoApp.Models
             cmd.CommandType = System.Data.CommandType.Text;
 
             //[3] 선택 메뉴에 따른 SQL 생성 및 실행 
-            //if (illness.menuName == "tb_allillness_nursinghome_location")
-            //{
-            //    cmd.CommandText = $"select 진료년월, {illness.location} from  {illness.menuName} where 진료년월 between to_date('{illness.startDate}','yyyy/mm/dd') and to_date('{illness.endDate}','yyyy/mm//dd') and state = '{illness.item}' and 질병명 = '{illness.illnessName}' order by 진료년월";
-            //}
-            //else if (illness.menuName == "tb_allillness_nursinghome_group")
-            //{
-            //    cmd.CommandText = $"select 진료년월, { illness.nursingHome} from { illness.menuName} where 진료년월 between to_date('{illness.startDate}','yyyy/mm/dd') and to_date('{illness.endDate}','yyyy/mm//dd') and state = '{illness.item}' and 질병명 = '{illness.illnessName}' order by 진료년월";
-            //}
-            //else if (illness.menuName == "tb_allillness_gender_outpatient")
-            //{
-            //    cmd.CommandText = $"select 진료년월, { illness.ioPatient} from { illness.menuName} where 진료년월 between to_date('{illness.startDate}','yyyy/mm/dd') and to_date('{illness.endDate}','yyyy/mm//dd') and state = '{illness.item}' and 질병명 = '{illness.illnessName}' and 성별 = '{illness.gender}' order by 진료년월";
-            //}
+            if (allillnessData.menuName == "요양기관소재지별")
+            {
+                allillnessData.menuName = "TB_ALLILLNESS_NURSINGHOME_LOCATION";
+                cmd.CommandText = $"select 진료년월, {allillnessData.location} from  {allillnessData.menuName} where 진료년월 between to_date('{allillnessData.startDate}','yyyy/mm/dd') and to_date('{allillnessData.endDate}','yyyy/mm//dd') and state = '{allillnessData.item}' and 질병명 = '{allillnessData.illnessName}' order by 진료년월";
+            }
+            else if (allillnessData.menuName == "요양기관그룹별")
+            {
+                allillnessData.menuName = "tb_allillness_nursinghome_group";
+                cmd.CommandText = $"select 진료년월, { allillnessData.nursingHome} from { allillnessData.menuName} where 진료년월 between to_date('{allillnessData.startDate}','yyyy/mm/dd') and to_date('{allillnessData.endDate}','yyyy/mm//dd') and state = '{allillnessData.item}' and 질병명 = '{allillnessData.illnessName}' order by 진료년월";
+            }
+            else if (allillnessData.menuName == "성별외래별")
+            {
+                allillnessData.menuName = "tb_allillness_gender_outpatient";
+                cmd.CommandText = $"select 진료년월, { allillnessData.ioPatient} from { allillnessData.menuName} where 진료년월 between to_date('{allillnessData.startDate}','yyyy/mm/dd') and to_date('{allillnessData.endDate}','yyyy/mm//dd') and state = '{allillnessData.item}' and 질병명 = '{allillnessData.illnessName}' and 성별 = '{allillnessData.gender}' order by 진료년월";
+            }
             //else
             //{
-            //    cmd.CommandText = $"select 진료년월, { illness.age} from { illness.menuName} where 진료년월 between to_date('{illness.startDate}','yyyy/mm/dd') and to_date('{illness.endDate}','yyyy/mm//dd') and state = '{illness.item}' and 질병명 = '{illness.illnessName}' and 성별 = '{illness.gender}' order by 진료년월";
+            //    allillnessData.menuName = "성별나이대별";
+            //    cmd.CommandText = $"select 진료년월, { allillnessData.age} from { allillnessData.menuName} where 진료년월 between to_date('{allillnessData.startDate}','yyyy/mm/dd') and to_date('{allillnessData.endDate}','yyyy/mm//dd') and state = '{allillnessData.item}' and 질병명 = '{allillnessData.illnessName}' and 성별 = '{allillnessData.gender}' order by 진료년월";
             //}
 
-            cmd.CommandText = $"select 진료년월, \"{allillnessData.location}\" from  tb_allillness_nursinghome_location where 진료년월 between to_date('2017/01/01','yyyy/mm/dd') and to_date('2021/10/01','yyyy/mm//dd') and state = '{allillnessData.item}' and 질병명 = '{allillnessData.illnessName}' order by 진료년월";
+            cmd.CommandText = $"select 진료년월, {allillnessData.location} from  TB_ALLILLNESS_NURSINGHOME_LOCATION where 진료년월 between to_date('2017/01/01','yyyy/mm/dd') and to_date('2021/10/01','yyyy/mm//dd') and state = '{allillnessData.item}' and 질병명 = '{allillnessData.illnessName}' order by 진료년월";
 
             OracleDataReader dataReader = cmd.ExecuteReader();
 
