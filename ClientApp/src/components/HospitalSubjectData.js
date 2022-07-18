@@ -25,28 +25,62 @@ const HospitalSubjectData = () => {
   );
 
   const renderHospitalSubjectData = (dataList) => {
-    console.log(">>>>>>>>>>>>>>>>>>>>>>", dataList);
-    return dataList.map((row, idx) => {
-      console.log("row???????????????????", row);
-      console.log("idx>>>>>>>>>>>>>>>>>>>>", idx);
-      if (idx === 0 || idx === 3) {
-        return (
-          <select>
-            {row.map((col) => {
-              console.log("col????????????????", col);
-              return <option>{col}</option>;
-            })}
-          </select>
-        );
-      } else if (idx === 1 || idx === 2) {
-        return row.map((col) => (
-          <div>
-            <input type="checkbox" value={col} />
-            {col}
-          </div>
-        ));
-      }
-    });
+    return (
+      <div>
+        <fieldset>
+          <legend>검색항목</legend>
+          {dataList.map((row, idx) => {
+            if (idx === 0) {
+              return (
+                <fieldset id="SearchHPChild">
+                  <legend>진료과목</legend>
+                  <select>
+                    {row.map((col) => {
+                      return <option>{col}</option>;
+                    })}
+                  </select>
+                </fieldset>
+              );
+            } else if (idx === 1) {
+              return (
+                <fieldset id="SearchHPChild">
+                  <legend>전문병원지정분야</legend>
+                  {row.map((col) => (
+                    <div>
+                      <input type="checkbox" value={col} />
+                      {col}
+                    </div>
+                  ))}
+                </fieldset>
+              );
+            } else if (idx === 2) {
+              return (
+                <fieldset id="SearchHPChild">
+                  <legend>의료장비</legend>
+                  {row.map((col) => (
+                    <div>
+                      <input type="checkbox" value={col} />
+                      {col}
+                    </div>
+                  ))}
+                </fieldset>
+              );
+            } else if (idx === 3) {
+              return (
+                <fieldset id="SearchHPChild">
+                  <legend>특수진료</legend>
+                  <select>
+                    {row.map((col) => {
+                      return <option>{col}</option>;
+                    })}
+                  </select>
+                </fieldset>
+              );
+            }
+          })}
+        </fieldset>
+      </div>
+    );
   };
 
   async function initData() {
