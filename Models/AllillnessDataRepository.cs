@@ -110,7 +110,7 @@ namespace HealthInfoApp.Models
             cmd.Connection = conn;
             cmd.CommandType = System.Data.CommandType.Text;
 
-            //            [3] 선택 메뉴에 따른 SQL 생성 및 실행
+            // [3] 선택 메뉴에 따른 SQL 생성 및 실행
             if (allillnessData.menuName == "요양기관소재지별")
             {
                 allillnessData.menuName = "TB_ALLILLNESS_NURSINGHOME_LOCATION";
@@ -139,9 +139,7 @@ namespace HealthInfoApp.Models
                 cmd.CommandText = $"select 진료년월, { allillnessData.age_10} from { allillnessData.menuName} where 진료년월 between to_date('{allillnessData.startDate}','yyyy/mm/dd') and to_date('{allillnessData.endDate}','yyyy/mm//dd') and state = '{allillnessData.item}' and 질병명 = '{allillnessData.illnessName}' and 성별 = '{allillnessData.gender}' order by 진료년월";
             }
 
-            // cmd.CommandText = $"select 진료년월, {allillnessData.location} from  TB_ALLILLNESS_NURSINGHOME_LOCATION where 진료년월 between to_date('2017/01/01','yyyy/mm/dd') and to_date('2021/10/01','yyyy/mm//dd') and state = '{allillnessData.item}' and 질병명 = '{allillnessData.illnessName}' order by 진료년월";
-            //allillnessData.menuName = "tb_allillness_nursinghome_group";
-            //cmd.CommandText = $"select 진료년월, {allillnessData.nursingHome} from { allillnessData.menuName} where 진료년월 between to_date('{allillnessData.startDate}','yyyy/mm/dd') and to_date('{allillnessData.endDate}','yyyy/mm//dd') and state = '{allillnessData.item}' and 질병명 = '{allillnessData.illnessName}' order by 진료년월";
+           
             OracleDataReader dataReader = cmd.ExecuteReader();
 
             List<Object> chartLabels = new List<Object>();

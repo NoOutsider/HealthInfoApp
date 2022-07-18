@@ -6,7 +6,6 @@ import Login from "./components/Login";
 import ShowData from "./components/ShowData";
 import Footer from "./components/Footer";
 import MapView from "./components/MapView"
-import SeoulChart from "./components/SeoulChart"
 import HospitalTableData from "./components/HospitalTableData";
 import PharmacyTableData from "./components/PharmacyTableData";
 
@@ -20,7 +19,6 @@ function App() {
           <Route path="/showData" element={<ShowData />} />
           <Route path="/mapView" element={<MapView />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/SeoulChart" element={<SeoulChart />} />
           <Route path="/HospitalTableData" element={<HospitalTableData />} />
           <Route path="/PharmacyTableData" element={<PharmacyTableData />} />
         </Routes>
