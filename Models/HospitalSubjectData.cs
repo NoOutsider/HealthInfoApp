@@ -7,10 +7,10 @@ namespace Hospital.models
 {
     public class HospitalSubjectData
     {
-        public string ¾ÏÈ£È­¿ä¾ç±âÈ£ { get; set; }
-        public string ¿ä¾ç±â°ü¸í { get; set; }
-        public int Áø·á°ú¸ñÄÚµå { get; set; }
-        public string Áø·á°ú¸ñÄÚµå¸í { get; set; }
-        public int °ú¸ñº°Àü¹®ÀÇ¼ö { get; set; }
+        public string ì•”í˜¸í™”ìš”ì–‘ê¸°í˜¸ { get; set; }
+        public string ìš”ì–‘ê¸°ê´€ëª… { get; set; }
+        public int ì§„ë£Œê³¼ëª©ì½”ë“œ { get; set; }
+        public string ì§„ë£Œê³¼ëª©ì½”ë“œëª… { get; set; }
+        public int ê³¼ëª©ë³„ì „ë¬¸ì˜ìˆ˜ { get; set; }
     }
 }
