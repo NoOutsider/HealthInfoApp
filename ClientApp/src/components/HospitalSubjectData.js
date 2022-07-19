@@ -47,7 +47,7 @@ const HospitalSubjectData = () => {
                 <fieldset id="SearchHPChild">
                   <legend>전문병원지정분야</legend>
                   {row.map((col) => (
-                    <div>
+                    <div id="checkbox">
                       <input type="checkbox" value={col} />
                       {col}
                     </div>
