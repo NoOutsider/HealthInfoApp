@@ -1,7 +1,7 @@
 .container {
   background-color: #f1e8e3;
   border-right: 4px solid #202020;
-  position: fixed;
+  /* position: fixed; */
   height: 100%;
   width: 500px;
   z-index: 99;
