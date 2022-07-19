@@ -11,7 +11,7 @@ namespace HealthInfoApp.Models
 {
     public class AllillnessDataRepository
     {
-        private OracleConnection conn;     
+        private OracleConnection conn;
         public AllillnessDataRepository()
         {
             conn = new OracleConnection("User Id=user1;Password=passwd;Data Source=xe;");
@@ -43,14 +43,14 @@ namespace HealthInfoApp.Models
 
             cmd.CommandText = $"select * from tb_selectitemname";
 
-            OracleDataReader dataReader = cmd.ExecuteReader();                
-                
+            OracleDataReader dataReader = cmd.ExecuteReader();
+
             while (dataReader.Read())
             {
                 AllillnessData allillnessData = new AllillnessData();
 
                 allillnessData.id = SafeGetString(dataReader, 0);
-                allillnessData.location = SafeGetString(dataReader, 1);                
+                allillnessData.location = SafeGetString(dataReader, 1);
                 allillnessData.illnessName = SafeGetString(dataReader, 2);
                 allillnessData.menuName = SafeGetString(dataReader, 3);
                 allillnessData.item = SafeGetString(dataReader, 4);
@@ -62,9 +62,9 @@ namespace HealthInfoApp.Models
 
                 result.Add(allillnessData);
             }
-          
-            dataReader.Close();            
-            cmd.Dispose();           
+
+            dataReader.Close();
+            cmd.Dispose();
 
             return result;
         }
@@ -91,7 +91,7 @@ namespace HealthInfoApp.Models
                 chartLabels.Add(dataReader.GetString(0));
                 chartData.Add(dataReader.GetString(1));
             }
-  
+
             dataReader.Close();
             cmd.Dispose();
 
@@ -100,11 +100,11 @@ namespace HealthInfoApp.Models
 
             return result;
         }
-       
+
         public Dictionary<string, List<Object>> UpdateChartData(AllillnessData allillnessData)
         {
             Dictionary<string, List<Object>> result = new Dictionary<string, List<Object>>();
-            
+
             OracleCommand cmd = new OracleCommand();
 
             cmd.Connection = conn;
@@ -114,53 +114,79 @@ namespace HealthInfoApp.Models
             if (allillnessData.menuName == "요양기관소재지별")
             {
                 allillnessData.menuName = "TB_ALLILLNESS_NURSINGHOME_LOCATION";
-                cmd.CommandText = $"select 진료년월, {allillnessData.location} from  {allillnessData.menuName} where 진료년월 between to_date('{allillnessData.startDate}','yyyy/mm/dd') and to_date('{allillnessData.endDate}','yyyy/mm//dd') and state = '{allillnessData.item}' and 질병명 = '{allillnessData.illnessName}' order by 진료년월";
+                cmd.CommandText = $"select \"진료년월\", \"{allillnessData.location}\" from" +
+                    $"  \"{allillnessData.menuName}\" where \"진료년월\" between" +
+                    $" to_date('{allillnessData.startDate}','yyyy/mm/dd') and" +
+                    $" to_date('{allillnessData.endDate}','yyyy/mm/dd') and" +
+                    $" \"STATE\" = '{allillnessData.item}' and \"질병명\" = '{allillnessData.illnessName}'" +
+                    $" order by 진료년월";
             }
-           
+
             else if (allillnessData.menuName == "요양기관종별")
-            { 
-                allillnessData.menuName = "tb_allillness_nursinghome_group";
-            cmd.CommandText = $"select 진료년월, {allillnessData.nursingHome} from { allillnessData.menuName} where 진료년월 between to_date('{allillnessData.startDate}','yyyy/mm/dd') and to_date('{allillnessData.endDate}','yyyy/mm//dd') and state = '{allillnessData.item}' and 질병명 = '{allillnessData.illnessName}' order by 진료년월";
-             }
+            {
+                allillnessData.menuName = "TB_ALLILLNESS_NURSINGHOME_GROUP";
+                cmd.CommandText = $"select \"진료년월\", \"{allillnessData.nursingHome}\"" +
+                $" from \"{ allillnessData.menuName}\" where \"진료년월\" between" +
+                $" to_date('{allillnessData.startDate}','yyyy/mm/dd') and" +
+                $" to_date('{allillnessData.endDate}','yyyy/mm/dd') and" +
+                $" \"STATE\" = '{allillnessData.item}' and \"질병명\" = '{allillnessData.illnessName}'" +
+                $" order by 진료년월";
+            }
 
             else if (allillnessData.menuName == "입원/외래별")
             {
-                  allillnessData.menuName = "tb_allillness_gender_outpatient";
-                  cmd.CommandText = $"select 진료년월, { allillnessData.ioPatient} from { allillnessData.menuName} where 진료년월 between to_date('{allillnessData.startDate}','yyyy/mm/dd') and to_date('{allillnessData.endDate}','yyyy/mm//dd') and state = '{allillnessData.item}' and 질병명 = '{allillnessData.illnessName}' and 성별 = '{allillnessData.gender}' order by 진료년월";
+                allillnessData.menuName = "TB_ALLILLNESS_GENDER_OUTPATIENT";
+                cmd.CommandText = $"select \"진료년월\", \"{ allillnessData.ioPatient}\"" +
+                  $" from \"{ allillnessData.menuName}\" where \"진료년월\" between" +
+                  $" to_date('{allillnessData.startDate}','yyyy/mm/dd') and" +
+                  $" to_date('{allillnessData.endDate}','yyyy/mm/dd') and" +
+                  $" \"STATE\"= '{allillnessData.item}' and \"질병명\"= '{allillnessData.illnessName}'" +
+                  $" and \"성별\" = '{allillnessData.gender}' order by 진료년월";
             }
             else if (allillnessData.menuName == "성별/연령5세구간별")
             {
                 allillnessData.menuName = "TB_ALLILLNESS_GENDER_FIVE_YEARS";
-                cmd.CommandText = $"select 진료년월, { allillnessData.age_5} from { allillnessData.menuName} where 진료년월 between to_date('{allillnessData.startDate}','yyyy/mm/dd') and to_date('{allillnessData.endDate}','yyyy/mm//dd') and state = '{allillnessData.item}' and 질병명 = '{allillnessData.illnessName}' and 성별 = '{allillnessData.gender}' order by 진료년월";
+                cmd.CommandText = $"select \"진료년월\", \"{ allillnessData.age_5}\"" +
+                    $" from \"{ allillnessData.menuName}\" where \"진료년월\" between" +
+                    $" to_date('{allillnessData.startDate}','yyyy/mm/dd') and" +
+                    $" to_date('{allillnessData.endDate}','yyyy/mm/dd') and" +
+                    $" \"STATE\" = '{allillnessData.item}' and \"질병명\" = '{allillnessData.illnessName}'" +
+                    $" and \"성별\" = '{allillnessData.gender}' order by 진료년월";
             }
             else
             {
                 allillnessData.menuName = "TB_ALLILLNESS_GENDER_TEN_YEARS";
-                cmd.CommandText = $"select 진료년월, { allillnessData.age_10} from { allillnessData.menuName} where 진료년월 between to_date('{allillnessData.startDate}','yyyy/mm/dd') and to_date('{allillnessData.endDate}','yyyy/mm//dd') and state = '{allillnessData.item}' and 질병명 = '{allillnessData.illnessName}' and 성별 = '{allillnessData.gender}' order by 진료년월";
+                cmd.CommandText = $"select \"진료년월\", \"{ allillnessData.age_10}\"" +
+                    $" from \"{allillnessData.menuName}\" where \"진료년월\" between" +
+                    $" to_date('{allillnessData.startDate}','yyyy/mm/dd') and" +
+                    $" to_date('{allillnessData.endDate}','yyyy/mm/dd') and" +
+                    $" \"STATE\" = '{allillnessData.item}' and \"질병명\" = '{allillnessData.illnessName}'" +
+                    $" and \"성별\" = '{allillnessData.gender}' order by 진료년월";
             }
 
-           
+
             OracleDataReader dataReader = cmd.ExecuteReader();
 
-            List<Object> chartLabels = new List<Object>();
-            List<Object> chartData = new List<Object>();
+                List<Object> chartLabels = new List<Object>();
+                List<Object> chartData = new List<Object>();
 
- 
-            while (dataReader.Read())
-            {
-                chartLabels.Add(dataReader.GetString(0));
-                chartData.Add(dataReader.GetString(1));
+
+                while (dataReader.Read())
+                {
+                    chartLabels.Add(dataReader.GetString(0));
+                    chartData.Add(dataReader.GetString(1));
+                }
+
+                dataReader.Close();
+                cmd.Dispose();
+
+                result.Add("chartLabels", chartLabels);
+                result.Add("chartData", chartData);
+
+                return result;
             }
 
-            dataReader.Close();
-            cmd.Dispose();
 
-            result.Add("chartLabels", chartLabels);
-            result.Add("chartData", chartData);
-
-            return result;
         }
-
-
     }
-}
+

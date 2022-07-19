@@ -4,6 +4,7 @@ import ShowChart from "./ShowChart";
 import SidebarTemplate from "./Sidebar/SidebarTemplate";
 
 const ACTION_TYPE = {
+  INIT_DATA: 0,
   sidebarRendering: 1,
   selectCondition: 2,
   CHANGE_VALUE: 3,
@@ -57,21 +58,13 @@ function ShowData() {
       //   nursingHome: "",
       //   location: "",
       // },
-      illnessName: "흡연",
-      menuName: "TB_ALLILLNESS_NURSINGHOME_LOCATION",
-      startDate: "2017-07-01",
-      endDate: "2021-10-01",
-      item: "환자수",
-      gender: "여",
-      age: "5세구간별",
-      ioPatient: "외래",
-      nursingHome: "상급종합병원",
-      location: "서울",
     },
     initData
   );
+
   async function initData() {
     const response = await fetch("AllillnessData/SetSidebar");
+
     dispatch({
       type: ACTION_TYPE.sidebarRendering,
       dataList: await response.json(),
@@ -100,19 +93,27 @@ function ShowData() {
   }
 
   const onSelect = useCallback((e) => {
-    const newState = {
-      ...state,
-      [e.target.name]: e.target.value,
-    };
-
-    console.log("state", state);
-    console.log("newState", newState);
-    console.log(JSON.stringify(newState));
+    console.log("s111 tate=", state);
 
     dispatch({
       type: ACTION_TYPE.CHANGE_VALUE,
       action: e.target,
     });
+
+    const newState = {
+      illnessName: document.getElementById("illnessName").value,
+      menuName: document.getElementById("menuName").value,
+      item: document.getElementById("item").value,
+      gender: document.getElementById("gender").value,
+      age_5: document.getElementById("age_5").value,
+      age_10: document.getElementById("age_10").value,
+      ioPatient: document.getElementById("ioPatient").value,
+      nursingHome: document.getElementById("nursingHome").value,
+      location: document.getElementById("location").value,
+    };
+
+    console.log("newState=", newState);
+    console.log("state=", state);
 
     fetch("AllillnessData/resetChartData", {
       method: "POST",

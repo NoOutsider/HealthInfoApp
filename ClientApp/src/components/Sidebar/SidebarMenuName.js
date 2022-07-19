@@ -3,7 +3,7 @@ import React from "react";
 const SidebarMenuName = ({ state, onSelect }) => {
   const rendering = (dataList) => {
     return (
-      <select onClick={onSelect} name="menuName">
+      <select onClick={onSelect} name="menuName" id="menuName">
         {dataList.map((data) => {
           if (data.menuName)
             return (
