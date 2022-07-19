@@ -4,7 +4,7 @@ const SidebarDetail = ({ state, onSelect }) => {
   const rendering = (dataList) => {
     return (
       <div>
-        <select onClick={onSelect} name="item">
+        <select onClick={onSelect} name="item" id="item">
           {dataList.map((data) => {
             if (data.item)
               return (
@@ -14,7 +14,7 @@ const SidebarDetail = ({ state, onSelect }) => {
               );
           })}
         </select>
-        <select onClick={onSelect} name="gender">
+        <select onClick={onSelect} name="gender" id="gender">
           {dataList.map((data) => {
             if (data.gender)
               return (
@@ -24,17 +24,27 @@ const SidebarDetail = ({ state, onSelect }) => {
               );
           })}
         </select>
-        <select onClick={onSelect} name="age">
+        <select onClick={onSelect} name="age_5" id="age_5">
           {dataList.map((data) => {
-            if (data.age)
+            if (data.age_5)
               return (
-                <option key={data.id} value={data.age}>
-                  {data.age}
+                <option key={data.id} value={data.age_5}>
+                  {data.age_5}
                 </option>
               );
           })}
         </select>
-        <select onClick={onSelect} name="ioPatient">
+        <select onClick={onSelect} name="age_10" id="age_10">
+          {dataList.map((data) => {
+            if (data.age_10)
+              return (
+                <option key={data.id} value={data.age_10}>
+                  {data.age_10}
+                </option>
+              );
+          })}
+        </select>
+        <select onClick={onSelect} name="ioPatient" id="ioPatient">
           {dataList.map((data) => {
             if (data.ioPatient)
               return (
@@ -44,7 +54,7 @@ const SidebarDetail = ({ state, onSelect }) => {
               );
           })}
         </select>
-        <select onClick={onSelect} name="nursingHome">
+        <select onClick={onSelect} name="nursingHome" id="nursingHome">
           {dataList.map((data) => {
             if (data.nursingHome)
               return (
@@ -54,7 +64,7 @@ const SidebarDetail = ({ state, onSelect }) => {
               );
           })}
         </select>
-        <select onClick={onSelect} name="location">
+        <select onClick={onSelect} name="location" id="location">
           {dataList.map((data) => {
             if (data.location)
               return (
