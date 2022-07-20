@@ -31,6 +31,11 @@ function MapView() {
   var markers = [];
   var locPosition;
 
+  const [state, dispatch] = useReducer(dataReducer, {
+    dataList: [],
+    loading: false,
+  });
+
   const [stateHP, dispatchHP] = useReducer(
     dataReducer,
     {
@@ -53,16 +58,16 @@ function MapView() {
     ? []
     : stateHP.dataList.map((data) => {
         return {
-          latlng: new kakao.maps.LatLng(data.col15, data.col14),
+          latlng: new kakao.maps.LatLng(data.y좌표, data.x좌표),
           content:
             "<div>" +
-            data.col02 +
+            data.요양기관명 +
             "<br> 전화번호: " +
-            data.col10 +
+            data.전화번호 +
             "<br> URL: <a href=" +
-            data.col11 +
+            data.병원URL +
             'style="color: blue" target="_blank">' +
-            data.col11 +
+            data.병원URL +
             "</a></div>",
         };
       });
@@ -97,13 +102,29 @@ function MapView() {
   const [isCurrent, setIsCurrent] = useState(0);
   // isCurrent(현재 위치 체크 여부 확인 변수)의 상태가 변할 때 사용하는 useEffect
   useEffect(() => {
-    if (isCurrent === 1) geoLocation();
+    if (isCurrent === 1) {
+      createMap();
+      geoLocation();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCurrent]);
 
   // 화면 초기화될 때 무조건 실행되는 useEffect
+  // useEffect(() => {
+  //   console.log("111111111111111111111 useEffect");
+  //   createMap();
+
+  //   addPin(positionsHP);
+  //   if (isCurrent === 1) delPin();
+  // });
+
   useEffect(() => {
-    console.log("1111111111111111 useEffect");
+    console.log("1111111111111111111 useEffect");
+    createMap();
+  }, []);
+
+  const createMap = () => {
+    console.log("2222222222222222222222 createMap");
 
     var mapContainer = document.getElementById("map"),
       mapOption = {
@@ -123,16 +144,13 @@ function MapView() {
     // 지도 확대 축소를 제어할 수 있는 줌 컨트롤 생성
     var zoomControl = new kakao.maps.ZoomControl();
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
-    // >>>>>>>>>>>>>>>>>>>>> 다시 주석 풀기
-    //addPin(positionsHP);
-
-    if (isCurrent === 1) delPin();
-  });
+  };
 
   // 좌표 정보 있는 데이터 지도에 마커 표시하는 함수
   const addPin = (positions) => {
-    console.log("2222222222222222222 addPin");
+    console.log("33333333333333333333333333 addPin");
+
+    createMap();
 
     for (var i = 0; i < positions.length; i++) {
       // 마커 생성
@@ -162,6 +180,7 @@ function MapView() {
 
   // 배열에 추가된 마커들을 지도에서 삭제하는 함수
   const delPin = () => {
+    console.log("4444444444444444444444 delPin");
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
     }
@@ -290,23 +309,9 @@ function MapView() {
     } else addPin(positionsPM);
   };
 
-  // 병원 검색 조건을 위한 코드
-  const [state, dispatch] = useReducer(dataReducer, {
-    dataList: [],
-    loading: false,
-  });
-
-  var positions = !state.loading
-    ? []
-    : state.dataList.map((data) => {
-        //console.log(data);
-        return {
-          latlng: new kakao.maps.LatLng(data.yPosition, data.xPosition),
-        };
-      });
-
+  // 병원 진료과목 검색을 위한 코드
   const onSelect = (e) => {
-    console.log("333333333333333333333333 onSelect");
+    delPin();
 
     fetch("HospitalSearchListData/xyPosition", {
       method: "POST",
@@ -333,8 +338,17 @@ function MapView() {
         //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>", state.dataList);
       });
 
+    var positions = !state.loading
+      ? []
+      : state.dataList.map((data) => {
+          //console.log(data);
+          return {
+            latlng: new kakao.maps.LatLng(data.yPosition, data.xPosition),
+          };
+        });
+
+    console.log(">>>>>>>>>>>>>>>>>>>>", state.dataList);
     addPin(positions);
-    console.log(">>>>>>>>>>>>>>>>>>>>", state.loading);
   };
 
   return (

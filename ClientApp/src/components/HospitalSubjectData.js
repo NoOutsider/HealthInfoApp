@@ -37,7 +37,11 @@ const HospitalSubjectData = ({ onSelect }) => {
                   <legend>진료과목</legend>
                   <select id="subject" onClick={onSelect}>
                     {row.map((col) => {
-                      return <option value={col}>{col}</option>;
+                      return (
+                        <option value={col} key={col}>
+                          {col}
+                        </option>
+                      );
                     })}
                   </select>
                 </fieldset>
@@ -47,7 +51,7 @@ const HospitalSubjectData = ({ onSelect }) => {
                 <fieldset id="SearchHPChild">
                   <legend>전문병원지정분야</legend>
                   {row.map((col) => (
-                    <div>
+                    <div key={col}>
                       <input id="specialHP" type="checkbox" value={col} />
                       {col}
                     </div>
@@ -59,7 +63,7 @@ const HospitalSubjectData = ({ onSelect }) => {
                 <fieldset id="SearchHPChild">
                   <legend>의료장비</legend>
                   {row.map((col) => (
-                    <div>
+                    <div key={col}>
                       <input id="medicalEQ" type="checkbox" value={col} />
                       {col}
                     </div>
@@ -72,7 +76,11 @@ const HospitalSubjectData = ({ onSelect }) => {
                   <legend>특수진료</legend>
                   <select id="specialTreat">
                     {row.map((col) => {
-                      return <option value={col}>{col}</option>;
+                      return (
+                        <option value={col} key={col}>
+                          {col}
+                        </option>
+                      );
                     })}
                   </select>
                 </fieldset>
