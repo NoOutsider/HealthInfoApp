@@ -34,7 +34,7 @@ const XYPOSITION = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        진료과목코드명: "영상의학과",
+        진료과목코드명: "",
         특수병원검색코드명: "",
         장비코드명: "",
         특수진료검색코드명: "",
@@ -51,24 +51,6 @@ const XYPOSITION = () => {
   }
 
   const rendering = (dataList) => {
-    // return (
-    //   <div>
-    //     <table>
-    //       <thead>
-    //         <tr>
-    //           <th>x축</th>
-    //           <th>y축</th>
-    //         </tr>
-    //       </thead>
-    //       <tbody>
-    //         <tr>
-    //           <td>{dataList.xPosition}</td>
-    //           <td>{dataList.yPosition}</td>
-    //         </tr>
-    //       </tbody>
-    //     </table>
-    //   </div>
-    // );
     return (
       <div>
         <table>

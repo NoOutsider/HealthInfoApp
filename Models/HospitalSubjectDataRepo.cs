@@ -13,8 +13,8 @@ namespace HealthInfoApp.Models
         public HospitalSubjectDataRepo()
         {
             //conn = new OracleConnection("User Id = admin;Password = 1q2w3e4r5tAAA;Data Source = orcl_medium");
-            //conn = new OracleConnection("User Id = user1;Password = passwd!@;Data Source = xe_db");
-            conn = new OracleConnection("User Id = user1;Password = passwd;Data Source = xe");
+            conn = new OracleConnection("User Id = user1;Password = passwd!@;Data Source = xe_db");
+            //conn = new OracleConnection("User Id = user1;Password = passwd;Data Source = xe");
             conn.Open();
         }
 
@@ -36,12 +36,12 @@ namespace HealthInfoApp.Models
                               $" ON hp.암호화요양기호 = hp_child.암호화요양기호) total" +
                               $" WHERE total.x좌표 IS NOT NULL" +
                               $" AND total.진료과목코드명 IS NOT NULL" +
-                              $" AND total.진료과목코드명 = '{Data.진료과목코드명}'";
+                              $" AND total.진료과목코드명 = '{Data.진료과목코드명}'" +
+                              $" AND rownum <= 100";
 
 
             OracleDataReader dataReader = cmd.ExecuteReader();
 
-            
 
             while (dataReader.Read())
             {

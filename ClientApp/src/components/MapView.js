@@ -7,6 +7,7 @@ import SidebarHospital from "./Sidebar/SidebarHospital";
 
 const ACTION_TYPE = {
   ALL_LIST: 1,
+  xyPos: 2,
 };
 Object.freeze(ACTION_TYPE);
 
@@ -14,6 +15,12 @@ const dataReducer = (state, action) => {
   switch (action.type) {
     case ACTION_TYPE.ALL_LIST:
       return { dataList: action.dataList, loading: action.loading };
+    case ACTION_TYPE.xyPos:
+      return {
+        ...state,
+        dataList: action.dataList,
+        loading: action.loading,
+      };
     default:
       return state;
   }
@@ -96,6 +103,8 @@ function MapView() {
 
   // 화면 초기화될 때 무조건 실행되는 useEffect
   useEffect(() => {
+    console.log("1111111111111111 useEffect");
+
     var mapContainer = document.getElementById("map"),
       mapOption = {
         center: new kakao.maps.LatLng(37.5666805, 126.9784147),
@@ -115,13 +124,16 @@ function MapView() {
     var zoomControl = new kakao.maps.ZoomControl();
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-    addPin(positionsHP);
+    // >>>>>>>>>>>>>>>>>>>>> 다시 주석 풀기
+    //addPin(positionsHP);
 
     if (isCurrent === 1) delPin();
   });
 
   // 좌표 정보 있는 데이터 지도에 마커 표시하는 함수
   const addPin = (positions) => {
+    console.log("2222222222222222222 addPin");
+
     for (var i = 0; i < positions.length; i++) {
       // 마커 생성
       var marker = new kakao.maps.Marker({
@@ -278,20 +290,51 @@ function MapView() {
     } else addPin(positionsPM);
   };
 
-  const onSelect = () => {
-    const newState = {
-      subject: document.getElementById("subject").value,
-      specialHP: document.getElementById("specialHP").value,
-      medicalEQ: document.getElementById("medicalEQ").value,
-      specialTreat: document.getElementById("specialTreat").value,
-    };
-    fetch("HospitalSearchListData/xyPositionData", {
+  // 병원 검색 조건을 위한 코드
+  const [state, dispatch] = useReducer(dataReducer, {
+    dataList: [],
+    loading: false,
+  });
+
+  var positions = !state.loading
+    ? []
+    : state.dataList.map((data) => {
+        //console.log(data);
+        return {
+          latlng: new kakao.maps.LatLng(data.yPosition, data.xPosition),
+        };
+      });
+
+  const onSelect = (e) => {
+    console.log("333333333333333333333333 onSelect");
+
+    fetch("HospitalSearchListData/xyPosition", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newState),
-    }).then((response) => response.json());
+      body: JSON.stringify({
+        진료과목코드명: e.target.value,
+        특수병원검색코드명: "",
+        장비코드명: "",
+        특수진료검색코드명: "",
+      }),
+    })
+      .then((response) => {
+        //console.log(e.target.value);
+        return response.json();
+      })
+      .then((dataList) => {
+        dispatch({
+          type: ACTION_TYPE.xyPos,
+          dataList: dataList,
+          loading: true,
+        });
+        //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>", state.dataList);
+      });
+
+    addPin(positions);
+    console.log(">>>>>>>>>>>>>>>>>>>>", state.loading);
   };
 
   return (
