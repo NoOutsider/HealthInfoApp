@@ -15,7 +15,7 @@ const dataReducer = (state, action) => {
   }
 };
 
-const HospitalSubjectData = () => {
+const HospitalSubjectData = ({ onSelect }) => {
   const [state, dispatch] = useReducer(
     dataReducer,
     {
@@ -35,9 +35,9 @@ const HospitalSubjectData = () => {
               return (
                 <fieldset id="SearchHPChild">
                   <legend>진료과목</legend>
-                  <select>
+                  <select id="subject" onClick={onSelect}>
                     {row.map((col) => {
-                      return <option>{col}</option>;
+                      return <option value={col}>{col}</option>;
                     })}
                   </select>
                 </fieldset>
@@ -48,7 +48,7 @@ const HospitalSubjectData = () => {
                   <legend>전문병원지정분야</legend>
                   {row.map((col) => (
                     <div>
-                      <input type="checkbox" value={col} />
+                      <input id="specialHP" type="checkbox" value={col} />
                       {col}
                     </div>
                   ))}
@@ -60,7 +60,7 @@ const HospitalSubjectData = () => {
                   <legend>의료장비</legend>
                   {row.map((col) => (
                     <div>
-                      <input type="checkbox" value={col} />
+                      <input id="medicalEQ" type="checkbox" value={col} />
                       {col}
                     </div>
                   ))}
@@ -70,9 +70,9 @@ const HospitalSubjectData = () => {
               return (
                 <fieldset id="SearchHPChild">
                   <legend>특수진료</legend>
-                  <select>
+                  <select id="specialTreat">
                     {row.map((col) => {
-                      return <option>{col}</option>;
+                      return <option value={col}>{col}</option>;
                     })}
                   </select>
                 </fieldset>

@@ -1,10 +1,9 @@
-import React from 'react';
+import React from "react";
 import "./SidebarHospital.css";
 import { Container } from "@mui/system";
 import HospitalSubjectData from "../HospitalSubjectData";
 
-
-function SidebarHospital({ setFlag, showHP, showPM }) {
+function SidebarHospital({ setFlag, showHP, showPM, onSelect }) {
   return (
     <div className="container">
       <Container>
@@ -17,7 +16,7 @@ function SidebarHospital({ setFlag, showHP, showPM }) {
         <div id="btn">
           <button onClick={showPM}>약국</button>
         </div>
-        <HospitalSubjectData />
+        <HospitalSubjectData onSelect={onSelect} />
       </Container>
     </div>
   );

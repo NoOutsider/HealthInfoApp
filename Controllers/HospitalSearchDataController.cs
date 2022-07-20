@@ -20,10 +20,10 @@ namespace HealthInfoApp.Controllers
 
         [HttpPost]
         [Route("xyPosition")]
-        public JsonResult xyPositionData([FromBody] HospitalSubjectData Data)
+        public List<xyPosition> xyPositionData([FromBody] HospitalSubjectData Data)
         {
             HospitalSubjectDataRepo dataRepository = new HospitalSubjectDataRepo();
-            return new JsonResult(dataRepository.xyPositionData(Data));
+            return dataRepository.xyPositionData(Data);
         }
 
     }

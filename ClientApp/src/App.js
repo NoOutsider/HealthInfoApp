@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import ShowData from "./components/ShowData";
 import Footer from "./components/Footer";
 import MapView from "./components/MapView";
+import XYPOSITION from "./components/XYPOSITION";
 import { auth } from "./firebase";
 import { useStateValue } from "./StateProvider";
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/showData" element={<ShowData />} />
           <Route path="/mapView" element={<MapView />} />
           <Route path="/login" element={<Login />} />
+          <Route path="XYPOSITION" element={<XYPOSITION/>}/>
         </Routes>
         <Footer />
       </div>

@@ -46,18 +46,6 @@ function ShowData() {
       chartLoading: false,
       chartLabels: [],
       chartData: [],
-      // select: {
-      //   illnessName: "",
-      //   menuName: "",
-      //   startDate: "",
-      //   endDate: "",
-      //   item: "",
-      //   gender: "",
-      //   age: "",
-      //   ioPatient: "",
-      //   nursingHome: "",
-      //   location: "",
-      // },
     },
     initData
   );
