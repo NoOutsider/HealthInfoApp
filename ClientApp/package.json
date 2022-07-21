@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "-": "^0.0.1",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.8.3",
@@ -11,7 +12,9 @@
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "chart.js": "^3.8.0",
+    "eslint-config-react-app": "^6.0.0",
     "firebase": "^9.8.4",
+    "g": "^2.0.1",
     "i": "^0.3.7",
     "react": "^18.1.0",
     "react-3d-viewer": "^1.0.12",
@@ -29,12 +32,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
