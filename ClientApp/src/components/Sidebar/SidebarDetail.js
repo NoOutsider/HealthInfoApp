@@ -1,4 +1,7 @@
 import React from "react";
+import DatePicker, { registerLocale } from "react-datepicker";
+import ko from "date-fns/locale/ko";
+import "react-datepicker/dist/react-datepicker.css";
 
 const SidebarDetail = ({ state, onSelect }) => {
   const rendering = (dataList) => {
@@ -14,16 +17,38 @@ const SidebarDetail = ({ state, onSelect }) => {
               );
           })}
         </select>
-        <select onClick={onSelect} name="gender" id="gender">
+        <div>
           {dataList.map((data) => {
             if (data.gender)
               return (
-                <option key={data.id} value={data.gender}>
+                <div>
+                  <input
+                    onClick={onSelect}
+                    name="gender"
+                    id="gender"
+                    type="radio"
+                    key={data.id}
+                    value={data.gender}
+                  />
                   {data.gender}
-                </option>
+                </div>
+              );
+            else if (data.gender)
+              return (
+                <div>
+                  <input
+                    onClick={onSelect}
+                    name="gender"
+                    id="gender"
+                    type="radio"
+                    key={data.id}
+                    value={data.gender}
+                  />
+                  {data.gender}
+                </div>
               );
           })}
-        </select>
+        </div>
         <select onClick={onSelect} name="age_5" id="age_5">
           {dataList.map((data) => {
             if (data.age_5)
@@ -44,16 +69,24 @@ const SidebarDetail = ({ state, onSelect }) => {
               );
           })}
         </select>
-        <select onClick={onSelect} name="ioPatient" id="ioPatient">
+        <div>
           {dataList.map((data) => {
             if (data.ioPatient)
               return (
-                <option key={data.id} value={data.ioPatient}>
+                <div>
+                  <input
+                    id="ioPatient"
+                    type="radio"
+                    onClick={onSelect}
+                    key={data.id}
+                    name="ioPatient"
+                    value={data.ioPatient}
+                  />
                   {data.ioPatient}
-                </option>
+                </div>
               );
           })}
-        </select>
+        </div>
         <select onClick={onSelect} name="nursingHome" id="nursingHome">
           {dataList.map((data) => {
             if (data.nursingHome)
@@ -74,6 +107,7 @@ const SidebarDetail = ({ state, onSelect }) => {
               );
           })}
         </select>
+        <DatePicker />
       </div>
     );
   };
