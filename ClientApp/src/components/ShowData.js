@@ -104,6 +104,15 @@ function ShowData() {
       });
     }
 
+    const getNameValue = (name) => {
+        var size = document.getElementsByName(name).length;
+        for (var i = 0; i < size; i++) {
+            if (document.getElementsByName(name)[i].checked === true) {
+                return document.getElementsByName(name)[i].value;
+            }
+        }
+    };
+
   const onSelect = useCallback((e) => {
     console.log("s111 tate=", state);
 
@@ -112,16 +121,16 @@ function ShowData() {
       action: e.target,
     });
 
-    const newState = {
-      illnessName: document.getElementById("illnessName").value,
-      menuName: document.getElementById("menuName").value,
-      item: document.getElementById("item").value,
-      gender: document.getElementById("gender").value,
-      age_5: document.getElementById("age_5").value,
-      age_10: document.getElementById("age_10").value,
-      ioPatient: document.getElementById("ioPatient").value,
-      nursingHome: document.getElementById("nursingHome").value,
-      location: document.getElementById("location").value,
+      const newState = {
+          illnessName: document.getElementById("illnessName").value,
+          menuName: document.getElementById("menuName").value,
+          item: document.getElementById("item").value,
+          gender: getNameValue("gender"),
+          age_5: document.getElementById("age_5").value,
+          age_10: document.getElementById("age_10").value,
+          ioPatient: getNameValue("ioPatient"),
+          nursingHome: document.getElementById("nursingHome").value,
+          location: document.getElementById("location").value,
       };
 
 
