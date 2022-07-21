@@ -7,12 +7,14 @@ const Home = () => {
   return (
     <div>
       <div className="contents">
-        <GLTFModel width="100" height="100" background="rgba(3,32,50)" position={{ x: 0, y: 0, z: 0 }} src="images/luna/scene.gltf">
-          {/* 조명 */}
-          {/* <AmbientLight color={0xffffff} />
+        <div className="moon">
+          <GLTFModel width="120" height="120" background="rgba(3,32,50)" position={{ x: 0, y: 0, z: 0 }} src="images/luna/scene.gltf">
+            {/* 조명 */}
+            {/* <AmbientLight color={0xffffff} />
           <DirectionLight color={0xffffff} position={{ x: 100, y: 200, z: 100 }} />
           <DirectionLight color={0xff00ff} position={{ x: -100, y: 200, z: -100 }} /> */}
-        </GLTFModel>
+          </GLTFModel>
+        </div>
         <div className="contentTxt">
           <h2>HEALTH CARE INFORMATION</h2>
         </div>

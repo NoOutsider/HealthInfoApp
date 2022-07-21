@@ -6,6 +6,10 @@
     position: relative;
 }
 
+.moon {
+    margin-left: 1800px;
+}
+
 .contentTxt {
     position: absolute;
     top: 50%;
