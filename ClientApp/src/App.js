@@ -10,9 +10,10 @@ import MapView from "./components/MapView";
 import XYPOSITION from "./components/XYPOSITION";
 import { auth } from "./firebase";
 import { useStateValue } from "./StateProvider";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
-  const [{}, dispatch] = useStateValue();
+  const [{ }, dispatch] = useStateValue();
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
@@ -35,12 +36,13 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Header />
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/showData" element={<ShowData />} />
           <Route path="/mapView" element={<MapView />} />
           <Route path="/login" element={<Login />} />
-          <Route path="XYPOSITION" element={<XYPOSITION/>}/>
+          <Route path="XYPOSITION" element={<XYPOSITION />} />
         </Routes>
         <Footer />
       </div>
