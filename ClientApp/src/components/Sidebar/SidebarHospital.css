@@ -29,6 +29,10 @@ input[id="check1"]:checked + label {
 	background-color: #666666;
 }
 
+.locationCheck{
+  margin-left: 100px;
+}
+
 .w-btn-outline {
   position: relative;
   padding: 15px 30px;
