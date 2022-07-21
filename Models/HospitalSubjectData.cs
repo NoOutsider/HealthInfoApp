@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Hospital.models
+namespace HealthInfoApp.Models
 {
     public class HospitalSubjectData
     {
-        public string 암호화요양기호 { get; set; }
-        public string 요양기관명 { get; set; }
-        public int 진료과목코드 { get; set; }
-        public string 진료과목코드명 { get; set; }
-        public int 과목별전문의수 { get; set; }
+        public string 진료과목코드명 { get; set; } = "신경외과";
+        public string 특수병원검색코드명 { get; set; } = "관절";
+        public string 장비코드명 { get; set; } = "골밀도검사기";
+        public string 특수진료검색코드명 { get; set; } = "혈액투석";
     }
 }

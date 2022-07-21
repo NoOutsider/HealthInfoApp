@@ -7,6 +7,7 @@ import SidebarHospital from "./Sidebar/SidebarHospital";
 
 const ACTION_TYPE = {
   ALL_LIST: 1,
+  xyPos: 2,
 };
 Object.freeze(ACTION_TYPE);
 
@@ -14,6 +15,12 @@ const dataReducer = (state, action) => {
   switch (action.type) {
     case ACTION_TYPE.ALL_LIST:
       return { dataList: action.dataList, loading: action.loading };
+    case ACTION_TYPE.xyPos:
+      return {
+        ...state,
+        dataList: action.dataList,
+        loading: action.loading,
+      };
     default:
       return state;
   }
@@ -23,6 +30,11 @@ function MapView() {
   var map;
   var markers = [];
   var locPosition;
+
+  const [state, dispatch] = useReducer(dataReducer, {
+    dataList: [],
+    loading: false,
+  });
 
   const [stateHP, dispatchHP] = useReducer(
     dataReducer,
@@ -45,13 +57,20 @@ function MapView() {
   var positionsHP = !stateHP.loading
     ? []
     : stateHP.dataList.map((data) => {
-      return {
-        latlng: new kakao.maps.LatLng(data.col15, data.col14),
-        content: '<div>' + data.col02 +
-          '<br> 전화번호: ' + data.col10 +
-          '<br> URL: <a href=' + data.col11 + 'style="color: blue" target="_blank">' + data.col11 + '</a></div>'
-      };
-    });
+        return {
+          latlng: new kakao.maps.LatLng(data.y좌표, data.x좌표),
+          content:
+            "<div>" +
+            data.요양기관명 +
+            "<br> 전화번호: " +
+            data.전화번호 +
+            "<br> URL: <a href=" +
+            data.병원URL +
+            'style="color: blue" target="_blank">' +
+            data.병원URL +
+            "</a></div>",
+        };
+      });
 
   const [statePM, dispatchPM] = useReducer(
     dataReducer,
@@ -74,23 +93,39 @@ function MapView() {
   var positionsPM = !statePM.loading
     ? []
     : statePM.dataList.map((data) => {
-      return {
-        content: "<div>" + data.이름 + "</div>",
-        latlng: new kakao.maps.LatLng(data.y좌표, data.x좌표),
-      };
-    });
+        return {
+          content: "<div>" + data.이름 + "</div>",
+          latlng: new kakao.maps.LatLng(data.y좌표, data.x좌표),
+        };
+      });
 
   const [isCurrent, setIsCurrent] = useState(0);
   // isCurrent(현재 위치 체크 여부 확인 변수)의 상태가 변할 때 사용하는 useEffect
   useEffect(() => {
     if (isCurrent === 1) {
+      createMap();
       geoLocation();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCurrent]);
 
   // 화면 초기화될 때 무조건 실행되는 useEffect
+  // useEffect(() => {
+  //   console.log("111111111111111111111 useEffect");
+  //   createMap();
+
+  //   addPin(positionsHP);
+  //   if (isCurrent === 1) delPin();
+  // });
+
   useEffect(() => {
+    console.log("1111111111111111111 useEffect");
+    createMap();
+  }, []);
+
+  const createMap = () => {
+    console.log("2222222222222222222222 createMap");
+
     var mapContainer = document.getElementById("map"),
       mapOption = {
         center: new kakao.maps.LatLng(37.5666805, 126.9784147),
@@ -109,14 +144,14 @@ function MapView() {
     // 지도 확대 축소를 제어할 수 있는 줌 컨트롤 생성
     var zoomControl = new kakao.maps.ZoomControl();
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
-    addPin(positionsHP);
-
-    if (isCurrent === 1) delPin();
-  });
+  };
 
   // 좌표 정보 있는 데이터 지도에 마커 표시하는 함수
   const addPin = (positions) => {
+    console.log("33333333333333333333333333 addPin");
+
+    createMap();
+
     for (var i = 0; i < positions.length; i++) {
       // 마커 생성
       var marker = new kakao.maps.Marker({
@@ -145,6 +180,7 @@ function MapView() {
 
   // 배열에 추가된 마커들을 지도에서 삭제하는 함수
   const delPin = () => {
+    console.log("4444444444444444444444 delPin");
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
     }
@@ -183,18 +219,19 @@ function MapView() {
     // 지도에 현재 위치 마커와 인포윈도우를 표시하는 함수
     function displayMarker(locPosition, message) {
       // 마커 이미지의 이미지 주소입니다
-      var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+      var imageSrc =
+        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
       // 마커 이미지의 이미지 크기 입니다
       var imageSize = new kakao.maps.Size(24, 35);
 
-      // 마커 이미지를 생성합니다    
+      // 마커 이미지를 생성합니다
       var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
       // 마커 생성
       var marker = new kakao.maps.Marker({
         map: map,
         position: locPosition,
-        image: markerImage // 마커 이미지 
+        image: markerImage, // 마커 이미지
       });
 
       var iwContent = message, // 인포윈도우에 표시할 내용
@@ -235,7 +272,7 @@ function MapView() {
         // eslint-disable-next-line no-unused-expressions
         var distance = Math.sqrt(
           (locPosition.La - positionsHP[i].latlng.La) ** 2 +
-          (locPosition.Ma - positionsHP[i].latlng.Ma) ** 2
+            (locPosition.Ma - positionsHP[i].latlng.Ma) ** 2
         );
 
         // 1-3. 만약 거리가 1km 이내면 새 배열에 넣음, 아니면 continue
@@ -261,7 +298,7 @@ function MapView() {
         // eslint-disable-next-line no-unused-expressions
         var distance = Math.sqrt(
           (locPosition.La - positionsPM[i].latlng.La) ** 2 +
-          (locPosition.Ma - positionsPM[i].latlng.Ma) ** 2
+            (locPosition.Ma - positionsPM[i].latlng.Ma) ** 2
         );
 
         if (distance <= 0.1) currentPMs.push(positionsPM[i]);
@@ -272,9 +309,56 @@ function MapView() {
     } else addPin(positionsPM);
   };
 
+  // 병원 진료과목 검색을 위한 코드
+  const onSelect = (e) => {
+    delPin();
+
+    fetch("HospitalSearchListData/xyPosition", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        진료과목코드명: e.target.value,
+        특수병원검색코드명: "",
+        장비코드명: "",
+        특수진료검색코드명: "",
+      }),
+    })
+      .then((response) => {
+        //console.log(e.target.value);
+        return response.json();
+      })
+      .then((dataList) => {
+        dispatch({
+          type: ACTION_TYPE.xyPos,
+          dataList: dataList,
+          loading: true,
+        });
+        //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>", state.dataList);
+      });
+
+    var positions = !state.loading
+      ? []
+      : state.dataList.map((data) => {
+          //console.log(data);
+          return {
+            latlng: new kakao.maps.LatLng(data.yPosition, data.xPosition),
+          };
+        });
+
+    console.log(">>>>>>>>>>>>>>>>>>>>", state.dataList);
+    addPin(positions);
+  };
+
   return (
     <div>
-      <SidebarHospital setFlag={setFlag} showHP={showHP} showPM={showPM} />
+      <SidebarHospital
+        setFlag={setFlag}
+        showHP={showHP}
+        showPM={showPM}
+        onSelect={onSelect}
+      />
       <div className="mapView" id="mapwrap">
         <div
           className="map"

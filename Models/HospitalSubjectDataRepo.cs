@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Hospital.models
+namespace HealthInfoApp.Models
 {
     public class HospitalSubjectDataRepo
     {
@@ -12,8 +12,9 @@ namespace Hospital.models
 
         public HospitalSubjectDataRepo()
         {
-            conn = new OracleConnection("User Id = admin;Password = 1q2w3e4r5tAAA;Data Source = orcl_medium");
+            //conn = new OracleConnection("User Id = admin;Password = 1q2w3e4r5tAAA;Data Source = orcl_medium");
             //conn = new OracleConnection("User Id = user1;Password = passwd!@;Data Source = xe_db");
+            conn = new OracleConnection("User Id = user1;Password = passwd;Data Source = xe");
             conn.Open();
         }
 
@@ -22,34 +23,41 @@ namespace Hospital.models
             conn.Close();
         }
 
-        public List<HospitalSubjectData> AllList()
+        public List<xyPosition> xyPositionData(HospitalSubjectData Data)
         {
-            List<HospitalSubjectData> list = new List<HospitalSubjectData>();
+            List<xyPosition> result = new List<xyPosition>();
 
             OracleCommand cmd = new OracleCommand();
 
             cmd.Connection = conn;
-            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandText = $" SELECT total.x좌표, total.y좌표" +
+                              $" FROM(SELECT * FROM hospital hp" +
+                              $" FULL OUTER JOIN hospital_subject hp_child" +
+                              $" ON hp.암호화요양기호 = hp_child.암호화요양기호) total" +
+                              $" WHERE total.x좌표 IS NOT NULL" +
+                              $" AND total.진료과목코드명 IS NOT NULL" +
+                              $" AND total.진료과목코드명 = '{Data.진료과목코드명}'" +
+                              $" AND rownum <= 100";
 
-            cmd.CommandText = $"select * from HOSPITAL_SUBJECT where rownum <= 100";
+
             OracleDataReader dataReader = cmd.ExecuteReader();
+
+
             while (dataReader.Read())
             {
-                HospitalSubjectData HPSubData = new HospitalSubjectData();
+                xyPosition xy = new xyPosition();
 
-                HPSubData.암호화요양기호 = dataReader.GetString(0);
-                HPSubData.요양기관명 = dataReader.GetString(1);
-                HPSubData.진료과목코드 = dataReader.GetInt32(2);
-                HPSubData.진료과목코드명 = dataReader.GetString(3);
-                HPSubData.과목별전문의수 = dataReader.GetInt32(4);
+                xy.xPosition = dataReader.GetString(0);
+                xy.yPosition = dataReader.GetString(1);
 
-                list.Add(HPSubData);
+                result.Add(xy);
             }
 
             dataReader.Close();
             cmd.Dispose();
 
-            return list;
+
+            return result;
         }
     }
 }

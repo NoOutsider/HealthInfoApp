@@ -1,9 +1,8 @@
-import React from 'react';
+import React from "react";
 import "./SidebarHospital.css";
 import HospitalSubjectData from "../HospitalSubjectData";
 
-
-function SidebarHospital({ setFlag, showHP, showPM }) {
+function SidebarHospital({ setFlag, showHP, showPM, onSelect }) {
   return (
     <div className="container">
 

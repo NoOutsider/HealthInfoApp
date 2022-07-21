@@ -6,31 +6,30 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import ShowData from "./components/ShowData";
 import Footer from "./components/Footer";
-import MapView from "./components/MapView"
-import HospitalTableData from "./components/HospitalTableData";
-import PharmacyTableData from "./components/PharmacyTableData";
+import MapView from "./components/MapView";
+import XYPOSITION from "./components/XYPOSITION";
 import { auth } from "./firebase";
 import { useStateValue } from "./StateProvider";
 
 function App() {
-  const [{ }, dispatch] = useStateValue();
+  const [{}, dispatch] = useStateValue();
 
   useEffect(() => {
-    auth.onAuthStateChanged(authUser => {
+    auth.onAuthStateChanged((authUser) => {
       console.log(authUser);
       if (authUser) {
         dispatch({
-          type: 'SET_USER',
-          user: authUser
-        })
+          type: "SET_USER",
+          user: authUser,
+        });
       } else {
         dispatch({
-          type: 'SET_USER',
-          user: null
-        })
+          type: "SET_USER",
+          user: null,
+        });
       }
-    })
-  }, [])
+    });
+  }, []);
 
   return (
     <BrowserRouter>
@@ -41,8 +40,7 @@ function App() {
           <Route path="/showData" element={<ShowData />} />
           <Route path="/mapView" element={<MapView />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/HospitalTableData" element={<HospitalTableData />} />
-          <Route path="/PharmacyTableData" element={<PharmacyTableData />} />
+          <Route path="XYPOSITION" element={<XYPOSITION/>}/>
         </Routes>
         <Footer />
       </div>
