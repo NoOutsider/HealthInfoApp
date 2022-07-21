@@ -106,7 +106,6 @@ function MapView() {
       createMap();
       geoLocation();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCurrent]);
 
   // 화면 초기화될 때 무조건 실행되는 useEffect
@@ -309,24 +308,36 @@ function MapView() {
     } else addPin(positionsPM);
   };
 
-  // 병원 진료과목 검색을 위한 코드
+  // 병원 검색을 위한 코드
+  const isCheck = (name) => {
+    var size = document.getElementsByName(name).length;
+    for (var i = 0; i < size; i++) {
+      if (document.getElementsByName(name)[i].checked == true) {
+        //console.log("name >>>>>>>>>>", document.getElementsByName(name)[i].value);
+        return document.getElementsByName(name)[i].value;
+      }
+    }
+  };
+
   const onSelect = (e) => {
     delPin();
+
+    const newState = {
+      진료과목코드명: document.getElementById("subject").value,
+      특수병원검색코드명: isCheck("specialHP"),
+      장비코드명: isCheck("medicalEQ"),
+      특수진료검색코드명: document.getElementById("specialTreat").value,
+    };
 
     fetch("HospitalSearchListData/xyPosition", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        진료과목코드명: e.target.value,
-        특수병원검색코드명: "",
-        장비코드명: "",
-        특수진료검색코드명: "",
-      }),
+      body: JSON.stringify(newState),
     })
       .then((response) => {
-        //console.log(e.target.value);
+        console.log("newState >>>>>>>>> ", newState);
         return response.json();
       })
       .then((dataList) => {
@@ -347,7 +358,7 @@ function MapView() {
           };
         });
 
-    console.log(">>>>>>>>>>>>>>>>>>>>", state.dataList);
+    console.log(state.dataList);
     addPin(positions);
   };
 

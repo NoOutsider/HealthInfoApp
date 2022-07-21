@@ -36,6 +36,7 @@ const HospitalSubjectData = ({ onSelect }) => {
                 <fieldset id="SearchHPChild">
                   <legend>진료과목</legend>
                   <select id="subject" onChange={onSelect}>
+                    <option value="null">=== 선택해주세요 ===</option>
                     {row.map((col) => {
                       return (
                         <option value={col} key={col}>
@@ -52,7 +53,13 @@ const HospitalSubjectData = ({ onSelect }) => {
                   <legend>전문병원지정분야</legend>
                   {row.map((col) => (
                     <div key={col}>
-                      <input id="specialHP" type="checkbox" value={col} />
+                      <input
+                        onClick={onSelect}
+                        id="specialHP"
+                        name="specialHP"
+                        type="radio"
+                        value={col}
+                      />
                       {col}
                     </div>
                   ))}
@@ -64,7 +71,13 @@ const HospitalSubjectData = ({ onSelect }) => {
                   <legend>의료장비</legend>
                   {row.map((col) => (
                     <div key={col}>
-                      <input id="medicalEQ" type="checkbox" value={col} />
+                      <input
+                        onClick={onSelect}
+                        id="medicalEQ"
+                        name="medicalEQ"
+                        type="radio"
+                        value={col}
+                      />
                       {col}
                     </div>
                   ))}
@@ -74,7 +87,10 @@ const HospitalSubjectData = ({ onSelect }) => {
               return (
                 <fieldset id="SearchHPChild">
                   <legend>특수진료</legend>
-                  <select id="specialTreat">
+                  <select id="specialTreat" onChange={onSelect}>
+                    <option value="null">
+                      ========= 선택해주세요 =========
+                    </option>
                     {row.map((col) => {
                       return (
                         <option value={col} key={col}>
