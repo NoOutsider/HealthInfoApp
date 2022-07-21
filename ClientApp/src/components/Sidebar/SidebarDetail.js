@@ -77,7 +77,7 @@ const SidebarDetail = ({ state, onSelect }) => {
       </div>
     );
   };
-  let contents = !state.loading ? (
+    let contents = !state.sidebarRenderingLoading ? (
     <p>
       <em>Loading...</em>
     </p>

@@ -14,8 +14,8 @@ namespace HealthInfoApp.Models
         private OracleConnection conn;
         public AllillnessDataRepository()
         {
-            conn = new OracleConnection("User Id = admin;Password = 1q2w3e4r5tAAA;Data Source = orcl_medium");
-            //conn = new OracleConnection("User Id = user1;Password = passwd!@;Data Source = xe_db");
+            //conn = new OracleConnection("User Id = admin;Password = 1q2w3e4r5tAAA;Data Source = orcl_medium");
+            conn = new OracleConnection("User Id = user1;Password = passwd;Data Source = xe");
             conn.Open();
         }
 
@@ -80,7 +80,7 @@ namespace HealthInfoApp.Models
             cmd.Connection = conn;
             cmd.CommandType = System.Data.CommandType.Text;
 
-            cmd.CommandText = $"select 진료년월, {allillnessData.location} from  tb_allillness_nursinghome_location where 진료년월 between to_date('2017/07/01','yyyy/mm/dd') and to_date('2021/10/01','yyyy/mm//dd') and state = '환자수' and 질병명 = '{allillnessData.illnessName}' order by 진료년월";
+            cmd.CommandText = $"select TO_CHAR(진료년월, 'yyyy-mm'), {allillnessData.location} from  tb_allillness_nursinghome_location where 진료년월 between to_date('2017/07/01','yyyy/mm/dd') and to_date('2021/10/01','yyyy/mm//dd') and state = '환자수' and 질병명 = '{allillnessData.illnessName}' order by 진료년월";
 
             OracleDataReader dataReader = cmd.ExecuteReader();
 

@@ -1,7 +1,8 @@
-import React, { useReducer, useCallback } from "react";
+﻿import React, { useReducer, useCallback } from "react";
 import "./ShowData.css";
 import ShowChart from "./ShowChart";
 import SidebarTemplate from "./Sidebar/SidebarTemplate";
+
 
 const ACTION_TYPE = {
   INIT_DATA: 0,
@@ -13,12 +14,13 @@ const ACTION_TYPE = {
 Object.freeze(ACTION_TYPE);
 
 const sidebarRender = (state, action) => {
+    console.log("333 tableDatas", action);
   switch (action.type) {
     case ACTION_TYPE.sidebarRendering:
       return {
         ...state,
         dataList: action.dataList,
-        loading: action.loading,
+          sidebarRenderingLoading: action.sidebarRenderingLoading,
       };
     case ACTION_TYPE.CHANGE_VALUE: {
       return {
@@ -26,11 +28,13 @@ const sidebarRender = (state, action) => {
         [action.name]: action.value,
       };
     }
-    case ACTION_TYPE.chartType:
+      case ACTION_TYPE.chartType:
+          console.log("22222 tableDatas =", action.tableDatas);
       return {
         ...state,
         chartLabels: action.chartLabels,
         chartData: action.chartData,
+          chartLoading: true
       };
     default:
       return state;
@@ -46,21 +50,28 @@ function ShowData() {
       chartLoading: false,
       chartLabels: [],
       chartData: [],
-      // select: {
-      //   illnessName: "",
-      //   menuName: "",
-      //   startDate: "",
-      //   endDate: "",
-      //   item: "",
-      //   gender: "",
-      //   age: "",
-      //   ioPatient: "",
-      //   nursingHome: "",
-      //   location: "",
-      // },
     },
     initData
   );
+
+    const renderTable = (chartLabels, chartData) => {
+        return (
+            <table className='table table-striped' aria-labelledby="tabelLabel">
+                <thead>
+                </thead>
+                <tbody>
+                    <tr key='1'>
+                        <th>단위기간</th>
+                        {chartLabels.map(data => <td>{data}</td>)}
+                    </tr>
+                    <tr key='2'>
+                        <th>상세조건</th>
+                        {chartData.map(data => <td>{data}</td>)}
+                    </tr>
+                </tbody>
+            </table>
+        );
+    };
 
   async function initData() {
     const response = await fetch("AllillnessData/SetSidebar");
@@ -68,7 +79,7 @@ function ShowData() {
     dispatch({
       type: ACTION_TYPE.sidebarRendering,
       dataList: await response.json(),
-      loading: true,
+        sidebarRenderingLoading: true,
     });
     await loadChartData();
   }
@@ -82,7 +93,8 @@ function ShowData() {
       body: JSON.stringify({}),
     })
       .then((response) => response.json())
-      .then((data) => {
+        .then((data) => {
+
         dispatch({
           type: ACTION_TYPE.chartType,
           chartLabels: data.chartLabels,
@@ -90,7 +102,7 @@ function ShowData() {
           chartLoading: true,
         });
       });
-  }
+    }
 
   const onSelect = useCallback((e) => {
     console.log("s111 tate=", state);
@@ -110,7 +122,8 @@ function ShowData() {
       ioPatient: document.getElementById("ioPatient").value,
       nursingHome: document.getElementById("nursingHome").value,
       location: document.getElementById("location").value,
-    };
+      };
+
 
     console.log("newState=", newState);
     console.log("state=", state);
@@ -127,17 +140,33 @@ function ShowData() {
         dispatch({
           type: ACTION_TYPE.chartType,
           chartLabels: data.chartLabels,
-          chartData: data.chartData,
-          chartLoading: true,
+            chartData: data.chartData,
+            dataList: data.dataList,
+            chartLoading: true,
+            
         });
       });
   });
 
+    let contents = !state.chartLoading
+        ? <p><em>Loading...</em></p>
+        : renderTable(state.chartLabels, state.chartData);
+
+
   return (
-    <div className="showData">
-      <SidebarTemplate state={state} onSelect={onSelect} />
-      <ShowChart state={state} />
+      <div className="showData">
+          <div className="sidebar">
+            <SidebarTemplate state={state} onSelect={onSelect} />*/}
+          </div>
+
+          <div className="show-container">
+              <ShowChart state={state} />
+              <h1 id="tabelLabel">Data</h1>
+              {contents}
+          </div>
+      
     </div>
+
   );
 }
 
