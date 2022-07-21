@@ -363,7 +363,7 @@ function MapView() {
         <div
           className="map"
           id="map"
-          style={{ width: "1550px", height: "850px" }}
+          style={{ width: "1550px", height: "1150px" }}
         ></div>
       </div>
     </div>
