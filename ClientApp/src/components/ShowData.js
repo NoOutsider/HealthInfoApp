@@ -20,12 +20,6 @@ const sidebarRender = (state, action) => {
         dataList: action.dataList,
         loading: action.loading,
       };
-    case ACTION_TYPE.CHANGE_VALUE: {
-      return {
-        ...state,
-        [action.name]: action.value,
-      };
-    }
     case ACTION_TYPE.chartType:
       return {
         ...state,
@@ -80,28 +74,32 @@ function ShowData() {
       });
   }
 
-  const onSelect = useCallback((e) => {
-    console.log("s111 tate=", state);
+  const getNameValue = (name) => {
+    var size = document.getElementsByName(name).length;
+    for (var i = 0; i < size; i++) {
+      if (document.getElementsByName(name)[i].checked === true) {
+        return document.getElementsByName(name)[i].value;
+      }
+    }
+  };
 
+  const onSelect = useCallback(() => {
     dispatch({
-      type: ACTION_TYPE.CHANGE_VALUE,
-      action: e.target,
+      type: ACTION_TYPE.visiblity,
+      visible: document.getElementById("menuName").value,
     });
 
     const newState = {
       illnessName: document.getElementById("illnessName").value,
       menuName: document.getElementById("menuName").value,
       item: document.getElementById("item").value,
-      gender: document.getElementById("gender").value,
+      gender: getNameValue("gender"),
       age_5: document.getElementById("age_5").value,
       age_10: document.getElementById("age_10").value,
-      ioPatient: document.getElementById("ioPatient").value,
+      ioPatient: getNameValue("ioPatient"),
       nursingHome: document.getElementById("nursingHome").value,
       location: document.getElementById("location").value,
     };
-
-    console.log("newState=", newState);
-    console.log("state=", state);
 
     fetch("AllillnessData/resetChartData", {
       method: "POST",
