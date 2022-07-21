@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import "./SidebarHospital.css";
 import HospitalSubjectData from "../HospitalSubjectData";
 
@@ -6,7 +6,7 @@ function SidebarHospital({ setFlag, showHP, showPM, onSelect }) {
   return (
     <div className="container">
 
-      <div id="locationCheck">
+      <div className="locationCheck">
         <input id="check1" type="checkbox" onChange={setFlag} /> 현재 위치 주변만 보기
         <label for="check1"></label>
       </div>
