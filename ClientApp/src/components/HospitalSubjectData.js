@@ -35,7 +35,7 @@ const HospitalSubjectData = ({ onSelect }) => {
               return (
                 <fieldset id="SearchHPChild">
                   <legend>진료과목</legend>
-                  <select id="subject" onClick={onSelect}>
+                  <select id="subject" onChange={onSelect}>
                     {row.map((col) => {
                       return (
                         <option value={col} key={col}>

@@ -16,7 +16,7 @@ function SidebarHospital({ setFlag, showHP, showPM, onSelect }) {
       <div id="btn">
         <button className="w-btn-outline w-btn-pink-outline" type="button" onClick={showPM}>약국</button>
       </div>
-      <HospitalSubjectData />
+      <HospitalSubjectData onSelect={onSelect} />
 
     </div>
   );

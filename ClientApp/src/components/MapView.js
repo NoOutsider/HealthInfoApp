@@ -1,5 +1,4 @@
 /*global kakao*/
-import { Container } from "@mui/system";
 import React, { useEffect, useState, useReducer } from "react";
 import "./MapView.css";
 import SidebarHospital from "./Sidebar/SidebarHospital";
@@ -179,7 +178,7 @@ function MapView() {
 
   // 배열에 추가된 마커들을 지도에서 삭제하는 함수
   const delPin = () => {
-    console.log("4444444444444444444444 delPin");
+    console.log("delPin");
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
     }
@@ -351,20 +350,14 @@ function MapView() {
   };
 
   return (
-    <div>
-      <SidebarHospital
-        setFlag={setFlag}
-        showHP={showHP}
-        showPM={showPM}
-        onSelect={onSelect}
-      />
+    <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <SidebarHospital setFlag={setFlag} showHP={showHP} showPM={showPM} onSelect={onSelect} />
       <div className="mapView" id="mapwrap">
         <div
           className="map"
           id="map"
-          style={{ width: "auto", height: "850px" }}
+          style={{ width: "1550px", height: "850px" }}
         ></div>
-        {/*<HospitalTableData margin-left="300" />*/}
       </div>
     </div>
   );
