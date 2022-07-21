@@ -57,20 +57,20 @@ function MapView() {
   var positionsHP = !stateHP.loading
     ? []
     : stateHP.dataList.map((data) => {
-        return {
-          latlng: new kakao.maps.LatLng(data.y좌표, data.x좌표),
-          content:
-            "<div>" +
-            data.요양기관명 +
-            "<br> 전화번호: " +
-            data.전화번호 +
-            "<br> URL: <a href=" +
-            data.병원URL +
-            'style="color: blue" target="_blank">' +
-            data.병원URL +
-            "</a></div>",
-        };
-      });
+      return {
+        latlng: new kakao.maps.LatLng(data.y좌표, data.x좌표),
+        content:
+          "<div>" +
+          data.요양기관명 +
+          "<br> 전화번호: " +
+          data.전화번호 +
+          "<br> URL: <a href=" +
+          data.병원URL +
+          'style="color: blue" target="_blank">' +
+          data.병원URL +
+          "</a></div>",
+      };
+    });
 
   const [statePM, dispatchPM] = useReducer(
     dataReducer,
@@ -93,11 +93,11 @@ function MapView() {
   var positionsPM = !statePM.loading
     ? []
     : statePM.dataList.map((data) => {
-        return {
-          content: "<div>" + data.이름 + "</div>",
-          latlng: new kakao.maps.LatLng(data.y좌표, data.x좌표),
-        };
-      });
+      return {
+        content: "<div>" + data.이름 + "</div>",
+        latlng: new kakao.maps.LatLng(data.y좌표, data.x좌표),
+      };
+    });
 
   const [isCurrent, setIsCurrent] = useState(0);
   // isCurrent(현재 위치 체크 여부 확인 변수)의 상태가 변할 때 사용하는 useEffect
@@ -106,7 +106,6 @@ function MapView() {
       createMap();
       geoLocation();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCurrent]);
 
   // 화면 초기화될 때 무조건 실행되는 useEffect
@@ -272,7 +271,7 @@ function MapView() {
         // eslint-disable-next-line no-unused-expressions
         var distance = Math.sqrt(
           (locPosition.La - positionsHP[i].latlng.La) ** 2 +
-            (locPosition.Ma - positionsHP[i].latlng.Ma) ** 2
+          (locPosition.Ma - positionsHP[i].latlng.Ma) ** 2
         );
 
         // 1-3. 만약 거리가 1km 이내면 새 배열에 넣음, 아니면 continue
@@ -298,7 +297,7 @@ function MapView() {
         // eslint-disable-next-line no-unused-expressions
         var distance = Math.sqrt(
           (locPosition.La - positionsPM[i].latlng.La) ** 2 +
-            (locPosition.Ma - positionsPM[i].latlng.Ma) ** 2
+          (locPosition.Ma - positionsPM[i].latlng.Ma) ** 2
         );
 
         if (distance <= 0.1) currentPMs.push(positionsPM[i]);
@@ -341,11 +340,11 @@ function MapView() {
     var positions = !state.loading
       ? []
       : state.dataList.map((data) => {
-          //console.log(data);
-          return {
-            latlng: new kakao.maps.LatLng(data.yPosition, data.xPosition),
-          };
-        });
+        //console.log(data);
+        return {
+          latlng: new kakao.maps.LatLng(data.yPosition, data.xPosition),
+        };
+      });
 
     console.log(">>>>>>>>>>>>>>>>>>>>", state.dataList);
     addPin(positions);
