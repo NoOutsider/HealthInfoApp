@@ -36,7 +36,7 @@ namespace Pharmacy.models
             cmd.CommandType = System.Data.CommandType.Text;
 
             //[3] SQL 생성 및 실행 
-            cmd.CommandText = $"select * from PHARMACY where rownum <= 100";
+            cmd.CommandText = $"select * from (select * from PHARMACY order by DBMS_RANDOM.RANDOM) where rownum <= 100";
             OracleDataReader dataReader = cmd.ExecuteReader();
 
             //[4] 자료를 읽어 객체화 하여 목록 객체에 추가

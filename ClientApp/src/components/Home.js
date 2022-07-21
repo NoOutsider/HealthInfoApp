@@ -75,14 +75,16 @@ const Home = () => {
         />
       </div>
       <div className="locationButtons">
-        <button id="hosButton">
-          <img src="images/mapIcon.png" width="25px" alt="" />
-          병원
-        </button>
-        <button id="pharButton">
-          <img src="images/mapIcon.png" width="25px" alt="" />
-          약국
-        </button>
+        <Link to="/mapView" id="mapView">
+          <button id="hosButton">
+            <img src="images/mapIcon.png" width="25px" alt="" />
+            병원
+          </button>
+          <button id="pharButton">
+            <img src="images/mapIcon.png" width="25px" alt="" />
+            약국
+          </button>
+        </Link>
       </div>
     </div>
   );

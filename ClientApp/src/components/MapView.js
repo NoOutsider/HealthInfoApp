@@ -93,7 +93,14 @@ function MapView() {
     ? []
     : statePM.dataList.map((data) => {
       return {
-        content: "<div>" + data.이름 + "</div>",
+        content:
+          "<div>" +
+          data.이름 +
+          "<br> 전화번호: " +
+          data.전화번호 +
+          "<br> 주소: " +
+          data.주소 +
+          "</div>",
         latlng: new kakao.maps.LatLng(data.y좌표, data.x좌표),
       };
     });
