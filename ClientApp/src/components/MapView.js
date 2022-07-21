@@ -108,13 +108,13 @@ function MapView() {
   }, [isCurrent]);
 
   // 화면 초기화될 때 무조건 실행되는 useEffect
-  // useEffect(() => {
-  //   console.log("111111111111111111111 useEffect");
-  //   createMap();
+  useEffect(() => {
+    console.log("111111111111111111111 useEffect");
+    createMap();
 
-  //   addPin(positionsHP);
-  //   if (isCurrent === 1) delPin();
-  // });
+    addPin(positionsHP);
+    if (isCurrent === 1) delPin();
+  });
 
   useEffect(() => {
     console.log("1111111111111111111 useEffect");
