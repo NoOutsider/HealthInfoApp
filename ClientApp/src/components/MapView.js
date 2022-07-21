@@ -83,7 +83,9 @@ function MapView() {
   const [isCurrent, setIsCurrent] = useState(0);
   // isCurrent(현재 위치 체크 여부 확인 변수)의 상태가 변할 때 사용하는 useEffect
   useEffect(() => {
-    if (isCurrent === 1) geoLocation();
+    if (isCurrent === 1) {
+      geoLocation();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCurrent]);
 

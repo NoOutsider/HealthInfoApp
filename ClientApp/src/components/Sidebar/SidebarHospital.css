@@ -1,5 +1,5 @@
 .container {
-  background-color: #f1e8e3;
+  background-color: #f5fcc6;
   border-right: 4px solid #202020;
   position: fixed;
   height: 100%;
@@ -16,17 +16,17 @@
   font-weight: bold;
 }
 
-.SearchHP {
-  float: left;
-  margin: 100px 50px auto -200px;
-}
-
-#SearchHPChild {
-  margin-top: 10px;
-}
-
 input {
   margin-left: 5px;
+  display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #bcbcbc;
+	cursor: pointer;
+}
+
+input[id="check1"]:checked + label {
+	background-color: #666666;
 }
 
 .w-btn-outline {
