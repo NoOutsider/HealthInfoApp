@@ -16,7 +16,7 @@ const SidebarIllnessName = ({ state, onSelect }) => {
     );
   };
 
-  let contents = !state.loading ? (
+    let contents = !state.sidebarRenderingLoading ? (
     <p>
       <em>Loading...</em>
     </p>

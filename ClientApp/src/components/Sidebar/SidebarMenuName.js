@@ -15,7 +15,7 @@ const SidebarMenuName = ({ state, onSelect }) => {
       </select>
     );
   };
-  let contents = !state.loading ? (
+    let contents = !state.sidebarRenderingLoading ? (
     <p>
       <em>Loading...</em>
     </p>
