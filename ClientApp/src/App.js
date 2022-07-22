@@ -7,13 +7,13 @@ import Login from "./components/Login";
 import ShowData from "./components/ShowData";
 import Footer from "./components/Footer";
 import MapView from "./components/MapView";
-import XYPOSITION from "./components/XYPOSITION";
+import Board from "./components/Board";
 import { auth } from "./firebase";
 import { useStateValue } from "./StateProvider";
 import ScrollToTop from "./ScrollToTop";
 
 function App() {
-  const [{ }, dispatch] = useStateValue();
+  const [{}, dispatch] = useStateValue();
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
@@ -42,7 +42,7 @@ function App() {
           <Route path="/showData" element={<ShowData />} />
           <Route path="/mapView" element={<MapView />} />
           <Route path="/login" element={<Login />} />
-          <Route path="XYPOSITION" element={<XYPOSITION />} />
+          <Route path="/Board" element={<Board />} />
         </Routes>
         <Footer />
       </div>

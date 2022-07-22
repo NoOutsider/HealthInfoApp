@@ -1,14 +1,20 @@
 import React from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
-import { GLTFModel, AmbientLight, DirectionLight } from 'react-3d-viewer'
+import { GLTFModel, AmbientLight, DirectionLight } from "react-3d-viewer";
 
 const Home = () => {
   return (
     <div>
       <div className="contents">
         <div className="moon">
-          <GLTFModel width="120" height="120" background="rgba(3,32,50)" position={{ x: 0, y: 0, z: 0 }} src="images/luna/scene.gltf">
+          <GLTFModel
+            width="120"
+            height="120"
+            background="rgba(3,32,50)"
+            position={{ x: 0, y: 0, z: 0 }}
+            src="images/luna/scene.gltf"
+          >
             {/* 조명 */}
             {/* <AmbientLight color={0xffffff} />
           <DirectionLight color={0xffffff} position={{ x: 100, y: 200, z: 100 }} />

@@ -33,8 +33,8 @@ function header() {
           <div className="header_option">병의원 / 약국 찾기</div>
         </Link>
 
-        <Link to="/XYPOSITION" id="XYPOSITION">
-          <div className="header_option">xy좌표</div>
+        <Link to="/board" id="board">
+          <div className="header_option_eng">CONTACT US</div>
         </Link>
       </div>
 
