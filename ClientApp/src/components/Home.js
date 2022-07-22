@@ -29,41 +29,41 @@ const Home = () => {
       <div>
         <Link to="/showData" id="showData">
           <h2>질병통계</h2>
+          <ul>
+            <li>
+              <img src="images/ageIcon.png" width="50%" alt="" />
+              <br />
+              연령대별
+            </li>
+            <li>
+              <img src="images/sexIcon.png" width="50%" alt="" />
+              <br />
+              성별
+            </li>
+            <li>
+              <img src="images/diseaseIcon.png" width="50%" alt="" />
+              <br />
+              기저질환별
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <img src="images/medisubIcon.png" width="50%" alt="" />
+              <br />
+              진료과목별
+            </li>
+            <li>
+              <img src="images/periodIcon.png" width="50%" alt="" />
+              <br />
+              기간별
+            </li>
+            <li>
+              <img src="images/areaIcon.png" width="50%" alt="" />
+              <br />
+              지역별
+            </li>
+          </ul>
         </Link>
-        <ul>
-          <li>
-            <img src="images/ageIcon.png" width="50%" alt="" />
-            <br />
-            연령대별
-          </li>
-          <li>
-            <img src="images/sexIcon.png" width="50%" alt="" />
-            <br />
-            성별
-          </li>
-          <li>
-            <img src="images/diseaseIcon.png" width="50%" alt="" />
-            <br />
-            기저질환별
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <img src="images/medisubIcon.png" width="50%" alt="" />
-            <br />
-            진료과목별
-          </li>
-          <li>
-            <img src="images/periodIcon.png" width="50%" alt="" />
-            <br />
-            기간별
-          </li>
-          <li>
-            <img src="images/areaIcon.png" width="50%" alt="" />
-            <br />
-            지역별
-          </li>
-        </ul>
       </div>
       <h2>위치찾기</h2>
       <div className="locationImg">
