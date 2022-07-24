@@ -4,7 +4,8 @@
     background-image: url("/public/images/mainImage.jpg");
     background-size: cover; /*모니터에 따라 이미지 크기가 유동적으로 조절*/
     position: relative;
-}
+} 
+
 
 .moon {
     margin-left: 1200px;
@@ -30,7 +31,7 @@ h2 {
     text-align: center;
     margin: 30px;
     transform: translateY(6rem);
-	animation: up 500ms linear forwards;
+	animation: up 1000ms linear forwards;
 }
 
 @keyframes up {

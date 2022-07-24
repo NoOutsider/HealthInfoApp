@@ -9,6 +9,7 @@ const Home = () => {
       <div className="contents">
         <div className="moon">
           <GLTFModel
+            enableZoom={true}
             width="120"
             height="120"
             background="rgba(3,32,50)"
