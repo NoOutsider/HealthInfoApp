@@ -109,14 +109,14 @@ const SidebarDetail = ({ state, onSelect }) => {
     };
 
     let contents = !state.sidebarRenderingLoading ? (
-    <p>
-      <em>Loading...</em>
-    </p>
-  ) : (
-    rendering(state.dataList)
-  );
+        <p>
+            <em>Loading...</em>
+        </p>
+    ) : (
+        rendering(state.dataList)
+    );
 
-  return <div>{contents}</div>;
+    return <div>{contents}</div>;
 };
 
 export default SidebarDetail;
