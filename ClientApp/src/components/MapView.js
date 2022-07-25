@@ -56,19 +56,20 @@ function MapView() {
   var positionsHP = !stateHP.loading
     ? []
     : stateHP.dataList.map((data) => {
-      return {
-        latlng: new kakao.maps.LatLng(data.y좌표, data.x좌표),
-        content:
-          "<div>" +
-          data.요양기관명 +
-          "<br> 전화번호: " +
-          data.전화번호 +
-          "<br> URL: <a href=" +
-          data.병원URL +
-          'style="color: blue" target="_blank">' + data.병원URL +
-          "</a></div>",
-      };
-    });
+        return {
+          latlng: new kakao.maps.LatLng(data.y좌표, data.x좌표),
+          content:
+            "<div>" +
+            data.요양기관명 +
+            "<br> 전화번호: " +
+            data.전화번호 +
+            "<br> URL: <a href=" +
+            data.병원URL +
+            'style="color: blue" target="_blank">' +
+            data.병원URL +
+            "</a></div>",
+        };
+      });
 
   const [statePM, dispatchPM] = useReducer(
     dataReducer,
@@ -91,18 +92,18 @@ function MapView() {
   var positionsPM = !statePM.loading
     ? []
     : statePM.dataList.map((data) => {
-      return {
-        content:
-          "<div>" +
-          data.이름 +
-          "<br> 전화번호: " +
-          data.전화번호 +
-          "<br> 주소: " +
-          data.주소 +
-          "</div>",
-        latlng: new kakao.maps.LatLng(data.y좌표, data.x좌표),
-      };
-    });
+        return {
+          content:
+            "<div>" +
+            data.이름 +
+            "<br> 전화번호: " +
+            data.전화번호 +
+            "<br> 주소: " +
+            data.주소 +
+            "</div>",
+          latlng: new kakao.maps.LatLng(data.y좌표, data.x좌표),
+        };
+      });
 
   const [isCurrent, setIsCurrent] = useState(0);
   // isCurrent(현재 위치 체크 여부 확인 변수)의 상태가 변할 때 사용하는 useEffect
@@ -278,7 +279,7 @@ function MapView() {
         // eslint-disable-next-line no-unused-expressions
         var distance = Math.sqrt(
           (locPosition.La - positionsHP[i].latlng.La) ** 2 +
-          (locPosition.Ma - positionsHP[i].latlng.Ma) ** 2
+            (locPosition.Ma - positionsHP[i].latlng.Ma) ** 2
         );
 
         // 1-3. 만약 거리가 1km 이내면 새 배열에 넣음, 아니면 continue
@@ -304,7 +305,7 @@ function MapView() {
         // eslint-disable-next-line no-unused-expressions
         var distance = Math.sqrt(
           (locPosition.La - positionsPM[i].latlng.La) ** 2 +
-          (locPosition.Ma - positionsPM[i].latlng.Ma) ** 2
+            (locPosition.Ma - positionsPM[i].latlng.Ma) ** 2
         );
 
         if (distance <= 0.1) currentPMs.push(positionsPM[i]);
@@ -315,24 +316,35 @@ function MapView() {
     } else addPin(positionsPM);
   };
 
-  // 병원 진료과목 검색을 위한 코드
+  const isCheck = (name) => {
+    var size = document.getElementsByName(name).length;
+    for (var i = 0; i < size; i++) {
+      if (document.getElementsByName(name)[i].checked == true) {
+        //console.log("name >>>>>>>>>>", document.getElementsByName(name)[i].value);
+        return document.getElementsByName(name)[i].value;
+      }
+    }
+  };
+
   const onSelect = (e) => {
     delPin();
+
+    const newState = {
+      진료과목코드명: document.getElementById("subject").value,
+      특수병원검색코드명: isCheck("specialHP"),
+      장비코드명: isCheck("medicalEQ"),
+      특수진료검색코드명: document.getElementById("specialTreat").value,
+    };
 
     fetch("HospitalSearchListData/xyPosition", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        진료과목코드명: e.target.value,
-        특수병원검색코드명: "",
-        장비코드명: "",
-        특수진료검색코드명: "",
-      }),
+      body: JSON.stringify(newState),
     })
       .then((response) => {
-        //console.log(e.target.value);
+        //console.log("newState >>>>>>>>> ", newState);
         return response.json();
       })
       .then((dataList) => {
@@ -347,19 +359,24 @@ function MapView() {
     var positions = !state.loading
       ? []
       : state.dataList.map((data) => {
-        //console.log(data);
-        return {
-          latlng: new kakao.maps.LatLng(data.yPosition, data.xPosition),
-        };
-      });
+          //console.log(data);
+          return {
+            latlng: new kakao.maps.LatLng(data.yPosition, data.xPosition),
+          };
+        });
 
-    console.log(">>>>>>>>>>>>>>>>>>>>", state.dataList);
+    console.log(state.dataList);
     addPin(positions);
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
-      <SidebarHospital setFlag={setFlag} showHP={showHP} showPM={showPM} onSelect={onSelect} />
+    <div style={{ display: "flex", flexDirection: "row" }}>
+      <SidebarHospital
+        setFlag={setFlag}
+        showHP={showHP}
+        showPM={showPM}
+        onSelect={onSelect}
+      />
       <div className="mapView" id="mapwrap">
         <div
           className="map"
