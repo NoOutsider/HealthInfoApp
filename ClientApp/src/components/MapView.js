@@ -65,8 +65,7 @@ function MapView() {
           data.전화번호 +
           "<br> URL: <a href=" +
           data.병원URL +
-          'style="color: blue" target="_blank">' +
-          data.병원URL +
+          'style="color: blue" target="_blank">' + data.병원URL +
           "</a></div>",
       };
     });
