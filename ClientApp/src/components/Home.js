@@ -23,7 +23,7 @@ const Home = () => {
           </GLTFModel>
         </div>
         <div className="contentTxt">
-          <h2>HEALTH CARE INFORMATION</h2>
+          <h2>HEALTH CARE <br /> INFORMATION</h2>
         </div>
       </div>
       <div className="margin" />
