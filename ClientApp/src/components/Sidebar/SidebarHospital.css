@@ -9,11 +9,12 @@
 
 #btn {
   float: left;
-  width: 150px;
+  width: 140px;
   height: 100px;
   text-align: center;
   line-height: 100px;
   font-weight: bold;
+  margin-left: 20px;
 }
 
 input {
